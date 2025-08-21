@@ -938,8 +938,6 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
         }
         
         # Advanced concurrency management
-        self.max_concurrent_sources = 50
-        self.max_concurrent_requests = 200
         self.source_semaphore = asyncio.Semaphore(self.max_concurrent_sources)
         self.request_semaphore = asyncio.Semaphore(self.max_concurrent_requests)
         

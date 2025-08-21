@@ -353,6 +353,13 @@ class TestUltraScaleAPISystem:
         logger.info("🏃 Running API integration benchmark...")
         
         try:
+            # Only run benchmark if database service is available
+            if not DATABASE_SERVICE_AVAILABLE:
+                return {
+                    'benchmark_status': 'skipped',
+                    'reason': 'database_service_not_available'
+                }
+            
             from legal_models import LegalDocumentCreate, LegalDocumentFilter
             
             # Create test documents for API testing

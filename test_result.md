@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Implement step 2.1 of the main task that is - (2.1 Massive Concurrent Processing Architecture) for ultra-scale legal document scraping system capable of processing 370M+ documents from 1,600+ sources with AI-powered optimization"
+user_problem_statement: "Implement step 3.1 of the main task that is - (3.1 Distributed Database Design for 370M+ Documents) - Ultra-Scale Database Architecture with geographic sharding strategy for handling 370M+ legal documents from 1,600+ sources"
 
 backend:
   - task: "Step 2.1 - Massive Concurrent Processing Architecture"

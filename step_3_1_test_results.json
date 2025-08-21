@@ -1,14 +1,14 @@
 {
   "step": "3.1 - Ultra-Scale Database Architecture",
-  "timestamp": "2025-08-21T20:41:16.839976",
-  "overall_status": "warning",
-  "total_execution_time_seconds": 0.85,
+  "timestamp": "2025-08-21T20:41:49.339197",
+  "overall_status": "passed",
+  "total_execution_time_seconds": 0.43,
   "summary": {
     "total_tests": 5,
-    "passed_tests": 4,
+    "passed_tests": 5,
     "warning_tests": 0,
-    "failed_tests": 1,
-    "success_rate": 0.8
+    "failed_tests": 0,
+    "success_rate": 1.0
   },
   "test_results": {
     "Geographic Sharding Strategy": {
@@ -22,7 +22,7 @@
       "active_shards": 8,
       "metrics_generated": true,
       "test_status": "passed",
-      "execution_time_seconds": 0.66
+      "execution_time_seconds": 0.172
     },
     "Index Creation": {
       "shards_tested": 8,
@@ -78,51 +78,85 @@
         }
       },
       "test_status": "passed",
-      "execution_time_seconds": 0.083
+      "execution_time_seconds": 0.1
     },
     "Distributed Operations": {
       "documents_created": 4,
-      "create_time_seconds": 0.003,
+      "create_time_seconds": 0.005,
       "search_tests_performed": 4,
       "successful_searches": 4,
       "success_rate": 1.0,
       "search_results": {
         "US Jurisdiction Search": {
-          "documents_found": 1,
-          "total_count": 1,
-          "search_time_ms": 2.82,
+          "documents_found": 2,
+          "total_count": 2,
+          "search_time_ms": 3.37,
           "shards_queried": 1,
           "meets_expectations": true
         },
         "Case Law Search": {
-          "documents_found": 2,
-          "total_count": 2,
-          "search_time_ms": 3.63,
+          "documents_found": 4,
+          "total_count": 4,
+          "search_time_ms": 6.13,
           "shards_queried": 5,
           "meets_expectations": true
         },
         "Constitutional Law Search": {
-          "documents_found": 2,
-          "total_count": 2,
-          "search_time_ms": 5.34,
+          "documents_found": 4,
+          "total_count": 4,
+          "search_time_ms": 9.89,
           "shards_queried": 8,
           "meets_expectations": true
         },
         "Full-text Search": {
-          "documents_found": 2,
-          "total_count": 2,
-          "search_time_ms": 4.87,
+          "documents_found": 4,
+          "total_count": 4,
+          "search_time_ms": 9.03,
           "shards_queried": 8,
           "meets_expectations": true
         }
       },
       "test_status": "passed",
-      "execution_time_seconds": 0.04
+      "execution_time_seconds": 0.087
     },
     "Performance Benchmarks": {
-      "test_status": "failed",
-      "error": "1 validation error for LegalDocumentCreate\njurisdiction_level\n  Field required [type=missing, input_value={'title': 'Test Document ...'confidence_score': 0.9}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.11/v/missing",
-      "execution_time_seconds": 0.062
+      "benchmarks_tested": 3,
+      "benchmarks_passed": 3,
+      "performance_score": 1.0,
+      "benchmark_details": {
+        "bulk_insert_rate_docs_per_second": {
+          "target": 50,
+          "actual": 2569.02,
+          "passed": true
+        },
+        "search_response_time_ms": {
+          "target": 1000,
+          "actual": 5.43,
+          "passed": true
+        },
+        "average_insert_time_ms": {
+          "target": 100,
+          "actual": 0.389,
+          "passed": true
+        }
+      },
+      "full_performance_results": {
+        "test_summary": {
+          "total_documents_created": 100,
+          "total_test_time_seconds": 0.05,
+          "insert_time_seconds": 0.04,
+          "search_time_seconds": 0.01,
+          "insert_rate_docs_per_second": 2569.02,
+          "search_results_found": 52
+        },
+        "performance_metrics": {
+          "average_insert_time_ms": 0.389,
+          "search_response_time_ms": 5.43,
+          "shards_utilized": 8
+        }
+      },
+      "test_status": "passed",
+      "execution_time_seconds": 0.075
     }
   }
 }

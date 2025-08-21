@@ -93,7 +93,9 @@ class TestUltraScaleDatabaseArchitecture:
                 content="Test content",
                 document_type=test_case['document_type'],
                 jurisdiction=test_case['jurisdiction'],
-                source="test"
+                jurisdiction_level=JurisdictionLevel.FEDERAL,
+                source="test",
+                source_url="https://test.com/doc"
             )
             
             determined_shard = sharding.determine_shard(doc)

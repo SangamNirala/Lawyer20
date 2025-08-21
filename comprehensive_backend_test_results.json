@@ -1,189 +1,266 @@
 {
-  "total_tests": 26,
-  "passed_tests": 16,
-  "failed_tests": 10,
+  "total_tests": 37,
+  "passed_tests": 21,
+  "failed_tests": 16,
   "test_details": [
     {
       "test_name": "Enhanced Legal Sources Config Import",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully imported enhanced legal sources configuration",
-      "timestamp": "2025-08-21T20:45:36.156951"
+      "timestamp": "2025-08-21T21:30:55.866057"
     },
     {
       "test_name": "Source Count Verification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 121 sources (expected >= 100)",
-      "timestamp": "2025-08-21T20:45:36.157155"
+      "timestamp": "2025-08-21T21:30:55.866256"
     },
     {
       "test_name": "Document Count Verification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 163,127,000 estimated documents (expected >= 100,000,000)",
-      "timestamp": "2025-08-21T20:45:36.157170"
+      "timestamp": "2025-08-21T21:30:55.866275"
     },
     {
       "test_name": "Jurisdiction Coverage",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 21 jurisdictions (expected >= 15)",
-      "timestamp": "2025-08-21T20:45:36.157178"
+      "timestamp": "2025-08-21T21:30:55.866282"
     },
     {
       "test_name": "Tier-based Source Grouping",
       "status": "\u2705 PASS",
       "success": true,
       "details": "All 4 tiers have sources: [True, True, True, True]",
-      "timestamp": "2025-08-21T20:45:36.157271"
+      "timestamp": "2025-08-21T21:30:55.866390"
     },
     {
       "test_name": "Source Configuration Access",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully accessed configuration for 5 sample sources",
-      "timestamp": "2025-08-21T20:45:36.157287"
+      "timestamp": "2025-08-21T21:30:55.866409"
     },
     {
       "test_name": "UltraScaleScrapingEngine Import",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Failed to import UltraScaleScrapingEngine: No module named 'multidict'",
-      "timestamp": "2025-08-21T20:45:36.174472"
+      "timestamp": "2025-08-21T21:30:55.884018"
     },
     {
       "test_name": "Intelligent Source Grouping Test",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Source grouping test failed: No module named 'multidict'",
-      "timestamp": "2025-08-21T20:45:36.175982"
+      "timestamp": "2025-08-21T21:30:55.885592"
     },
     {
       "test_name": "Document Processing Pipeline Test",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Document processing test failed: No module named 'multidict'",
-      "timestamp": "2025-08-21T20:45:36.177385"
+      "timestamp": "2025-08-21T21:30:55.887098"
     },
     {
       "test_name": "Quality Assurance System Test",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Quality assurance test failed: No module named 'multidict'",
-      "timestamp": "2025-08-21T20:45:36.178751"
+      "timestamp": "2025-08-21T21:30:55.888523"
     },
     {
       "test_name": "Resource Monitoring System Test",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Resource monitoring test failed: No module named 'multidict'",
-      "timestamp": "2025-08-21T20:45:36.180071"
+      "timestamp": "2025-08-21T21:30:55.889957"
     },
     {
       "test_name": "IntelligentScrapingEngine Import",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Failed to import IntelligentScrapingEngine: No module named 'multidict'",
-      "timestamp": "2025-08-21T20:45:36.185047"
+      "timestamp": "2025-08-21T21:30:55.894962"
     },
     {
       "test_name": "UltraScaleDatabaseService Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Database service initialized successfully",
-      "timestamp": "2025-08-21T20:45:36.310307"
+      "timestamp": "2025-08-21T21:30:56.032444"
     },
     {
       "test_name": "Geographic Sharding Strategy",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 8 shards, Missing: []",
-      "timestamp": "2025-08-21T20:45:36.310329"
+      "timestamp": "2025-08-21T21:30:56.032477"
     },
     {
       "test_name": "Shard Capacity Verification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Total capacity: 370,000,000 documents (expected >= 300,000,000)",
-      "timestamp": "2025-08-21T20:45:36.310362"
+      "timestamp": "2025-08-21T21:30:56.032495"
     },
     {
       "test_name": "Ultra-Scale Architecture Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Database architecture initialized with all shards and indexes",
-      "timestamp": "2025-08-21T20:45:36.340276"
+      "timestamp": "2025-08-21T21:30:56.697436"
     },
     {
       "test_name": "Document Routing Logic",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully routed 2 test documents to appropriate shards",
-      "timestamp": "2025-08-21T20:45:36.340451"
+      "timestamp": "2025-08-21T21:30:56.699957"
     },
     {
       "test_name": "Ultra-Scale Index Creation",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Created 104 total indexes across all shards (expected >= 80)",
-      "timestamp": "2025-08-21T20:45:36.348336"
+      "timestamp": "2025-08-21T21:30:56.707652"
     },
     {
       "test_name": "Document Creation",
       "status": "\u2705 PASS",
       "success": true,
-      "details": "Successfully created document with ID: 857af5a0-9e46-4132-b866-52d8fa10411f",
-      "timestamp": "2025-08-21T20:45:36.349873"
+      "details": "Successfully created document with ID: 513f5a32-d964-4f78-baea-ee3f989eb253",
+      "timestamp": "2025-08-21T21:30:56.713722"
     },
     {
       "test_name": "Bulk Document Operations",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully created 4 documents in bulk",
-      "timestamp": "2025-08-21T20:45:36.351959"
+      "timestamp": "2025-08-21T21:30:56.716242"
     },
     {
       "test_name": "Performance Monitoring",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Performance metrics tracking active with 2 recorded metrics",
-      "timestamp": "2025-08-21T20:45:36.351977"
+      "timestamp": "2025-08-21T21:30:56.716272"
     },
     {
       "test_name": "Connection Cleanup",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Database connections closed successfully",
-      "timestamp": "2025-08-21T20:45:36.352829"
+      "timestamp": "2025-08-21T21:30:56.717191"
+    },
+    {
+      "test_name": "Ultra-Scale API Models Import",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Successfully imported all ultra-scale API models",
+      "timestamp": "2025-08-21T21:30:56.754459"
+    },
+    {
+      "test_name": "Ultra-Scale API Endpoints Import",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Successfully imported ultra-scale API endpoints router",
+      "timestamp": "2025-08-21T21:30:57.022198"
+    },
+    {
+      "test_name": "Query Optimization Service",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Successfully initialized query optimization components",
+      "timestamp": "2025-08-21T21:30:57.022251"
+    },
+    {
+      "test_name": "Query Optimization Service",
+      "status": "\u274c FAIL",
+      "success": false,
+      "details": "Query optimization service test failed: 2 validation errors for UltraSearchFilter\ndocument_types.0\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='CASE_LAW', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum\ndocument_types.1\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='STATUTE', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum",
+      "timestamp": "2025-08-21T21:30:57.026216"
+    },
+    {
+      "test_name": "Source Health Monitor Initialization",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Successfully initialized source health monitoring components",
+      "timestamp": "2025-08-21T21:30:57.026291"
+    },
+    {
+      "test_name": "Source Metrics Collection",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Collected metrics for Source us_supreme_court - Status: SourceStatus.ERROR",
+      "timestamp": "2025-08-21T21:30:57.027558"
+    },
+    {
+      "test_name": "Ultra-Search Endpoint",
+      "status": "\u274c FAIL",
+      "success": false,
+      "details": "Ultra-search responded with status 502",
+      "timestamp": "2025-08-21T21:30:57.223025"
+    },
+    {
+      "test_name": "Source Health Endpoint",
+      "status": "\u274c FAIL",
+      "success": false,
+      "details": "Source health endpoint responded with status 502",
+      "timestamp": "2025-08-21T21:30:57.277949"
+    },
+    {
+      "test_name": "System Status Endpoint",
+      "status": "\u274c FAIL",
+      "success": false,
+      "details": "System status endpoint responded with status 502",
+      "timestamp": "2025-08-21T21:30:57.332162"
+    },
+    {
+      "test_name": "Search Suggestions Endpoint",
+      "status": "\u274c FAIL",
+      "success": false,
+      "details": "Search suggestions responded with status 502",
+      "timestamp": "2025-08-21T21:30:57.386782"
+    },
+    {
+      "test_name": "Analytics Endpoint",
+      "status": "\u274c FAIL",
+      "success": false,
+      "details": "Analytics endpoint responded with status 502",
+      "timestamp": "2025-08-21T21:30:57.438569"
     },
     {
       "test_name": "Backend API Health Check",
       "status": "\u274c FAIL",
       "success": false,
       "details": "API responded with status 502",
-      "timestamp": "2025-08-21T20:45:36.574180"
+      "timestamp": "2025-08-21T21:30:57.490589"
     },
     {
       "test_name": "Dashboard Stats Endpoint",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Dashboard stats endpoint responded with status 502",
-      "timestamp": "2025-08-21T20:45:36.627418"
+      "timestamp": "2025-08-21T21:30:57.541570"
     },
     {
       "test_name": "System Health Endpoint",
       "status": "\u274c FAIL",
       "success": false,
       "details": "System health endpoint responded with status 502",
-      "timestamp": "2025-08-21T20:45:36.686532"
+      "timestamp": "2025-08-21T21:30:57.596099"
     },
     {
       "test_name": "Questions Endpoint",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Questions endpoint responded with status 502",
-      "timestamp": "2025-08-21T20:45:36.740055"
+      "timestamp": "2025-08-21T21:30:57.645151"
     }
   ],
   "critical_issues": [
@@ -192,9 +269,15 @@
     "Document Processing Pipeline Test: Document processing test failed: No module named 'multidict'",
     "Quality Assurance System Test: Quality assurance test failed: No module named 'multidict'",
     "Resource Monitoring System Test: Resource monitoring test failed: No module named 'multidict'",
-    "IntelligentScrapingEngine Import: Failed to import IntelligentScrapingEngine: No module named 'multidict'"
+    "IntelligentScrapingEngine Import: Failed to import IntelligentScrapingEngine: No module named 'multidict'",
+    "Query Optimization Service: Query optimization service test failed: 2 validation errors for UltraSearchFilter\ndocument_types.0\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='CASE_LAW', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum\ndocument_types.1\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='STATUTE', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum"
   ],
   "minor_issues": [
+    "Ultra-Search Endpoint: Ultra-search responded with status 502",
+    "Source Health Endpoint: Source health endpoint responded with status 502",
+    "System Status Endpoint: System status endpoint responded with status 502",
+    "Search Suggestions Endpoint: Search suggestions responded with status 502",
+    "Analytics Endpoint: Analytics endpoint responded with status 502",
     "Backend API Health Check: API responded with status 502",
     "Dashboard Stats Endpoint: Dashboard stats endpoint responded with status 502",
     "System Health Endpoint: System health endpoint responded with status 502",

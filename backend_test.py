@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Comprehensive Backend Test for Step 2.1: Ultra-Scale Legal Document Scraping System
-Tests all components of the Massive Concurrent Processing Architecture
+Comprehensive Backend Test Suite for Ultra-Scale Legal Document System
+Tests Step 2.1: Massive Concurrent Processing Architecture
+Tests Step 3.1: Ultra-Scale Database Architecture
 """
 
 import asyncio

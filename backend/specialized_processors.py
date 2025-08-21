@@ -553,6 +553,17 @@ class TaxLawClassifier(BaseTopicClassifier):
         self.keywords = ["tax", "irs", "revenue", "deduction", "income", "estate", "gift"]
         self.phrases = ["tax evasion", "tax avoidance", "tax planning"]
         self.legal_terms = ["Internal Revenue Code", "tax lien", "tax levy"]
+    
+    async def classify(self, content: str) -> Dict[str, Any]:
+        """Classify tax law content"""
+        relevance_score = self.calculate_relevance_score(content)
+        return {
+            "topic": self.topic_name,
+            "relevance_score": relevance_score,
+            "confidence": min(relevance_score * 2, 1.0),
+            "subcategories": [],
+            "is_tax_law": relevance_score > 0.2
+        }
 
 class EnvironmentalLawClassifier(BaseTopicClassifier):
     def __init__(self):
@@ -560,6 +571,17 @@ class EnvironmentalLawClassifier(BaseTopicClassifier):
         self.keywords = ["environmental", "epa", "pollution", "clean air", "clean water", "toxic"]
         self.phrases = ["environmental impact", "clean air act", "clean water act"]
         self.legal_terms = ["CERCLA", "NEPA", "superfund"]
+    
+    async def classify(self, content: str) -> Dict[str, Any]:
+        """Classify environmental law content"""
+        relevance_score = self.calculate_relevance_score(content)
+        return {
+            "topic": self.topic_name,
+            "relevance_score": relevance_score,
+            "confidence": min(relevance_score * 2, 1.0),
+            "subcategories": [],
+            "is_environmental_law": relevance_score > 0.2
+        }
 
 class IntellectualPropertyClassifier(BaseTopicClassifier):
     def __init__(self):
@@ -567,6 +589,17 @@ class IntellectualPropertyClassifier(BaseTopicClassifier):
         self.keywords = ["patent", "trademark", "copyright", "trade secret", "infringement"]
         self.phrases = ["patent infringement", "trademark violation", "fair use"]
         self.legal_terms = ["USPTO", "DMCA", "Lanham Act"]
+    
+    async def classify(self, content: str) -> Dict[str, Any]:
+        """Classify intellectual property content"""
+        relevance_score = self.calculate_relevance_score(content)
+        return {
+            "topic": self.topic_name,
+            "relevance_score": relevance_score,
+            "confidence": min(relevance_score * 2, 1.0),
+            "subcategories": [],
+            "is_ip_law": relevance_score > 0.2
+        }
 
 class ImmigrationLawClassifier(BaseTopicClassifier):
     def __init__(self):
@@ -574,6 +607,17 @@ class ImmigrationLawClassifier(BaseTopicClassifier):
         self.keywords = ["immigration", "visa", "green card", "deportation", "asylum", "refugee"]
         self.phrases = ["unlawful presence", "adjustment of status", "removal proceedings"]
         self.legal_terms = ["INA", "USCIS", "removal", "inadmissibility"]
+    
+    async def classify(self, content: str) -> Dict[str, Any]:
+        """Classify immigration law content"""
+        relevance_score = self.calculate_relevance_score(content)
+        return {
+            "topic": self.topic_name,
+            "relevance_score": relevance_score,
+            "confidence": min(relevance_score * 2, 1.0),
+            "subcategories": [],
+            "is_immigration_law": relevance_score > 0.2
+        }
 
 class EmploymentLawClassifier(BaseTopicClassifier):
     def __init__(self):
@@ -581,6 +625,17 @@ class EmploymentLawClassifier(BaseTopicClassifier):
         self.keywords = ["employment", "discrimination", "harassment", "wages", "overtime", "fmla"]
         self.phrases = ["wrongful termination", "hostile work environment", "equal employment"]
         self.legal_terms = ["Title VII", "ADEA", "ADA", "FLSA"]
+    
+    async def classify(self, content: str) -> Dict[str, Any]:
+        """Classify employment law content"""
+        relevance_score = self.calculate_relevance_score(content)
+        return {
+            "topic": self.topic_name,
+            "relevance_score": relevance_score,
+            "confidence": min(relevance_score * 2, 1.0),
+            "subcategories": [],
+            "is_employment_law": relevance_score > 0.2
+        }
 
 # Create registry of all classifiers
 def create_all_topic_classifiers() -> Dict[str, BaseTopicClassifier]:

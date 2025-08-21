@@ -791,7 +791,7 @@ class Step21TestSuite:
             import json
             
             # Get backend URL from environment
-            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://megaindex-legal.preview.emergentagent.com')
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://legalapi-test.preview.emergentagent.com')
             api_base = f"{backend_url}/api"
             
             # Test 1: API health check

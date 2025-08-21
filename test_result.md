@@ -203,7 +203,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Step 2.1 - Massive Concurrent Processing Architecture"
+    - "Step 3.1 - Ultra-Scale Database Architecture"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"

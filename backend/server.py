@@ -500,6 +500,11 @@ if ULTRA_SCALE_API_AVAILABLE:
     app.include_router(ultra_api_router, tags=["Ultra-Scale API"])
     logging.info("✅ Ultra-scale API endpoints integrated successfully")
 
+# Include performance optimization API router if available (Step 6.1)
+if PERFORMANCE_OPTIMIZATION_AVAILABLE:
+    app.include_router(performance_api_router, tags=["Performance Optimization"])
+    logging.info("✅ Performance optimization API endpoints integrated successfully")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,

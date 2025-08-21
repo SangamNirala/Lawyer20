@@ -915,11 +915,13 @@ class IntelligentLoadBalancer:
 class UltraScaleScrapingEngine(IntelligentScrapingEngine):
     """Ultra-Scale Scraping Engine with AI-Powered Massive Concurrent Processing"""
     
-    def __init__(self):
+    def __init__(self, max_concurrent_sources: int = 200, max_concurrent_requests: int = 1000):
         super().__init__()
         
         # Initialize ultra-scale components
-        self.source_pool_manager = SourcePoolManager(max_sources=200)
+        self.max_concurrent_sources = max_concurrent_sources
+        self.max_concurrent_requests = max_concurrent_requests
+        self.source_pool_manager = SourcePoolManager(max_sources=max_concurrent_sources)
         self.document_processor = MassiveDocumentProcessor()
         self.quality_controller = QualityAssuranceController()
         self.resource_monitor = ResourceMonitor()

@@ -667,31 +667,249 @@ class MassiveDocumentProcessor:
             logger.error(f"Error in general document processing: {e}")
             return None
     
-    async def process_document_batch(self, documents: List[Dict[str, Any]], 
-                                   source_id: str, processing_context: Dict[str, Any]) -> List[LegalDocumentCreate]:
-        """Process batch of documents with AI-powered enhancement"""
-        start_time = time.time()
-        processed_docs = []
+    
+    # ================================================================================================
+    # STEP 2.2: SPECIALIZED HELPER METHODS FOR SOURCE-SPECIFIC PROCESSING
+    # ================================================================================================
+    
+    def _extract_regulation_number(self, doc: Dict[str, Any], content: str) -> Optional[str]:
+        """Extract regulation number from government documents"""
+        # Check doc fields first
+        reg_num = self._extract_field_intelligently(doc, ['regulation_number', 'rule_number', 'cfr_number'])
+        if reg_num:
+            return reg_num
         
-        # Determine optimal processing strategy based on document characteristics
-        processing_strategy = await self._determine_processing_strategy(documents, source_id)
+        # Extract from content using patterns
+        import re
+        patterns = [
+            r'(\d+)\s+C\.F\.R\.\s+§?\s*(\d+(?:\.\d+)*)',
+            r'(\d+)\s+CFR\s+(\d+(?:\.\d+)*)',
+            r'Rule\s+(\d+(?:\.\d+)*)',
+            r'Regulation\s+(\d+(?:\.\d+)*)'
+        ]
         
-        # Process documents based on strategy
-        if processing_strategy == "parallel_intensive":
-            processed_docs = await self._process_parallel_intensive(documents, source_id, processing_context)
-        elif processing_strategy == "sequential_quality":
-            processed_docs = await self._process_sequential_quality(documents, source_id, processing_context)
-        else:  # balanced
-            processed_docs = await self._process_balanced(documents, source_id, processing_context)
+        for pattern in patterns:
+            match = re.search(pattern, content, re.IGNORECASE)
+            if match:
+                return match.group(0)
         
-        # Update processing statistics
-        processing_time = time.time() - start_time
-        self.processing_stats["documents_processed"] += len(documents)
-        self.processing_stats["processing_time"] += processing_time
+        return None
+    
+    def _extract_effective_date(self, doc: Dict[str, Any]) -> Optional[datetime]:
+        """Extract effective date from government documents"""
+        return self._extract_date_intelligently(doc, ['effective_date', 'date_effective', 'implementation_date'])
+    
+    def _extract_agency_name(self, doc: Dict[str, Any], source_id: str) -> Optional[str]:
+        """Extract agency name from government documents"""
+        # Try document fields first
+        agency = self._extract_field_intelligently(doc, ['agency', 'department', 'issuing_authority'])
+        if agency:
+            return agency
         
-        logger.info(f"📊 Processed {len(documents)} documents from {source_id} in {processing_time:.2f}s")
+        # Extract from source configuration
+        source_config = get_source_config(source_id)
+        if source_config:
+            source_name = source_config.get('name', '')
+            if 'department' in source_name.lower() or 'agency' in source_name.lower():
+                return source_name
         
-        return processed_docs
+        return None
+    
+    def _determine_government_document_type(self, doc: Dict[str, Any], content: str) -> DocumentType:
+        """Determine document type for government documents"""
+        content_lower = content.lower()
+        
+        if any(indicator in content_lower for indicator in ['regulation', 'rule', 'cfr']):
+            return DocumentType.REGULATION
+        elif any(indicator in content_lower for indicator in ['statute', 'law', 'usc']):
+            return DocumentType.STATUTE
+        elif any(indicator in content_lower for indicator in ['order', 'directive', 'memorandum']):
+            return DocumentType.ADMINISTRATIVE
+        else:
+            return DocumentType.ADMINISTRATIVE
+    
+    def _extract_authors(self, doc: Dict[str, Any]) -> List[str]:
+        """Extract authors from academic documents"""
+        authors_str = self._extract_field_intelligently(doc, ['authors', 'author', 'byline'])
+        if not authors_str:
+            return []
+        
+        # Split by common separators
+        import re
+        authors = re.split(r',|;|&|\sand\s', authors_str)
+        return [author.strip() for author in authors if author.strip()]
+    
+    def _extract_journal_name(self, doc: Dict[str, Any], source_id: str) -> Optional[str]:
+        """Extract journal name from academic documents"""
+        journal = self._extract_field_intelligently(doc, ['journal', 'publication', 'venue'])
+        if journal:
+            return journal
+        
+        # Extract from source name
+        source_config = get_source_config(source_id)
+        if source_config:
+            return source_config.get('name', '')
+        
+        return None
+    
+    def _extract_publication_year(self, doc: Dict[str, Any]) -> Optional[int]:
+        """Extract publication year from academic documents"""
+        date_pub = self._extract_date_intelligently(doc)
+        if date_pub:
+            return date_pub.year
+        
+        # Try to extract year from text fields
+        year_str = self._extract_field_intelligently(doc, ['year', 'publication_year'])
+        if year_str:
+            try:
+                return int(year_str)
+            except ValueError:
+                pass
+        
+        return None
+    
+    def _extract_international_court_name(self, doc: Dict[str, Any], source_id: str) -> Optional[str]:
+        """Extract court name from international documents"""
+        court = self._extract_field_intelligently(doc, ['court', 'tribunal', 'institution'])
+        if court:
+            return court
+        
+        # Extract from source configuration
+        source_config = get_source_config(source_id)
+        if source_config:
+            return source_config.get('name', '')
+        
+        return None
+    
+    def _extract_case_number(self, doc: Dict[str, Any]) -> Optional[str]:
+        """Extract case number from international documents"""
+        return self._extract_field_intelligently(doc, ['case_number', 'application_number', 'reference'])
+    
+    def _extract_international_parties(self, doc: Dict[str, Any]) -> List[str]:
+        """Extract parties from international legal documents"""
+        parties_str = self._extract_field_intelligently(doc, ['parties', 'applicant', 'respondent'])
+        if not parties_str:
+            return []
+        
+        # Split by 'v.' or 'vs.' or 'versus'
+        import re
+        parties_match = re.split(r'\s+v\.?\s+|\s+vs\.?\s+|\s+versus\s+', parties_str)
+        return [party.strip() for party in parties_match if party.strip()]
+    
+    def _determine_international_document_type(self, doc: Dict[str, Any], content: str) -> DocumentType:
+        """Determine document type for international documents"""
+        content_lower = content.lower()
+        
+        if any(indicator in content_lower for indicator in ['judgment', 'decision', 'ruling']):
+            return DocumentType.CASE_LAW
+        elif any(indicator in content_lower for indicator in ['treaty', 'convention', 'protocol']):
+            return DocumentType.TREATY
+        else:
+            return DocumentType.CASE_LAW
+    
+    def _extract_bar_association_name(self, source_id: str) -> Optional[str]:
+        """Extract bar association name from source"""
+        source_config = get_source_config(source_id)
+        if source_config:
+            return source_config.get('name', '')
+        return None
+    
+    def _calculate_government_confidence(self, doc: Dict[str, Any], citations: List[Dict], topics: List[Dict]) -> float:
+        """Calculate confidence score for government documents"""
+        base_confidence = 0.8
+        
+        # Boost for federal citations
+        if citations:
+            base_confidence += 0.1
+        
+        # Boost for relevant topics
+        if any(topic['confidence'] > 0.7 for topic in topics):
+            base_confidence += 0.05
+        
+        # Boost for structured data
+        if self._extract_field_intelligently(doc, ['regulation_number', 'agency']):
+            base_confidence += 0.05
+        
+        return min(base_confidence, 1.0)
+    
+    def _calculate_academic_confidence(self, doc: Dict[str, Any], citations: List[Dict], topics: List[Dict]) -> float:
+        """Calculate confidence score for academic documents"""
+        base_confidence = 0.75
+        
+        # Boost for academic citations
+        if citations:
+            base_confidence += 0.1
+        
+        # Boost for author information
+        if self._extract_field_intelligently(doc, ['authors', 'author']):
+            base_confidence += 0.05
+        
+        # Boost for DOI or journal information
+        if self._extract_field_intelligently(doc, ['doi', 'journal']):
+            base_confidence += 0.05
+        
+        return min(base_confidence, 1.0)
+    
+    def _calculate_international_confidence(self, doc: Dict[str, Any], citations: List[Dict], topics: List[Dict]) -> float:
+        """Calculate confidence score for international documents"""
+        base_confidence = 0.7
+        
+        # Boost for international citations
+        if citations:
+            base_confidence += 0.15
+        
+        # Boost for case number
+        if self._extract_field_intelligently(doc, ['case_number', 'application_number']):
+            base_confidence += 0.1
+        
+        return min(base_confidence, 1.0)
+    
+    def _calculate_news_confidence(self, doc: Dict[str, Any], citations: List[str], topics: List[Dict]) -> float:
+        """Calculate confidence score for news documents"""
+        base_confidence = 0.6
+        
+        # Boost for citations (shows legal relevance)
+        if citations:
+            base_confidence += 0.2
+        
+        # Boost for legal topics
+        if topics:
+            base_confidence += 0.1
+        
+        return min(base_confidence, 1.0)
+    
+    def _calculate_bar_confidence(self, doc: Dict[str, Any], citations: List[str], topics: List[Dict]) -> float:
+        """Calculate confidence score for bar association documents"""
+        base_confidence = 0.75
+        
+        # Boost for legal citations
+        if citations:
+            base_confidence += 0.1
+        
+        # Boost for practice area topics
+        if any(topic['confidence'] > 0.5 for topic in topics):
+            base_confidence += 0.1
+        
+        return min(base_confidence, 1.0)
+    
+    def _extract_date_intelligently(self, data: Dict[str, Any], field_names: List[str] = None) -> Optional[datetime]:
+        """Enhanced date extraction with more field options"""
+        if field_names is None:
+            field_names = ['date_published', 'date_filed', 'created_at', 'date', 'effective_date', 'publication_date']
+        
+        for field_name in field_names:
+            value = data.get(field_name)
+            if value:
+                try:
+                    if isinstance(value, str):
+                        # Try common date formats
+                        import dateutil.parser
+                        return dateutil.parser.parse(value)
+                    elif isinstance(value, datetime):
+                        return value
+                except Exception:
+                    continue
+        return None
     
     async def _determine_processing_strategy(self, documents: List[Dict[str, Any]], source_id: str) -> str:
         """AI-powered determination of optimal processing strategy"""

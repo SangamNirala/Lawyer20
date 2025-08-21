@@ -235,9 +235,11 @@ class TestUltraScaleDatabaseArchitecture:
                     content="This is a test case from the US Supreme Court involving constitutional law.",
                     document_type=DocumentType.CASE_LAW,
                     jurisdiction="United States",
+                    jurisdiction_level=JurisdictionLevel.FEDERAL,
                     court="Supreme Court",
                     legal_topics=["constitutional_law", "federal_jurisdiction"],
-                    source="test_us_federal"
+                    source="test_us_federal",
+                    source_url="https://test.com/us_federal"
                 ),
                 # EU document
                 LegalDocumentCreate(
@@ -245,9 +247,11 @@ class TestUltraScaleDatabaseArchitecture:
                     content="This is a test regulation from the European Commission on data protection.",
                     document_type=DocumentType.REGULATION,
                     jurisdiction="European Union",
+                    jurisdiction_level=JurisdictionLevel.INTERNATIONAL,
                     court="European Commission",
                     legal_topics=["data_protection", "privacy_law"],
-                    source="test_eu"
+                    source="test_eu",
+                    source_url="https://test.com/eu"
                 ),
                 # Academic document
                 LegalDocumentCreate(
@@ -255,8 +259,10 @@ class TestUltraScaleDatabaseArchitecture:
                     content="This is a scholarly article about international trade law and dispute resolution.",
                     document_type=DocumentType.SCHOLARLY_ARTICLE,
                     jurisdiction="International",
+                    jurisdiction_level=JurisdictionLevel.INTERNATIONAL,
                     legal_topics=["international_trade", "dispute_resolution"],
-                    source="test_academic"
+                    source="test_academic",
+                    source_url="https://test.com/academic"
                 ),
                 # Commonwealth document
                 LegalDocumentCreate(
@@ -264,9 +270,11 @@ class TestUltraScaleDatabaseArchitecture:
                     content="This is a test decision from the UK Supreme Court on human rights law.",
                     document_type=DocumentType.CASE_LAW,
                     jurisdiction="United Kingdom",
+                    jurisdiction_level=JurisdictionLevel.INTERNATIONAL,
                     court="UK Supreme Court",
                     legal_topics=["human_rights", "constitutional_law"],
-                    source="test_uk"
+                    source="test_uk",
+                    source_url="https://test.com/uk"
                 )
             ]
             

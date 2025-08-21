@@ -103,6 +103,47 @@ async def root():
         "status": "healthy"
     }
 
+@api_router.get("/api-info")
+async def get_api_info():
+    """Get comprehensive API information and available features"""
+    return {
+        "api_name": "Aptitude Question Bank API",
+        "version": "1.0.0",
+        "status": "healthy",
+        "timestamp": datetime.utcnow(),
+        "features": {
+            "aptitude_questions": True,
+            "web_scraping": True,
+            "ultra_scale_api": ULTRA_SCALE_API_AVAILABLE,
+            "legal_document_processing": LEGAL_SCRAPING_AVAILABLE
+        },
+        "endpoints": {
+            "core_endpoints": {
+                "questions": "/api/questions",
+                "categories": "/api/categories", 
+                "scraping": "/api/scraping",
+                "dashboard": "/api/dashboard"
+            },
+            "ultra_scale_endpoints": {
+                "ultra_search": "/api/ultra-search" if ULTRA_SCALE_API_AVAILABLE else "not_available",
+                "source_health": "/api/source-health" if ULTRA_SCALE_API_AVAILABLE else "not_available",
+                "system_status": "/api/system-status" if ULTRA_SCALE_API_AVAILABLE else "not_available",
+                "bulk_export": "/api/bulk-export" if ULTRA_SCALE_API_AVAILABLE else "not_available",
+                "analytics": "/api/analytics" if ULTRA_SCALE_API_AVAILABLE else "not_available"
+            }
+        },
+        "database": {
+            "connection": "active",
+            "name": os.environ.get('DB_NAME', 'aptitude_db'),
+            "ultra_scale_shards": 8 if ULTRA_SCALE_API_AVAILABLE else 0
+        },
+        "documentation": {
+            "swagger_ui": "/docs",
+            "redoc": "/redoc",
+            "openapi_json": "/openapi.json"
+        }
+    }
+
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     """Create a status check entry"""

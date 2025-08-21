@@ -50,7 +50,11 @@ async def test_step_2_1_implementation():
     # 3. Test intelligent source grouping
     print("\n🤖 TESTING INTELLIGENT SOURCE GROUPING:")
     try:
-        source_groups = await engine.group_sources_intelligently()
+        # Set a timeout for this operation
+        source_groups = await asyncio.wait_for(
+            engine.group_sources_intelligently(), 
+            timeout=30.0
+        )
         print("✅ Intelligent source grouping completed successfully")
         
         total_sources_in_groups = sum(len(sources) for sources in source_groups.values())

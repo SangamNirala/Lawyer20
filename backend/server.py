@@ -140,6 +140,13 @@ async def get_api_info():
                 "system_status": "/api/system-status" if ULTRA_SCALE_API_AVAILABLE else "not_available",
                 "bulk_export": "/api/bulk-export" if ULTRA_SCALE_API_AVAILABLE else "not_available",
                 "analytics": "/api/analytics" if ULTRA_SCALE_API_AVAILABLE else "not_available"
+            },
+            "performance_optimization_endpoints": {
+                "optimize_query": "/api/performance/optimize-query" if PERFORMANCE_OPTIMIZATION_AVAILABLE else "not_available",
+                "performance_dashboard": "/api/performance/dashboard" if PERFORMANCE_OPTIMIZATION_AVAILABLE else "not_available", 
+                "cache_metrics": "/api/performance/cache-metrics" if PERFORMANCE_OPTIMIZATION_AVAILABLE else "not_available",
+                "system_status": "/api/performance/system-status" if PERFORMANCE_OPTIMIZATION_AVAILABLE else "not_available",
+                "cache_management": "/api/performance/cache-management" if PERFORMANCE_OPTIMIZATION_AVAILABLE else "not_available"
             }
         },
         "database": {

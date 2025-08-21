@@ -890,7 +890,9 @@ class Step21TestSuite:
     
     async def run_all_tests(self):
         """Run all Step 2.1 tests"""
-        print("🚀 STARTING COMPREHENSIVE STEP 2.1 BACKEND TESTING")
+        print("🚀 STARTING COMPREHENSIVE BACKEND TESTING")
+        print("Testing Step 2.1: Massive Concurrent Processing Architecture")
+        print("Testing Step 3.1: Ultra-Scale Database Architecture")
         print("=" * 80)
         print(f"Test started at: {datetime.utcnow().isoformat()}")
         print("=" * 80)

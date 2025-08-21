@@ -980,11 +980,11 @@ async def main():
             sys.exit(1)
             
     except Exception as e:
-        print(f"\n💥 CRITICAL ERROR during Step 2.1 testing: {e}")
+        print(f"\n💥 CRITICAL ERROR during comprehensive backend testing: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
 
 if __name__ == "__main__":
-    print("Starting Step 2.1 Ultra-Scale Legal Document Scraping System Test...")
+    print("Starting Comprehensive Ultra-Scale Legal Document System Backend Test...")
     asyncio.run(main())

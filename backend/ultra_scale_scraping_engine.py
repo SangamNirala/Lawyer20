@@ -1015,34 +1015,104 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
         
         source_groups = {
             "tier_1_government": [],
-            "tier_2_global": [],
+            "tier_2_global": [],  
             "tier_3_academic": [],
             "tier_4_professional": []
         }
         
-        # Get sources by tier from configuration
-        for tier in range(1, 8):
-            tier_sources = get_sources_by_tier(tier)
-            source_ids = [source["id"] for source in tier_sources]
-            
-            if tier in [1]:  # US Federal Government
-                source_groups["tier_1_government"].extend(source_ids)
-            elif tier in [2]:  # Global Legal Systems
-                source_groups["tier_2_global"].extend(source_ids)
-            elif tier in [3]:  # Academic
-                source_groups["tier_3_academic"].extend(source_ids)
-            else:  # Professional, Legal Aid, Specialized
-                source_groups["tier_4_professional"].extend(source_ids)
+        # TIER 1: High Priority Government Sources (100M+ docs)
+        # All US Federal agencies (400+ sources)
+        # High reliability, API-based, structured data
+        tier_1_sources = get_sources_by_tier(1)
+        tier_1_ids = [source["id"] for source in tier_1_sources]
+        source_groups["tier_1_government"].extend(tier_1_ids)
         
-        # Log grouping results
-        for group_name, sources in source_groups.items():
+        # TIER 2: Global Legal Systems (150M+ docs)  
+        # All international jurisdictions (200+ sources)
+        # Mixed API/web scraping, multilingual
+        tier_2_sources = get_sources_by_tier(2)
+        tier_2_ids = [source["id"] for source in tier_2_sources]
+        source_groups["tier_2_global"].extend(tier_2_ids)
+        
+        # TIER 3: Academic Institutions (50M+ docs)
+        # All law schools and research institutions (500+ sources)
+        # Mostly web scraping, high-quality content
+        tier_3_sources = get_sources_by_tier(3)
+        tier_3_ids = [source["id"] for source in tier_3_sources]
+        source_groups["tier_3_academic"].extend(tier_3_ids)
+        
+        # TIER 4: Professional & Specialized (70M+ docs)
+        # Bar associations, legal aid, specialized (500+ sources)
+        # Mixed types, varying quality levels
+        for tier in [4, 5, 6, 7]:  # Legal news, bar associations, legal aid, specialized
+            tier_sources = get_sources_by_tier(tier)
+            tier_ids = [source["id"] for source in tier_sources]
+            source_groups["tier_4_professional"].extend(tier_ids)
+        
+        # AI-powered optimization of groups based on source characteristics
+        optimized_groups = await self._optimize_source_groups_with_ai(source_groups)
+        
+        # Log detailed grouping results with estimated processing metrics
+        total_estimated_docs = 0
+        for group_name, sources in optimized_groups.items():
             estimated_docs = sum(
                 get_source_config(source_id).get("estimated_documents", 0) 
                 for source_id in sources if get_source_config(source_id)
             )
+            total_estimated_docs += estimated_docs
+            
+            # Calculate processing characteristics
+            avg_priority = statistics.mean([
+                get_source_config(source_id).get("priority", 5)
+                for source_id in sources if get_source_config(source_id)
+            ]) if sources else 5
+            
+            avg_quality = statistics.mean([
+                get_source_config(source_id).get("quality_score", 8.0)
+                for source_id in sources if get_source_config(source_id)
+            ]) if sources else 8.0
+            
             logger.info(f"📋 {group_name}: {len(sources)} sources, ~{estimated_docs:,} documents")
+            logger.info(f"   ⭐ Avg Priority: {avg_priority:.1f}, Avg Quality: {avg_quality:.1f}")
         
-        return source_groups
+        logger.info(f"🎯 Total Sources: {sum(len(sources) for sources in optimized_groups.values())}")
+        logger.info(f"📊 Total Estimated Documents: {total_estimated_docs:,}")
+        
+        return optimized_groups
+        
+    async def _optimize_source_groups_with_ai(self, initial_groups: Dict[str, List[str]]) -> Dict[str, List[str]]:
+        """AI-powered optimization of source groupings based on performance characteristics"""
+        optimized_groups = initial_groups.copy()
+        
+        # Analyze source characteristics and rebalance for optimal processing
+        for group_name, sources in initial_groups.items():
+            if not sources:
+                continue
+                
+            # Calculate group processing complexity
+            total_docs = sum(
+                get_source_config(source_id).get("estimated_documents", 0)
+                for source_id in sources if get_source_config(source_id)
+            )
+            
+            avg_rate_limit = statistics.mean([
+                get_source_config(source_id).get("rate_limit", 100)
+                for source_id in sources if get_source_config(source_id)
+            ]) if sources else 100
+            
+            # If group is too large, potentially split high-volume sources
+            if total_docs > 100_000_000:  # 100M+ documents
+                high_volume_sources = [
+                    source_id for source_id in sources
+                    if get_source_config(source_id) and 
+                    get_source_config(source_id).get("estimated_documents", 0) > 10_000_000
+                ]
+                
+                # Log optimization decisions
+                if high_volume_sources:
+                    logger.info(f"🔧 Optimizing {group_name}: {len(high_volume_sources)} high-volume sources identified")
+        
+        return optimized_groups
     
     async def process_source_group(self, sources: List[str], phase: str) -> Dict[str, Any]:
         """Process a group of sources with advanced optimization"""

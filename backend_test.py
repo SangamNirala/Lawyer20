@@ -569,87 +569,322 @@ class Step21TestSuite:
                 critical=True
             )
     
-    async def test_legal_models_integration(self):
-        """Test the legal models and data structures"""
-        print("\n📋 TESTING LEGAL MODELS INTEGRATION")
+    async def test_step_3_1_ultra_scale_database_architecture(self):
+        """Test Step 3.1: Ultra-Scale Database Architecture implementation"""
+        print("\n🗄️ TESTING STEP 3.1: ULTRA-SCALE DATABASE ARCHITECTURE")
         print("=" * 60)
         
         try:
-            from legal_models import (
-                LegalDocument, LegalDocumentCreate, DocumentType, 
-                SourceType, ProcessingStatus, LegalSource, 
-                LegalScrapingJob, ScrapingJobStatus
-            )
+            from ultra_scale_database_service import UltraScaleDatabaseService, GeographicShardingStrategy
+            from legal_models import LegalDocument, LegalDocumentCreate, DocumentType, JurisdictionLevel
             
-            # Test 1: Model imports
-            self.log_test_result(
-                "Legal Models Import",
-                True,
-                "Successfully imported all legal models"
-            )
-            
-            # Test 2: Document type enumeration
-            doc_types = list(DocumentType)
-            expected_min_types = 10  # Should have at least 10 document types
-            
-            self.log_test_result(
-                "Document Type Enumeration",
-                len(doc_types) >= expected_min_types,
-                f"Found {len(doc_types)} document types (expected >= {expected_min_types})"
-            )
-            
-            # Test 3: Source type enumeration
-            source_types = list(SourceType)
-            expected_source_types = ['API', 'WEB_SCRAPING', 'RSS_FEED']
-            
-            has_expected_types = all(
-                any(st.value == expected for st in source_types) 
-                for expected in expected_source_types
-            )
-            
-            self.log_test_result(
-                "Source Type Enumeration",
-                has_expected_types,
-                f"Available source types: {[st.value for st in source_types]}"
-            )
-            
-            # Test 4: Legal document creation
+            # Test 1: Database service initialization
             try:
-                test_doc = LegalDocumentCreate(
-                    title="Test Legal Document",
-                    content="This is a test legal document content.",
-                    document_type=DocumentType.CASE_LAW,
-                    jurisdiction="United States",
-                    jurisdiction_level="federal",
-                    source="test_source",
-                    source_url="https://example.com/test"
-                )
+                mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+                db_service = UltraScaleDatabaseService(mongo_url)
                 
                 self.log_test_result(
-                    "Legal Document Creation",
+                    "UltraScaleDatabaseService Initialization",
                     True,
-                    f"Successfully created test document: {test_doc.title}"
+                    "Database service initialized successfully"
                 )
                 
             except Exception as e:
                 self.log_test_result(
-                    "Legal Document Creation",
+                    "UltraScaleDatabaseService Initialization",
                     False,
-                    f"Document creation failed: {str(e)}"
+                    f"Database service initialization failed: {str(e)}",
+                    critical=True
+                )
+                return
+            
+            # Test 2: Geographic sharding strategy
+            sharding_strategy = db_service.sharding_strategy
+            expected_shards = [
+                'us_federal', 'us_state', 'european_union', 'commonwealth',
+                'asia_pacific', 'academic', 'professional', 'specialized'
+            ]
+            
+            actual_shards = list(sharding_strategy.shard_configurations.keys())
+            missing_shards = [shard for shard in expected_shards if shard not in actual_shards]
+            
+            self.log_test_result(
+                "Geographic Sharding Strategy",
+                len(missing_shards) == 0,
+                f"Found {len(actual_shards)} shards, Missing: {missing_shards}",
+                critical=True
+            )
+            
+            # Test 3: Shard capacity verification
+            total_capacity = sum(
+                config.estimated_capacity 
+                for config in sharding_strategy.shard_configurations.values()
+            )
+            expected_min_capacity = 300_000_000  # Should handle 300M+ documents
+            
+            self.log_test_result(
+                "Shard Capacity Verification",
+                total_capacity >= expected_min_capacity,
+                f"Total capacity: {total_capacity:,} documents (expected >= {expected_min_capacity:,})",
+                critical=True
+            )
+            
+            # Test 4: Database architecture initialization
+            try:
+                await db_service.initialize_ultra_scale_architecture()
+                
+                self.log_test_result(
+                    "Ultra-Scale Architecture Initialization",
+                    True,
+                    "Database architecture initialized with all shards and indexes"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Ultra-Scale Architecture Initialization",
+                    False,
+                    f"Architecture initialization failed: {str(e)}",
+                    critical=True
+                )
+                return
+            
+            # Test 5: Document routing logic
+            test_documents = [
+                LegalDocumentCreate(
+                    title="Test US Federal Case",
+                    content="Test content for US federal case",
+                    document_type=DocumentType.CASE_LAW,
+                    jurisdiction="United States Federal",
+                    jurisdiction_level=JurisdictionLevel.FEDERAL,
+                    source="test_source",
+                    source_url="https://example.com/test1"
+                ),
+                LegalDocumentCreate(
+                    title="Test EU Regulation",
+                    content="Test content for EU regulation",
+                    document_type=DocumentType.REGULATION,
+                    jurisdiction="European Union",
+                    jurisdiction_level=JurisdictionLevel.INTERNATIONAL,
+                    source="test_source",
+                    source_url="https://example.com/test2"
+                )
+            ]
+            
+            routing_tests = []
+            for doc in test_documents:
+                target_shard = sharding_strategy.determine_shard(doc)
+                routing_tests.append(target_shard in expected_shards)
+                print(f"    📍 Document '{doc.title}' routed to shard: {target_shard}")
+            
+            self.log_test_result(
+                "Document Routing Logic",
+                all(routing_tests),
+                f"Successfully routed {len(test_documents)} test documents to appropriate shards"
+            )
+            
+            # Test 6: Index creation verification
+            index_count = 0
+            for shard_name, collection in db_service.collections.items():
+                try:
+                    index_info = await collection.index_information()
+                    shard_indexes = len([name for name in index_info.keys() if not name.startswith('_')])
+                    index_count += shard_indexes
+                    print(f"    🔧 Shard '{shard_name}': {shard_indexes} indexes created")
+                except Exception as e:
+                    print(f"    ❌ Failed to check indexes for shard '{shard_name}': {e}")
+            
+            expected_min_indexes = len(expected_shards) * 10  # At least 10 indexes per shard
+            
+            self.log_test_result(
+                "Ultra-Scale Index Creation",
+                index_count >= expected_min_indexes,
+                f"Created {index_count} total indexes across all shards (expected >= {expected_min_indexes})"
+            )
+            
+            # Test 7: Document creation and retrieval
+            try:
+                # Create a test document
+                test_doc = test_documents[0]
+                created_doc = await db_service.create_document(test_doc)
+                
+                self.log_test_result(
+                    "Document Creation",
+                    created_doc.id is not None,
+                    f"Successfully created document with ID: {created_doc.id}"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Document Creation",
+                    False,
+                    f"Document creation failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 8: Bulk document operations
+            try:
+                bulk_docs = test_documents * 2  # Create 4 test documents
+                document_ids = await db_service.create_documents_bulk(bulk_docs)
+                
+                self.log_test_result(
+                    "Bulk Document Operations",
+                    len(document_ids) == len(bulk_docs),
+                    f"Successfully created {len(document_ids)} documents in bulk"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Bulk Document Operations",
+                    False,
+                    f"Bulk document creation failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 9: Performance monitoring
+            performance_metrics = db_service.performance_metrics
+            
+            self.log_test_result(
+                "Performance Monitoring",
+                isinstance(performance_metrics, list),
+                f"Performance metrics tracking active with {len(performance_metrics)} recorded metrics"
+            )
+            
+            # Test 10: Connection cleanup
+            try:
+                await db_service.close_connections()
+                
+                self.log_test_result(
+                    "Connection Cleanup",
+                    True,
+                    "Database connections closed successfully"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Connection Cleanup",
+                    False,
+                    f"Connection cleanup failed: {str(e)}"
                 )
             
         except ImportError as e:
             self.log_test_result(
-                "Legal Models Import",
+                "Step 3.1 Database Service Import",
                 False,
-                f"Failed to import legal models: {str(e)}",
+                f"Failed to import Step 3.1 components: {str(e)}",
                 critical=True
             )
         except Exception as e:
             self.log_test_result(
-                "Legal Models Integration Test",
+                "Step 3.1 Ultra-Scale Database Architecture Test",
                 False,
-                f"Legal models test failed: {str(e)}",
+                f"Step 3.1 test failed: {str(e)}",
+                critical=True
+            )
+    
+    async def test_backend_api_integration(self):
+        """Test backend API integration with ultra-scale components"""
+        print("\n🌐 TESTING BACKEND API INTEGRATION")
+        print("=" * 60)
+        
+        try:
+            import requests
+            import json
+            
+            # Get backend URL from environment
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://megaindex-legal.preview.emergentagent.com')
+            api_base = f"{backend_url}/api"
+            
+            # Test 1: API health check
+            try:
+                response = requests.get(f"{api_base}/", timeout=10)
+                
+                self.log_test_result(
+                    "Backend API Health Check",
+                    response.status_code == 200,
+                    f"API responded with status {response.status_code}"
+                )
+                
+                if response.status_code == 200:
+                    api_info = response.json()
+                    print(f"    📡 API Version: {api_info.get('version', 'Unknown')}")
+                    print(f"    📡 API Status: {api_info.get('status', 'Unknown')}")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Backend API Health Check",
+                    False,
+                    f"API health check failed: {str(e)}",
+                    critical=True
+                )
+                return
+            
+            # Test 2: Dashboard stats endpoint
+            try:
+                response = requests.get(f"{api_base}/dashboard/stats", timeout=10)
+                
+                self.log_test_result(
+                    "Dashboard Stats Endpoint",
+                    response.status_code == 200,
+                    f"Dashboard stats endpoint responded with status {response.status_code}"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Dashboard Stats Endpoint",
+                    False,
+                    f"Dashboard stats request failed: {str(e)}"
+                )
+            
+            # Test 3: System health endpoint
+            try:
+                response = requests.get(f"{api_base}/dashboard/health", timeout=10)
+                
+                self.log_test_result(
+                    "System Health Endpoint",
+                    response.status_code == 200,
+                    f"System health endpoint responded with status {response.status_code}"
+                )
+                
+                if response.status_code == 200:
+                    health_data = response.json()
+                    print(f"    🏥 Database Status: {health_data.get('database_status', 'Unknown')}")
+                    print(f"    🏥 Scraping Service: {health_data.get('scraping_service_status', 'Unknown')}")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "System Health Endpoint",
+                    False,
+                    f"System health request failed: {str(e)}"
+                )
+            
+            # Test 4: Questions endpoint (basic functionality)
+            try:
+                response = requests.get(f"{api_base}/questions", timeout=10)
+                
+                self.log_test_result(
+                    "Questions Endpoint",
+                    response.status_code == 200,
+                    f"Questions endpoint responded with status {response.status_code}"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Questions Endpoint",
+                    False,
+                    f"Questions endpoint request failed: {str(e)}"
+                )
+            
+        except ImportError as e:
+            self.log_test_result(
+                "Backend API Integration Test",
+                False,
+                f"Failed to import required modules for API testing: {str(e)}"
+            )
+        except Exception as e:
+            self.log_test_result(
+                "Backend API Integration Test",
+                False,
+                f"API integration test failed: {str(e)}",
                 critical=True
             )
     

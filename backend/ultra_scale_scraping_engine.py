@@ -1062,15 +1062,21 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
             total_estimated_docs += estimated_docs
             
             # Calculate processing characteristics
-            avg_priority = statistics.mean([
-                get_source_config(source_id).get("priority", 5)
-                for source_id in sources if get_source_config(source_id)
-            ]) if sources else 5
+            valid_sources = [source_id for source_id in sources if get_source_config(source_id)]
             
-            avg_quality = statistics.mean([
-                get_source_config(source_id).get("quality_score", 8.0)
-                for source_id in sources if get_source_config(source_id)
-            ]) if sources else 8.0
+            if valid_sources:
+                avg_priority = statistics.mean([
+                    get_source_config(source_id).get("priority", 5)
+                    for source_id in valid_sources
+                ])
+                
+                avg_quality = statistics.mean([
+                    get_source_config(source_id).get("quality_score", 8.0)
+                    for source_id in valid_sources
+                ])
+            else:
+                avg_priority = 5.0
+                avg_quality = 8.0
             
             logger.info(f"📋 {group_name}: {len(sources)} sources, ~{estimated_docs:,} documents")
             logger.info(f"   ⭐ Avg Priority: {avg_priority:.1f}, Avg Quality: {avg_quality:.1f}")

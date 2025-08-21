@@ -1,8 +1,8 @@
 {
   "step": "3.1 - Ultra-Scale Database Architecture",
-  "timestamp": "2025-08-21T20:41:49.339197",
+  "timestamp": "2025-08-21T20:43:45.983410",
   "overall_status": "passed",
-  "total_execution_time_seconds": 0.43,
+  "total_execution_time_seconds": 0.39,
   "summary": {
     "total_tests": 5,
     "passed_tests": 5,
@@ -22,7 +22,7 @@
       "active_shards": 8,
       "metrics_generated": true,
       "test_status": "passed",
-      "execution_time_seconds": 0.172
+      "execution_time_seconds": 0.169
     },
     "Index Creation": {
       "shards_tested": 8,
@@ -78,46 +78,46 @@
         }
       },
       "test_status": "passed",
-      "execution_time_seconds": 0.1
+      "execution_time_seconds": 0.092
     },
     "Distributed Operations": {
       "documents_created": 4,
-      "create_time_seconds": 0.005,
+      "create_time_seconds": 0.003,
       "search_tests_performed": 4,
       "successful_searches": 4,
       "success_rate": 1.0,
       "search_results": {
         "US Jurisdiction Search": {
-          "documents_found": 2,
-          "total_count": 2,
-          "search_time_ms": 3.37,
+          "documents_found": 50,
+          "total_count": 53,
+          "search_time_ms": 4.43,
           "shards_queried": 1,
           "meets_expectations": true
         },
         "Case Law Search": {
-          "documents_found": 4,
-          "total_count": 4,
-          "search_time_ms": 6.13,
+          "documents_found": 50,
+          "total_count": 106,
+          "search_time_ms": 6.66,
           "shards_queried": 5,
           "meets_expectations": true
         },
         "Constitutional Law Search": {
-          "documents_found": 4,
-          "total_count": 4,
-          "search_time_ms": 9.89,
+          "documents_found": 6,
+          "total_count": 6,
+          "search_time_ms": 37.14,
           "shards_queried": 8,
           "meets_expectations": true
         },
         "Full-text Search": {
-          "documents_found": 4,
-          "total_count": 4,
-          "search_time_ms": 9.03,
+          "documents_found": 6,
+          "total_count": 6,
+          "search_time_ms": 9.45,
           "shards_queried": 8,
           "meets_expectations": true
         }
       },
       "test_status": "passed",
-      "execution_time_seconds": 0.087
+      "execution_time_seconds": 0.085
     },
     "Performance Benchmarks": {
       "benchmarks_tested": 3,
@@ -126,37 +126,37 @@
       "benchmark_details": {
         "bulk_insert_rate_docs_per_second": {
           "target": 50,
-          "actual": 2569.02,
+          "actual": 8567.5,
           "passed": true
         },
         "search_response_time_ms": {
           "target": 1000,
-          "actual": 5.43,
+          "actual": 5.78,
           "passed": true
         },
         "average_insert_time_ms": {
           "target": 100,
-          "actual": 0.389,
+          "actual": 0.117,
           "passed": true
         }
       },
       "full_performance_results": {
         "test_summary": {
           "total_documents_created": 100,
-          "total_test_time_seconds": 0.05,
-          "insert_time_seconds": 0.04,
+          "total_test_time_seconds": 0.02,
+          "insert_time_seconds": 0.01,
           "search_time_seconds": 0.01,
-          "insert_rate_docs_per_second": 2569.02,
-          "search_results_found": 52
+          "insert_rate_docs_per_second": 8567.5,
+          "search_results_found": 103
         },
         "performance_metrics": {
-          "average_insert_time_ms": 0.389,
-          "search_response_time_ms": 5.43,
+          "average_insert_time_ms": 0.117,
+          "search_response_time_ms": 5.78,
           "shards_utilized": 8
         }
       },
       "test_status": "passed",
-      "execution_time_seconds": 0.075
+      "execution_time_seconds": 0.041
     }
   }
 }

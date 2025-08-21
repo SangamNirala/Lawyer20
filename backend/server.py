@@ -124,7 +124,8 @@ async def get_api_info():
             "aptitude_questions": True,
             "web_scraping": True,
             "ultra_scale_api": ULTRA_SCALE_API_AVAILABLE,
-            "legal_document_processing": LEGAL_SCRAPING_AVAILABLE
+            "legal_document_processing": LEGAL_SCRAPING_AVAILABLE,
+            "performance_optimization": PERFORMANCE_OPTIMIZATION_AVAILABLE
         },
         "endpoints": {
             "core_endpoints": {

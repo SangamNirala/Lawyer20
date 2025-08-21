@@ -21,6 +21,25 @@ from database_service import DatabaseService
 from scraper_engine import IndiaBixScraper
 from scraper_config import INDIABIX_CONFIG
 
+# Import ultra-scale components (Step 4.1)
+try:
+    from ultra_scale_api_endpoints import ultra_api_router
+    ULTRA_SCALE_API_AVAILABLE = True
+    logging.info("✅ Ultra-scale API endpoints loaded successfully")
+except ImportError as e:
+    ULTRA_SCALE_API_AVAILABLE = False
+    logging.warning(f"⚠️ Ultra-scale API endpoints not available: {e}")
+
+# Import legal scraping components (Steps 2.1-3.1)
+try:
+    from ultra_scale_scraping_engine import UltraScaleScrapingEngine
+    from enhanced_legal_sources_config import ULTRA_COMPREHENSIVE_SOURCES
+    LEGAL_SCRAPING_AVAILABLE = True
+    logging.info("✅ Legal scraping components loaded successfully")
+except ImportError as e:
+    LEGAL_SCRAPING_AVAILABLE = False
+    logging.warning(f"⚠️ Legal scraping components not available: {e}")
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 

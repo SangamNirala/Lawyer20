@@ -969,14 +969,14 @@ async def main():
         success = await test_suite.run_all_tests()
         
         # Save test results to file
-        with open('/app/step_2_1_test_results.json', 'w') as f:
+        with open('/app/comprehensive_backend_test_results.json', 'w') as f:
             json.dump(test_suite.test_results, f, indent=2, default=str)
         
         if success:
-            print("\n🚀 Step 2.1 Ultra-Scale Legal Document Scraping System is READY!")
+            print("\n🚀 Ultra-Scale Legal Document System Backend is READY!")
             sys.exit(0)
         else:
-            print("\n❌ Step 2.1 implementation requires attention before deployment")
+            print("\n❌ Backend implementation requires attention before deployment")
             sys.exit(1)
             
     except Exception as e:

@@ -928,7 +928,7 @@ class Step21TestSuite:
         
         # Print final results
         print("\n" + "=" * 80)
-        print("🎯 STEP 2.1 TESTING RESULTS SUMMARY")
+        print("🎯 COMPREHENSIVE BACKEND TESTING RESULTS SUMMARY")
         print("=" * 80)
         
         print(f"📊 Total Tests: {self.test_results['total_tests']}")

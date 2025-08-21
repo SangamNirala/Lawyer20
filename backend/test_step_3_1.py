@@ -31,12 +31,11 @@ logger = logging.getLogger(__name__)
 class TestUltraScaleDatabaseArchitecture:
     """Comprehensive test suite for Step 3.1 implementation"""
     
-    @classmethod
-    def setup_class(cls):
-        """Set up test environment"""
+    def __init__(self):
+        """Initialize test environment"""
         # Use test database
-        cls.mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
-        cls.test_db_prefix = "test_ultra_scale"
+        self.mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+        self.test_db_prefix = "test_ultra_scale"
         
     async def test_geographic_sharding_strategy(self):
         """Test Step 3.1: Geographic sharding strategy initialization"""

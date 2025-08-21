@@ -40,6 +40,15 @@ except ImportError as e:
     LEGAL_SCRAPING_AVAILABLE = False
     logging.warning(f"⚠️ Legal scraping components not available: {e}")
 
+# Import Step 6.1 Performance Optimization components
+try:
+    from ultra_scale_performance_api import performance_api_router
+    PERFORMANCE_OPTIMIZATION_AVAILABLE = True
+    logging.info("✅ Performance optimization API loaded successfully")
+except ImportError as e:
+    PERFORMANCE_OPTIMIZATION_AVAILABLE = False
+    logging.warning(f"⚠️ Performance optimization API not available: {e}")
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 

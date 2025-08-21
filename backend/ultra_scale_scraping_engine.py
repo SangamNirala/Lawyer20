@@ -1522,7 +1522,6 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('/app/logs/ultra_scale_scraping.log'),
         logging.StreamHandler()
     ]
 )

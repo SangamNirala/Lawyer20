@@ -1101,10 +1101,14 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
                 for source_id in sources if get_source_config(source_id)
             )
             
-            avg_rate_limit = statistics.mean([
-                get_source_config(source_id).get("rate_limit", 100)
-                for source_id in sources if get_source_config(source_id)
-            ]) if sources else 100
+            valid_sources_for_rate = [source_id for source_id in sources if get_source_config(source_id)]
+            if valid_sources_for_rate:
+                avg_rate_limit = statistics.mean([
+                    get_source_config(source_id).get("rate_limit", 100)
+                    for source_id in valid_sources_for_rate
+                ])
+            else:
+                avg_rate_limit = 100
             
             # If group is too large, potentially split high-volume sources
             if total_docs > 100_000_000:  # 100M+ documents

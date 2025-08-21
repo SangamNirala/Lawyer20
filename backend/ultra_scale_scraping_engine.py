@@ -1409,6 +1409,30 @@ class LegalEntityExtractor:
 class DocumentRelationshipMapper:
     """Map relationships between legal documents"""
     
+    def __init__(self):
+        self.relationship_patterns = {
+            'cites': [r'see\s+(.+?)\d+', r'citing\s+(.+?)\d+', r'cf\.\s+(.+?)\d+'],
+            'overrules': [r'overrul\w+\s+(.+?)\d+', r'reject\w+\s+(.+?)\d+'],
+            'follows': [r'follow\w+\s+(.+?)\d+', r'adher\w+\s+to\s+(.+?)\d+'],
+            'distinguishes': [r'distinguis\w+\s+(.+?)\d+', r'differ\w+\s+from\s+(.+?)\d+']
+        }
+    
+    async def map_document_relationships(self, content: str) -> Dict[str, List[str]]:
+        """Map relationships between documents"""
+        relationships = {}
+        
+        for rel_type, patterns in self.relationship_patterns.items():
+            related_cases = []
+            for pattern in patterns:
+                import re
+                matches = re.findall(pattern, content, re.IGNORECASE)
+                related_cases.extend(matches)
+            
+            if related_cases:
+                relationships[rel_type] = list(set(related_cases))  # Remove duplicates
+        
+        return relationships
+    
     async def map_relationships(self, document: Dict[str, Any], 
                               existing_documents: List[Dict[str, Any]]) -> Dict[str, List[str]]:
         """Map relationships to other documents"""

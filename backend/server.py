@@ -437,6 +437,11 @@ async def cancel_scraping_job(job_id: str):
 # Include the router in the main app
 app.include_router(api_router)
 
+# Include ultra-scale API router if available (Step 4.1)
+if ULTRA_SCALE_API_AVAILABLE:
+    app.include_router(ultra_api_router, tags=["Ultra-Scale API"])
+    logging.info("✅ Ultra-scale API endpoints integrated successfully")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,

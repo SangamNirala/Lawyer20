@@ -1101,7 +1101,10 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
                 for source_id in sources if get_source_config(source_id)
             )
             
-            valid_sources_for_rate = [source_id for source_id in sources if get_source_config(source_id)]
+            valid_sources_for_rate = [
+                source_id for source_id in sources 
+                if get_source_config(source_id) and get_source_config(source_id).get("rate_limit") is not None
+            ]
             if valid_sources_for_rate:
                 avg_rate_limit = statistics.mean([
                     get_source_config(source_id).get("rate_limit", 100)

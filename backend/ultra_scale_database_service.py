@@ -1032,6 +1032,7 @@ async def test_ultra_scale_performance(service: UltraScaleDatabaseService,
             content=f"This is test content for document {i}" * 10,  # Realistic size
             document_type=DocumentType.CASE_LAW,
             jurisdiction="United States" if i % 2 == 0 else "European Union",
+            jurisdiction_level=JurisdictionLevel.FEDERAL if i % 2 == 0 else JurisdictionLevel.INTERNATIONAL,
             source="performance_test",
             source_url=f"https://test.com/doc/{i}",
             confidence_score=0.9

@@ -1,40 +1,128 @@
 {
   "step": "3.1 - Ultra-Scale Database Architecture",
-  "timestamp": "2025-08-21T20:40:21.904784",
-  "overall_status": "failed",
-  "total_execution_time_seconds": 0.0,
+  "timestamp": "2025-08-21T20:41:16.839976",
+  "overall_status": "warning",
+  "total_execution_time_seconds": 0.85,
   "summary": {
     "total_tests": 5,
-    "passed_tests": 0,
+    "passed_tests": 4,
     "warning_tests": 0,
-    "failed_tests": 5,
-    "success_rate": 0.0
+    "failed_tests": 1,
+    "success_rate": 0.8
   },
   "test_results": {
     "Geographic Sharding Strategy": {
-      "test_status": "failed",
-      "error": "2 validation errors for LegalDocumentCreate\njurisdiction_level\n  Field required [type=missing, input_value={'title': 'Test Document'...ates', 'source': 'test'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.11/v/missing\nsource_url\n  Field required [type=missing, input_value={'title': 'Test Document'...ates', 'source': 'test'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.11/v/missing",
+      "shards_configured": 8,
+      "routing_accuracy": 1.0,
+      "test_status": "passed",
       "execution_time_seconds": 0.0
     },
     "Database Initialization": {
-      "test_status": "failed",
-      "error": "'TestUltraScaleDatabaseArchitecture' object has no attribute 'mongo_url'",
-      "execution_time_seconds": 0.0
+      "shards_initialized": 8,
+      "active_shards": 8,
+      "metrics_generated": true,
+      "test_status": "passed",
+      "execution_time_seconds": 0.66
     },
     "Index Creation": {
-      "test_status": "failed",
-      "error": "'TestUltraScaleDatabaseArchitecture' object has no attribute 'mongo_url'",
-      "execution_time_seconds": 0.0
+      "shards_tested": 8,
+      "overall_coverage_percentage": 100.0,
+      "shard_results": {
+        "us_federal": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        },
+        "us_state": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        },
+        "european_union": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        },
+        "commonwealth": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        },
+        "asia_pacific": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        },
+        "academic": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        },
+        "professional": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        },
+        "specialized": {
+          "expected_count": 13,
+          "created_count": 13,
+          "matching_count": 13,
+          "coverage_percentage": 100.0
+        }
+      },
+      "test_status": "passed",
+      "execution_time_seconds": 0.083
     },
     "Distributed Operations": {
-      "test_status": "failed",
-      "error": "'TestUltraScaleDatabaseArchitecture' object has no attribute 'mongo_url'",
-      "execution_time_seconds": 0.0
+      "documents_created": 4,
+      "create_time_seconds": 0.003,
+      "search_tests_performed": 4,
+      "successful_searches": 4,
+      "success_rate": 1.0,
+      "search_results": {
+        "US Jurisdiction Search": {
+          "documents_found": 1,
+          "total_count": 1,
+          "search_time_ms": 2.82,
+          "shards_queried": 1,
+          "meets_expectations": true
+        },
+        "Case Law Search": {
+          "documents_found": 2,
+          "total_count": 2,
+          "search_time_ms": 3.63,
+          "shards_queried": 5,
+          "meets_expectations": true
+        },
+        "Constitutional Law Search": {
+          "documents_found": 2,
+          "total_count": 2,
+          "search_time_ms": 5.34,
+          "shards_queried": 8,
+          "meets_expectations": true
+        },
+        "Full-text Search": {
+          "documents_found": 2,
+          "total_count": 2,
+          "search_time_ms": 4.87,
+          "shards_queried": 8,
+          "meets_expectations": true
+        }
+      },
+      "test_status": "passed",
+      "execution_time_seconds": 0.04
     },
     "Performance Benchmarks": {
       "test_status": "failed",
-      "error": "'TestUltraScaleDatabaseArchitecture' object has no attribute 'mongo_url'",
-      "execution_time_seconds": 0.0
+      "error": "1 validation error for LegalDocumentCreate\njurisdiction_level\n  Field required [type=missing, input_value={'title': 'Test Document ...'confidence_score': 0.9}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.11/v/missing",
+      "execution_time_seconds": 0.062
     }
   }
 }

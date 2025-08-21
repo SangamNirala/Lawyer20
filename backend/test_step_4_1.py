@@ -292,15 +292,17 @@ class TestUltraScaleAPISystem:
         """Test Step 4.1: Integration with Step 3.1 database architecture"""
         logger.info("🧪 Testing Ultra-Scale Database Integration...")
         
-        if not ULTRA_SCALE_AVAILABLE:
-            logger.warning("⚠️ Ultra-scale components not available - skipping database integration tests")
+        if not ULTRA_SCALE_AVAILABLE or not DATABASE_SERVICE_AVAILABLE:
+            logger.warning("⚠️ Ultra-scale database components not available - skipping database integration tests")
             return {
                 'test_status': 'skipped',
-                'reason': 'ultra_scale_not_available'
+                'reason': 'database_service_not_available'
             }
         
         try:
             # Test 1: Database service initialization
+            from ultra_scale_database_service import UltraScaleDatabaseService
+            
             db_service = UltraScaleDatabaseService(self.mongo_url)
             await db_service.initialize_ultra_scale_architecture()
             

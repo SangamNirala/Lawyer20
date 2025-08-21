@@ -25,12 +25,19 @@ try:
     )
     from query_optimization_service import UltraScaleQueryBuilder
     from source_health_monitor import UltraScaleSourceHealthMonitor
-    from ultra_scale_database_service import UltraScaleDatabaseService
     from enhanced_legal_sources_config import ULTRA_COMPREHENSIVE_SOURCES
     ULTRA_SCALE_AVAILABLE = True
 except ImportError as e:
     ULTRA_SCALE_AVAILABLE = False
     logging.warning(f"Ultra-scale components not available: {e}")
+
+# Try to import database service (may not be available in all environments)
+try:
+    from ultra_scale_database_service import UltraScaleDatabaseService
+    DATABASE_SERVICE_AVAILABLE = True
+except ImportError as e:
+    DATABASE_SERVICE_AVAILABLE = False
+    logging.warning(f"Database service not available: {e}")
 
 from legal_models import DocumentType, JurisdictionLevel, ProcessingStatus
 

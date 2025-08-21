@@ -253,22 +253,29 @@ class SourcePoolManager:
         }
 
 class MassiveDocumentProcessor:
-    """Advanced document processing with AI-powered quality enhancement"""
+    """Advanced document processing with AI-powered quality enhancement - Step 2.2 Implementation"""
     
     def __init__(self):
-        self.ai_processor = AIContentProcessor()
-        self.processing_stats = {
-            "documents_processed": 0,
-            "documents_enhanced": 0,
-            "processing_time": 0,
-            "quality_improvements": 0
+        # Import specialized processors
+        from specialized_processors import (
+            USFederalCitationExtractor, USStateCitationExtractor,
+            InternationalCitationExtractor, AcademicCitationExtractor,
+            create_all_topic_classifiers
+        )
+        
+        # Step 2.2: Specialized Citation Extractors by Legal System
+        self.citation_extractors = {
+            'us_federal': USFederalCitationExtractor(),
+            'us_state': USStateCitationExtractor(), 
+            'international': InternationalCitationExtractor(),
+            'academic': AcademicCitationExtractor()
         }
         
-        # Multi-threaded processing pools
-        self.thread_pool = ThreadPoolExecutor(max_workers=50)
-        self.process_pool = ProcessPoolExecutor(max_workers=mp.cpu_count())
+        # Step 2.2: 50+ Specialized Topic Classifiers
+        self.topic_classifiers = create_all_topic_classifiers()
+        logger.info(f"🧠 Initialized {len(self.topic_classifiers)} specialized topic classifiers")
         
-        # Advanced content analyzers
+        # Legacy content analyzers (from Step 2.1)
         self.content_analyzers = {
             'citation_extractor': AdvancedCitationExtractor(),
             'topic_classifier': AITopicClassifier(),
@@ -276,6 +283,389 @@ class MassiveDocumentProcessor:
             'entity_extractor': LegalEntityExtractor(),
             'relationship_mapper': DocumentRelationshipMapper()
         }
+        
+        # Processing statistics
+        self.processing_stats = {
+            "documents_processed": 0,
+            "documents_enhanced": 0,
+            "processing_time": 0,
+            "quality_improvements": 0,
+            "citation_extractions": 0,
+            "topic_classifications": 0
+        }
+        
+        # Multi-threaded processing pools
+        self.thread_pool = ThreadPoolExecutor(max_workers=50)
+        self.process_pool = ProcessPoolExecutor(max_workers=mp.cpu_count())
+        
+        logger.info("🚀 MassiveDocumentProcessor initialized with Step 2.2 enhancements")
+    
+    async def process_document_batch(self, documents: List[Dict[str, Any]], 
+                                   source_id: str, processing_context: Dict[str, Any]) -> List[LegalDocumentCreate]:
+        """Step 2.2: Process batch of documents with source-specific optimization"""
+        start_time = time.time()
+        processed_docs = []
+        
+        # Get source configuration to determine processing strategy
+        source_config = get_source_config(source_id)
+        source_type = self._determine_source_type(source_config)
+        
+        logger.info(f"📄 Processing {len(documents)} documents from {source_id} (type: {source_type})")
+        
+        # Step 2.2: Source-specific processing optimization
+        for doc in documents:
+            try:
+                # Route to appropriate source-specific processor
+                if source_type == 'government_api':
+                    processed_doc = await self.process_government_document(doc, source_id, processing_context)
+                elif source_type == 'academic_repository':
+                    processed_doc = await self.process_academic_document(doc, source_id, processing_context)
+                elif source_type == 'international_court':
+                    processed_doc = await self.process_international_document(doc, source_id, processing_context)
+                elif source_type == 'legal_news':
+                    processed_doc = await self.process_legal_news_document(doc, source_id, processing_context)
+                elif source_type == 'bar_association':
+                    processed_doc = await self.process_bar_association_document(doc, source_id, processing_context)
+                else:
+                    # Fallback to general processing
+                    processed_doc = await self.process_general_document(doc, source_id, processing_context)
+                
+                if processed_doc:
+                    processed_docs.append(processed_doc)
+                    self.processing_stats["documents_processed"] += 1
+                    
+            except Exception as e:
+                logger.error(f"Error processing document from {source_id}: {e}")
+                continue
+        
+        # Update processing statistics
+        processing_time = time.time() - start_time
+        self.processing_stats["processing_time"] += processing_time
+        
+        logger.info(f"✅ Processed {len(processed_docs)}/{len(documents)} documents from {source_id} in {processing_time:.2f}s")
+        
+        return processed_docs
+    
+    def _determine_source_type(self, source_config: Optional[Dict[str, Any]]) -> str:
+        """Determine the type of source for specialized processing"""
+        if not source_config:
+            return 'unknown'
+            
+        source_name = source_config.get('name', '').lower()
+        base_url = source_config.get('base_url', '').lower()
+        jurisdiction = source_config.get('jurisdiction', '').lower()
+        
+        # Government sources
+        if any(indicator in source_name or indicator in base_url for indicator in 
+               ['gov', 'government', 'federal', 'department', 'agency', 'bureau']):
+            return 'government_api'
+        
+        # Academic sources
+        elif any(indicator in source_name or indicator in base_url for indicator in 
+                ['university', 'college', 'edu', 'academic', 'scholarship', 'law school']):
+            return 'academic_repository'
+        
+        # International courts
+        elif any(indicator in source_name for indicator in 
+                ['international', 'european court', 'icj', 'echr', 'cjeu']):
+            return 'international_court'
+        
+        # Legal news
+        elif any(indicator in source_name for indicator in 
+                ['news', 'blog', 'journal', 'magazine', 'reporter']):
+            return 'legal_news'
+        
+        # Bar associations
+        elif any(indicator in source_name for indicator in 
+                ['bar', 'association', 'lawyer', 'attorney']):
+            return 'bar_association'
+        
+        else:
+            return 'general'
+    
+    async def process_government_document(self, doc: Dict[str, Any], source_id: str, 
+                                        context: Dict[str, Any]) -> Optional[LegalDocumentCreate]:
+        """Step 2.2: Specialized processing for government documents"""
+        try:
+            # Extract enhanced content with government-specific patterns
+            title = self._extract_field_intelligently(doc, ['title', 'name', 'regulation_title', 'rule_title'])
+            content = self._extract_field_intelligently(doc, ['content', 'text', 'full_text', 'regulation_text'])
+            
+            if not title and not content:
+                return None
+            
+            # Use specialized US Federal citation extractor
+            federal_citations = await self.citation_extractors['us_federal'].extract_citations(content or '')
+            
+            # Enhanced topic classification for government documents
+            government_topics = []
+            for topic_name, classifier in self.topic_classifiers.items():
+                if topic_name in ['constitutional', 'administrative', 'regulatory', 'tax', 'environmental']:
+                    classification = await classifier.classify(content or '')
+                    if classification.get('confidence', 0) > 0.6:
+                        government_topics.append({
+                            'topic': classification['topic'],
+                            'confidence': classification['confidence'],
+                            'subcategories': classification.get('subcategories', [])
+                        })
+            
+            # Government-specific metadata extraction
+            regulation_number = self._extract_regulation_number(doc, content or '')
+            effective_date = self._extract_effective_date(doc)
+            agency_name = self._extract_agency_name(doc, source_id)
+            
+            return LegalDocumentCreate(
+                title=title or 'Untitled Government Document',
+                content=content or '',
+                document_type=self._determine_government_document_type(doc, content or ''),
+                jurisdiction=get_source_config(source_id).get('jurisdiction', 'United States'),
+                court=agency_name,
+                date_published=effective_date or self._extract_date_intelligently(doc),
+                citations=[cite['full_text'] for cite in federal_citations],
+                legal_topics=[topic['topic'] for topic in government_topics],
+                source=source_id,
+                source_url=self._extract_field_intelligently(doc, ['url', 'link', 'permalink']),
+                confidence_score=self._calculate_government_confidence(doc, federal_citations, government_topics),
+                processing_status=ProcessingStatus.ENHANCED,
+                # Government-specific fields
+                metadata={
+                    'regulation_number': regulation_number,
+                    'agency': agency_name,
+                    'citation_details': federal_citations,
+                    'topic_classifications': government_topics
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"Error in government document processing: {e}")
+            return None
+    
+    async def process_academic_document(self, doc: Dict[str, Any], source_id: str, 
+                                      context: Dict[str, Any]) -> Optional[LegalDocumentCreate]:
+        """Step 2.2: Specialized processing for academic documents"""
+        try:
+            # Academic-specific field extraction
+            title = self._extract_field_intelligently(doc, ['title', 'article_title', 'paper_title'])
+            content = self._extract_field_intelligently(doc, ['content', 'abstract', 'full_text', 'body'])
+            
+            if not title and not content:
+                return None
+            
+            # Use specialized academic citation extractor
+            academic_citations = await self.citation_extractors['academic'].extract_citations(content or '')
+            
+            # Enhanced academic topic classification
+            academic_topics = []
+            for topic_name, classifier in self.topic_classifiers.items():
+                classification = await classifier.classify(content or '')
+                if classification.get('confidence', 0) > 0.5:  # Lower threshold for academic content
+                    academic_topics.append({
+                        'topic': classification['topic'],
+                        'confidence': classification['confidence'],
+                        'subcategories': classification.get('subcategories', [])
+                    })
+            
+            # Academic-specific metadata
+            authors = self._extract_authors(doc)
+            journal_name = self._extract_journal_name(doc, source_id)
+            publication_year = self._extract_publication_year(doc)
+            doi = self._extract_field_intelligently(doc, ['doi', 'DOI'])
+            
+            return LegalDocumentCreate(
+                title=title or 'Untitled Academic Article',
+                content=content or '',
+                document_type=DocumentType.SCHOLARLY_ARTICLE,
+                jurisdiction=get_source_config(source_id).get('jurisdiction', 'International'),
+                date_published=self._extract_date_intelligently(doc),
+                citations=[cite['full_text'] for cite in academic_citations],
+                legal_topics=[topic['topic'] for topic in academic_topics],
+                source=source_id,
+                source_url=self._extract_field_intelligently(doc, ['url', 'link', 'permalink']),
+                confidence_score=self._calculate_academic_confidence(doc, academic_citations, academic_topics),
+                processing_status=ProcessingStatus.ENHANCED,
+                # Academic-specific fields
+                metadata={
+                    'authors': authors,
+                    'journal': journal_name,
+                    'publication_year': publication_year,
+                    'doi': doi,
+                    'citation_details': academic_citations,
+                    'topic_classifications': academic_topics
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"Error in academic document processing: {e}")
+            return None
+    
+    async def process_international_document(self, doc: Dict[str, Any], source_id: str, 
+                                           context: Dict[str, Any]) -> Optional[LegalDocumentCreate]:
+        """Step 2.2: Specialized processing for international legal documents"""
+        try:
+            # International-specific field extraction
+            title = self._extract_field_intelligently(doc, ['title', 'case_name', 'judgment_title'])
+            content = self._extract_field_intelligently(doc, ['content', 'judgment_text', 'decision_text'])
+            
+            if not title and not content:
+                return None
+            
+            # Use specialized international citation extractor
+            international_citations = await self.citation_extractors['international'].extract_citations(content or '')
+            
+            # International law topic classification
+            international_topics = []
+            for topic_name, classifier in self.topic_classifiers.items():
+                if topic_name in ['international', 'human_rights', 'trade', 'criminal_international']:
+                    classification = await classifier.classify(content or '')
+                    if classification.get('confidence', 0) > 0.4:  # Adjusted threshold for international content
+                        international_topics.append({
+                            'topic': classification['topic'],
+                            'confidence': classification['confidence'],
+                            'subcategories': classification.get('subcategories', [])
+                        })
+            
+            # International-specific metadata
+            court_name = self._extract_international_court_name(doc, source_id)
+            case_number = self._extract_case_number(doc)
+            parties = self._extract_international_parties(doc)
+            
+            return LegalDocumentCreate(
+                title=title or 'Untitled International Document',
+                content=content or '',
+                document_type=self._determine_international_document_type(doc, content or ''),
+                jurisdiction=get_source_config(source_id).get('jurisdiction', 'International'),
+                court=court_name,
+                date_published=self._extract_date_intelligently(doc),
+                citations=[cite['full_text'] for cite in international_citations],
+                legal_topics=[topic['topic'] for topic in international_topics],
+                parties=parties,
+                source=source_id,
+                source_url=self._extract_field_intelligently(doc, ['url', 'link', 'permalink']),
+                confidence_score=self._calculate_international_confidence(doc, international_citations, international_topics),
+                processing_status=ProcessingStatus.ENHANCED,
+                # International-specific fields
+                metadata={
+                    'court': court_name,
+                    'case_number': case_number,
+                    'parties': parties,
+                    'citation_details': international_citations,
+                    'topic_classifications': international_topics
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"Error in international document processing: {e}")
+            return None
+    
+    async def process_legal_news_document(self, doc: Dict[str, Any], source_id: str, 
+                                        context: Dict[str, Any]) -> Optional[LegalDocumentCreate]:
+        """Step 2.2: Specialized processing for legal news and journalism"""
+        try:
+            title = self._extract_field_intelligently(doc, ['title', 'headline', 'article_title'])
+            content = self._extract_field_intelligently(doc, ['content', 'body', 'article_text'])
+            
+            if not title and not content:
+                return None
+            
+            # Extract citations from news content (mixed types)
+            all_citations = []
+            for extractor in self.citation_extractors.values():
+                citations = await extractor.extract_citations(content or '')
+                all_citations.extend([cite['full_text'] for cite in citations])
+            
+            # News-relevant topic classification
+            news_topics = []
+            for topic_name, classifier in self.topic_classifiers.items():
+                classification = await classifier.classify(content or '')
+                if classification.get('confidence', 0) > 0.3:  # Lower threshold for news content
+                    news_topics.append({
+                        'topic': classification['topic'],
+                        'confidence': classification['confidence']
+                    })
+            
+            return LegalDocumentCreate(
+                title=title or 'Untitled Legal News',
+                content=content or '',
+                document_type=DocumentType.LEGAL_NEWS,
+                jurisdiction=get_source_config(source_id).get('jurisdiction', 'Unknown'),
+                date_published=self._extract_date_intelligently(doc),
+                citations=all_citations,
+                legal_topics=[topic['topic'] for topic in news_topics],
+                source=source_id,
+                source_url=self._extract_field_intelligently(doc, ['url', 'link']),
+                confidence_score=self._calculate_news_confidence(doc, all_citations, news_topics),
+                processing_status=ProcessingStatus.PROCESSED,
+                metadata={
+                    'author': self._extract_field_intelligently(doc, ['author', 'byline']),
+                    'publication': self._extract_field_intelligently(doc, ['publication', 'source']),
+                    'topic_classifications': news_topics
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"Error in news document processing: {e}")
+            return None
+    
+    async def process_bar_association_document(self, doc: Dict[str, Any], source_id: str, 
+                                             context: Dict[str, Any]) -> Optional[LegalDocumentCreate]:
+        """Step 2.2: Specialized processing for bar association documents"""
+        try:
+            title = self._extract_field_intelligently(doc, ['title', 'document_title', 'publication_title'])
+            content = self._extract_field_intelligently(doc, ['content', 'text', 'body'])
+            
+            if not title and not content:
+                return None
+            
+            # Bar association documents often reference multiple citation types
+            mixed_citations = []
+            for extractor_name in ['us_federal', 'us_state']:
+                if extractor_name in self.citation_extractors:
+                    citations = await self.citation_extractors[extractor_name].extract_citations(content or '')
+                    mixed_citations.extend([cite['full_text'] for cite in citations])
+            
+            # Professional practice-focused topic classification
+            bar_topics = []
+            practice_areas = ['ethics', 'professional_responsibility', 'bar_discipline', 'malpractice']
+            for topic_name, classifier in self.topic_classifiers.items():
+                if any(area in topic_name for area in practice_areas) or topic_name in ['corporate', 'criminal', 'civil']:
+                    classification = await classifier.classify(content or '')
+                    if classification.get('confidence', 0) > 0.4:
+                        bar_topics.append({
+                            'topic': classification['topic'],
+                            'confidence': classification['confidence']
+                        })
+            
+            return LegalDocumentCreate(
+                title=title or 'Untitled Bar Publication',
+                content=content or '',
+                document_type=DocumentType.BAR_PUBLICATION,
+                jurisdiction=get_source_config(source_id).get('jurisdiction', 'Unknown'),
+                date_published=self._extract_date_intelligently(doc),
+                citations=mixed_citations,
+                legal_topics=[topic['topic'] for topic in bar_topics],
+                source=source_id,
+                source_url=self._extract_field_intelligently(doc, ['url', 'link']),
+                confidence_score=self._calculate_bar_confidence(doc, mixed_citations, bar_topics),
+                processing_status=ProcessingStatus.PROCESSED,
+                metadata={
+                    'bar_association': self._extract_bar_association_name(source_id),
+                    'topic_classifications': bar_topics
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"Error in bar association document processing: {e}")
+            return None
+    
+    async def process_general_document(self, doc: Dict[str, Any], source_id: str, 
+                                     context: Dict[str, Any]) -> Optional[LegalDocumentCreate]:
+        """Step 2.2: General processing for unspecialized sources"""
+        try:
+            # Use the enhanced processing from Step 2.1 as fallback
+            return await self._process_single_document_quality(doc, source_id, context)
+        except Exception as e:
+            logger.error(f"Error in general document processing: {e}")
+            return None
     
     async def process_document_batch(self, documents: List[Dict[str, Any]], 
                                    source_id: str, processing_context: Dict[str, Any]) -> List[LegalDocumentCreate]:

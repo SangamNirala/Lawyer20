@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Implement Step 5.1 of the main task that is - (5.1 Ultra-Comprehensive Search Interface) - Advanced frontend for 370M+ documents with comprehensive search interface, jurisdiction browser, real-time analytics, and visualizations"
+user_problem_statement: "Implement Step 6.1 of the main task that is - Ultra-Scale Performance Optimization with MongoDB Caching - Advanced performance optimization for 370M+ documents with MongoDB-based multi-layer caching, AI-powered query optimization, and sub-2-second performance targets"
 
 backend:
   - task: "Step 2.1 - Massive Concurrent Processing Architecture"

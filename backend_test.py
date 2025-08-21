@@ -906,7 +906,8 @@ class Step21TestSuite:
             self.test_quality_assurance_system,
             self.test_resource_monitoring,
             self.test_intelligent_scraper_engine,
-            self.test_legal_models_integration
+            self.test_step_3_1_ultra_scale_database_architecture,
+            self.test_backend_api_integration
         ]
         
         for test_suite in test_suites:

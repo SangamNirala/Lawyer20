@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Implement Step 6.1 of the main task that is - Ultra-Scale Performance Optimization with MongoDB Caching - Advanced performance optimization for 370M+ documents with MongoDB-based multi-layer caching, AI-powered query optimization, and sub-2-second performance targets"
+user_problem_statement: "Implement enhanced legal document extraction system to replace raw HTML extraction with clean, readable text suitable for legal chatbot knowledge base. Transform scraper from outputting JavaScript, HTML tags, and truncated content to producing complete, human-readable legal documents with intelligent content filtering, quality assessment, and proper metadata extraction."
 
 backend:
   - task: "Step 2.1 - Massive Concurrent Processing Architecture"

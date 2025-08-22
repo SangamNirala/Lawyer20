@@ -89,10 +89,11 @@ async def fetch_with_requests(url: str, headers: Optional[Dict] = None) -> Optio
         }
 
 class DocumentExtractor:
-    """Extract documents from legal sources without full browser"""
+    """Extract documents from legal sources with enhanced content processing"""
     
     def __init__(self):
         self.session = None
+        self.content_extractor = IntelligentContentExtractor()
         
     async def __aenter__(self):
         self.session = aiohttp.ClientSession(

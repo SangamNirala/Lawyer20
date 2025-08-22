@@ -47,6 +47,7 @@ from ultra_comprehensive_global_sources import (
     get_comprehensive_statistics
 )
 from intelligent_scraper_engine import IntelligentScrapingEngine, AIContentProcessor
+from enhanced_content_extractor_v2 import EnhancedContentExtractorV2
 
 logger = logging.getLogger(__name__)
 

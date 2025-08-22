@@ -39,6 +39,13 @@ from enhanced_legal_sources_config import (
     ULTRA_COMPREHENSIVE_SOURCES, ULTRA_SCALE_CONFIG,
     get_sources_by_tier, get_source_config, get_source_statistics
 )
+from ultra_comprehensive_global_sources import (
+    ULTRA_COMPREHENSIVE_GLOBAL_SOURCES,
+    ULTRA_COMPREHENSIVE_CONFIG,
+    get_sources_by_tier,
+    get_sources_by_priority,
+    get_comprehensive_statistics
+)
 from intelligent_scraper_engine import IntelligentScrapingEngine, AIContentProcessor
 
 logger = logging.getLogger(__name__)

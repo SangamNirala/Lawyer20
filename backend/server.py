@@ -308,6 +308,153 @@ async def get_categories():
         logging.error(f"Error getting categories: {e}")
         raise HTTPException(status_code=500, detail="Failed to retrieve categories")
 
+# Legal Document Extraction Results
+@api_router.get("/extraction/results")
+async def get_extraction_results():
+    """Get comprehensive legal document extraction results and statistics"""
+    try:
+        import pymongo
+        from datetime import datetime
+        import json
+        
+        # Connect to extraction database
+        mongo_url = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
+        client = pymongo.MongoClient(mongo_url)
+        db = client['legal_extraction_demo']
+        
+        # Get all collections (sources)
+        collections = db.list_collection_names()
+        
+        # Collect statistics
+        extraction_stats = {
+            "total_sources": len(collections),
+            "total_documents": 0,
+            "extraction_timestamp": datetime.utcnow().isoformat(),
+            "sources_breakdown": {},
+            "document_types_distribution": {},
+            "tier_performance": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0},
+            "sample_documents": []
+        }
+        
+        # Source mapping to tiers
+        source_tiers = {
+            "documents_dept_treasury": 1,
+            "documents_dept_justice": 1,  
+            "documents_uk_supreme_court": 2,
+            "documents_aba": 5,
+            "documents_new_york_bar": 5,
+            "documents_texas_bar": 5
+        }
+        
+        # Process each collection
+        for collection_name in collections:
+            collection = db[collection_name]
+            doc_count = collection.count_documents({})
+            extraction_stats["total_documents"] += doc_count
+            
+            # Get source name (remove 'documents_' prefix)
+            source_name = collection_name.replace('documents_', '')
+            extraction_stats["sources_breakdown"][source_name] = {
+                "document_count": doc_count,
+                "tier": source_tiers.get(collection_name, 0)
+            }
+            
+            # Update tier performance
+            tier = source_tiers.get(collection_name, 0)
+            if tier in extraction_stats["tier_performance"]:
+                extraction_stats["tier_performance"][tier] += doc_count
+            
+            # Get sample documents from this collection
+            if doc_count > 0:
+                sample_docs = list(collection.find().limit(2))
+                for doc in sample_docs:
+                    doc_type = doc.get('document_type', 'unknown')
+                    extraction_stats["document_types_distribution"][doc_type] = (
+                        extraction_stats["document_types_distribution"].get(doc_type, 0) + 1
+                    )
+                    
+                    extraction_stats["sample_documents"].append({
+                        "source": source_name,
+                        "title": doc.get('title', 'Untitled')[:100],
+                        "document_type": doc_type,
+                        "content_length": doc.get('content_length', 0),
+                        "confidence_score": doc.get('confidence_score', 0),
+                        "content_preview": doc.get('content', '')[:300],
+                        "extracted_at": doc.get('extracted_at', '').isoformat() if hasattr(doc.get('extracted_at', ''), 'isoformat') else str(doc.get('extracted_at', ''))
+                    })
+        
+        # Load extraction report if available
+        try:
+            report_files = [f for f in os.listdir('/app/backend/') if f.startswith('targeted_extraction_report_') and f.endswith('.json')]
+            if report_files:
+                latest_report = sorted(report_files)[-1]
+                with open(f'/app/backend/{latest_report}', 'r') as f:
+                    extraction_report = json.load(f)
+                    extraction_stats["processing_performance"] = extraction_report.get("extraction_summary", {})
+                    extraction_stats["detailed_source_results"] = extraction_report.get("detailed_results", [])
+        except Exception as e:
+            logging.warning(f"Could not load extraction report: {e}")
+        
+        client.close()
+        
+        # Add success metrics
+        extraction_stats["success_metrics"] = {
+            "successful_sources": len([s for s in extraction_stats["sources_breakdown"].values() if s["document_count"] > 0]),
+            "extraction_success_rate": len([s for s in extraction_stats["sources_breakdown"].values() if s["document_count"] > 0]) / max(len(collections), 1) * 100,
+            "average_documents_per_source": extraction_stats["total_documents"] / max(len(collections), 1)
+        }
+        
+        return extraction_stats
+        
+    except Exception as e:
+        logging.error(f"Error getting extraction results: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve extraction results: {str(e)}")
+
+@api_router.get("/extraction/documents/{source_id}")
+async def get_extraction_documents(source_id: str, page: int = 1, per_page: int = 10):
+    """Get documents from a specific extraction source"""
+    try:
+        import pymongo
+        
+        mongo_url = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
+        client = pymongo.MongoClient(mongo_url)
+        db = client['legal_extraction_demo']
+        
+        collection_name = f"documents_{source_id}"
+        if collection_name not in db.list_collection_names():
+            raise HTTPException(status_code=404, detail=f"Source '{source_id}' not found")
+        
+        collection = db[collection_name]
+        
+        # Calculate pagination
+        total_docs = collection.count_documents({})
+        skip = (page - 1) * per_page
+        
+        # Get documents
+        documents = list(collection.find({}, {'_id': 0}).skip(skip).limit(per_page))
+        
+        # Format datetime objects
+        for doc in documents:
+            if 'extracted_at' in doc and hasattr(doc['extracted_at'], 'isoformat'):
+                doc['extracted_at'] = doc['extracted_at'].isoformat()
+        
+        client.close()
+        
+        return {
+            "source_id": source_id,
+            "total_documents": total_docs,
+            "page": page, 
+            "per_page": per_page,
+            "total_pages": (total_docs + per_page - 1) // per_page,
+            "documents": documents
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Error getting documents for source {source_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve documents: {str(e)}")
+
 @api_router.post("/categories", response_model=Category)
 async def create_category(category_data: CategoryCreate):
     """Create a new category"""

@@ -1,0 +1,82 @@
+{
+  "test_started": "2025-08-22T06:16:51.482519",
+  "browser_status": "initialized",
+  "sources_tested": [
+    {
+      "source_name": "US Supreme Court",
+      "source_url": "https://www.supremecourt.gov/",
+      "extraction_method": "web_scraping",
+      "documents_found": 0,
+      "documents_processed": 0,
+      "success_count": 0,
+      "error_count": 1,
+      "sample_documents": []
+    },
+    {
+      "source_name": "Securities and Exchange Commission",
+      "source_url": "https://www.sec.gov/",
+      "extraction_method": "hybrid_api_scraping",
+      "documents_found": 1,
+      "documents_processed": 1,
+      "success_count": 1,
+      "error_count": 0,
+      "sample_documents": [
+        {
+          "title": "SEC Press Releases RSS Feed",
+          "content": "Press Releases  Official announcements highlighting recent actions taken by the SEC and other newsworthy information. en SEC Names Judge Margaret Ryan as Director of the Division of Enforcement  The Securities and Exchange Commission today announced that Judge Margaret \u201cMeg\u201d Ryan has been named Director of the Division of Enforcement, effective Sept. 2, 2025. Acting Director of Enforcement Sam Waldon will return to his previous role as Chief\u2026 Thu, 21 Aug 2025 14:40:00 -0400 18aa3091-ad18-4ee6-8803-68a29a02c122 Founder and Owner of Washington-Based Water Machine Manufacturer and Two Companies Charged in $275 Million Fraud Scheme  The Securities and Exchange Commission today charged Ryan Wear, of Marysville, Washington, and his entities, Water Station Management LLC and Creative Technologies",
+          "url": "https://www.sec.gov/news/pressreleases.rss",
+          "quality_score": 0.7011456628477906,
+          "metadata": {
+            "url": "https://www.sec.gov/news/pressreleases.rss",
+            "domain": "www.sec.gov",
+            "language": "en",
+            "description": null,
+            "keywords": [],
+            "author": null,
+            "published_date": null,
+            "legal_type": null,
+            "court": "SEC Announces George Botic to Serve as Acting Chair of the Public Company Accounting Oversight Board",
+            "case_number": null
+          },
+          "extraction_method": "rss_feed_extraction"
+        }
+      ]
+    }
+  ],
+  "documents_extracted": 1,
+  "success_count": 1,
+  "error_count": 1,
+  "sample_documents": [
+    {
+      "title": "SEC Press Releases RSS Feed",
+      "content": "Press Releases  Official announcements highlighting recent actions taken by the SEC and other newsworthy information. en SEC Names Judge Margaret Ryan as Director of the Division of Enforcement  The Securities and Exchange Commission today announced that Judge Margaret \u201cMeg\u201d Ryan has been named Director of the Division of Enforcement, effective Sept. 2, 2025. Acting Director of Enforcement Sam Waldon will return to his previous role as Chief\u2026 Thu, 21 Aug 2025 14:40:00 -0400 18aa3091-ad18-4ee6-8803-68a29a02c122 Founder and Owner of Washington-Based Water Machine Manufacturer and Two Companies Charged in $275 Million Fraud Scheme  The Securities and Exchange Commission today charged Ryan Wear, of Marysville, Washington, and his entities, Water Station Management LLC and Creative Technologies",
+      "url": "https://www.sec.gov/news/pressreleases.rss",
+      "quality_score": 0.7011456628477906,
+      "metadata": {
+        "url": "https://www.sec.gov/news/pressreleases.rss",
+        "domain": "www.sec.gov",
+        "language": "en",
+        "description": null,
+        "keywords": [],
+        "author": null,
+        "published_date": null,
+        "legal_type": null,
+        "court": "SEC Announces George Botic to Serve as Acting Chair of the Public Company Accounting Oversight Board",
+        "case_number": null
+      },
+      "extraction_method": "rss_feed_extraction",
+      "source": "sec"
+    }
+  ],
+  "performance_metrics": {
+    "total_sources_tested": 2,
+    "total_documents_processed": 1,
+    "success_rate_percentage": 100.0,
+    "processing_time_seconds": 8.733644,
+    "browser_functionality": "initialized",
+    "content_extractor_status": "operational"
+  },
+  "test_completed": "2025-08-22T06:17:00.216163",
+  "total_processing_time": 8.733644,
+  "overall_success_rate": 100.0
+}

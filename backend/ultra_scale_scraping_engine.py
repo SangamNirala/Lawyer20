@@ -1534,7 +1534,12 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
     def __init__(self, max_concurrent_sources: int = 200, max_concurrent_requests: int = 1000):
         super().__init__()
         
-        # Initialize ultra-scale components
+        # ULTRA-COMPREHENSIVE GLOBAL SOURCES INTEGRATION
+        self.ultra_comprehensive_sources = ULTRA_COMPREHENSIVE_GLOBAL_SOURCES
+        self.ultra_config = ULTRA_COMPREHENSIVE_CONFIG
+        self.legacy_sources = ULTRA_COMPREHENSIVE_SOURCES  # Maintain backward compatibility
+        
+        # Initialize ultra-scale components with enhanced capacity
         self.max_concurrent_sources = max_concurrent_sources
         self.max_concurrent_requests = max_concurrent_requests
         self.source_pool_manager = SourcePoolManager(max_sources=max_concurrent_sources)
@@ -1542,22 +1547,46 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
         self.quality_controller = QualityAssuranceController()
         self.resource_monitor = ResourceMonitor()
         
-        # Processing state
+        # Get comprehensive statistics for the new 370M+ document system
+        self.comprehensive_stats = get_comprehensive_statistics()
+        
+        # Enhanced Processing state for 7-tier system
         self.current_phase = ProcessingPhase.INITIALIZATION
         self.processing_stats = {
+            "total_sources_available": self.comprehensive_stats["total_sources"],
+            "total_estimated_documents": self.comprehensive_stats["total_estimated_documents"],
             "total_sources_processed": 0,
             "total_documents_processed": 0,
             "total_processing_time": 0,
             "success_rate": 0.0,
             "current_throughput": 0.0,
-            "phase_completion": {}
+            "phase_completion": {},
+            # 7-Tier breakdown
+            "tier_breakdown": self.comprehensive_stats["tier_breakdown"],
+            "jurisdiction_breakdown": self.comprehensive_stats["jurisdiction_breakdown"],
+            "source_type_breakdown": self.comprehensive_stats["source_type_breakdown"],
+            # Performance metrics
+            "high_priority_sources": self.comprehensive_stats["high_priority_sources"],
+            "api_sources": self.comprehensive_stats["api_sources"],
+            "web_scraping_sources": self.comprehensive_stats["web_scraping_sources"]
         }
         
         # Advanced concurrency management
         self.source_semaphore = asyncio.Semaphore(self.max_concurrent_sources)
         self.request_semaphore = asyncio.Semaphore(self.max_concurrent_requests)
         
-        logger.info("🚀 Ultra-Scale Scraping Engine initialized with AI-powered optimization")
+        # Log comprehensive initialization
+        logger.info("🚀 Ultra-Scale Scraping Engine initialized with ULTRA-COMPREHENSIVE GLOBAL SOURCES")
+        logger.info(f"📊 Total Sources: {self.comprehensive_stats['total_sources']:,}")
+        logger.info(f"📄 Estimated Documents: {self.comprehensive_stats['total_estimated_documents']:,}")
+        logger.info(f"🌍 Jurisdictions: {len(self.comprehensive_stats['jurisdiction_breakdown']):,}")
+        logger.info(f"🏆 High Priority Sources: {self.comprehensive_stats['high_priority_sources']:,}")
+        logger.info(f"🔗 API Sources: {self.comprehensive_stats['api_sources']:,}")
+        logger.info(f"🕷️ Web Scraping Sources: {self.comprehensive_stats['web_scraping_sources']:,}")
+        
+        # Log tier breakdown
+        for tier, data in self.comprehensive_stats['tier_breakdown'].items():
+            logger.info(f"  📁 {tier.upper()}: {data['sources']:,} sources → {data['documents']:,} documents")
     
     async def process_ultra_comprehensive_sources(self) -> Dict[str, Any]:
         """Process all 1,600+ sources with intelligent load balancing and optimization"""

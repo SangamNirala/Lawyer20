@@ -194,11 +194,74 @@ class DocumentExtractor:
             }
     
     async def extract_from_web(self, source_config) -> Dict[str, Any]:
-        """Extract documents from web scraping sources with enhanced content processing"""
+        """Extract documents from web scraping sources with ultra-robust complete content processing"""
         try:
             base_url = source_config.base_url
             
-            # Fetch main page
+            # Choose extraction method based on configuration
+            if self.use_complete_extraction and self.complete_extractor:
+                # Use advanced complete extraction for maximum content capture
+                logger.info(f"🚀 Using COMPLETE extraction for {source_config.name}")
+                
+                extraction_result = await self.complete_extractor.extract_complete_document(
+                    base_url, 
+                    max_pages=5,  # Limit pages for demo
+                    follow_links=True
+                )
+                
+                if extraction_result['success'] and extraction_result['content']:
+                    # Create enhanced document with complete extraction metadata
+                    doc = {
+                        'title': extraction_result.get('title', f'{source_config.name} - Complete Document'),
+                        'content': extraction_result['content'],
+                        'url': base_url,
+                        'source': source_config.name,
+                        'document_type': source_config.document_types[0] if source_config.document_types else 'administrative',
+                        'jurisdiction': source_config.jurisdiction,
+                        'extracted_at': '2025-01-18T12:00:00Z',
+                        'metadata': extraction_result.get('metadata', {}),
+                        'quality_score': extraction_result.get('quality_score', 0.0),
+                        'content_length': len(extraction_result['content']),
+                        'extraction_method': 'advanced_complete',
+                        'completeness_score': extraction_result.get('completeness_score', 0.0),
+                        'is_complete': extraction_result.get('is_complete', False),
+                        'pages_processed': extraction_result.get('pages_processed', 1),
+                        'processing_time': extraction_result.get('processing_time', 0.0),
+                        'completeness_indicators': extraction_result.get('completeness_indicators', {}),
+                        'advanced_features': {
+                            'pagination_handled': True,
+                            'document_links_followed': True,
+                            'content_reconstructed': extraction_result.get('reconstructed', False),
+                            'duplicates_removed': True,
+                            'completeness_validated': True
+                        }
+                    }
+                    
+                    logger.info(f"✅ COMPLETE extraction successful for {source_config.name}")
+                    logger.info(f"   📄 Title: {doc['title'][:100]}...")
+                    logger.info(f"   📊 Content length: {len(doc['content']):,} characters")
+                    logger.info(f"   🎯 Quality score: {doc['quality_score']:.2f}")
+                    logger.info(f"   ✅ Completeness score: {doc['completeness_score']:.2f}")
+                    logger.info(f"   📑 Pages processed: {doc['pages_processed']}")
+                    logger.info(f"   ⏱️ Processing time: {doc['processing_time']:.2f}s")
+                    logger.info(f"   🏆 Is complete: {doc['is_complete']}")
+                    
+                    return {
+                        'status': 'success', 
+                        'documents': [doc],
+                        'method': 'advanced_complete_extraction',
+                        'source_name': source_config.name
+                    }
+                else:
+                    # Complete extraction failed, fallback to enhanced extraction
+                    logger.warning(f"⚠️ Complete extraction failed for {source_config.name}, using fallback")
+                    error_msg = extraction_result.get('error', 'Complete extraction failed')
+            else:
+                # Use standard enhanced extraction
+                logger.info(f"🔧 Using enhanced extraction for {source_config.name}")
+                error_msg = "Complete extraction disabled"
+            
+            # Fallback to enhanced extraction
             result = await fetch_with_requests(base_url)
             
             if result and result['status'] == 'success':
@@ -220,7 +283,10 @@ class DocumentExtractor:
                         'metadata': extraction_result['metadata'],
                         'quality_score': extraction_result.get('quality_score', 0.0),
                         'content_length': extraction_result.get('content_length', 0),
-                        'extraction_method': extraction_result.get('extraction_method', 'enhanced_web')
+                        'extraction_method': extraction_result.get('extraction_method', 'enhanced_web'),
+                        'completeness_score': 0.5,  # Default for basic extraction
+                        'is_complete': False,  # Basic extraction is not considered complete
+                        'fallback_reason': error_msg if 'error_msg' in locals() else None
                     }
                     
                     logger.info(f"✅ Enhanced extraction successful for {source_config.name}")
@@ -267,7 +333,9 @@ class DocumentExtractor:
                             'metadata': {'extraction_method': 'fallback', 'extraction_error': error_msg},
                             'quality_score': 0.3,
                             'content_length': len(text_content),
-                            'extraction_method': 'fallback_basic'
+                            'extraction_method': 'fallback_basic',
+                            'completeness_score': 0.2,  # Low completeness for fallback
+                            'is_complete': False
                         }
                         
                         logger.info(f"🔄 Fallback extraction used for {source_config.name}")

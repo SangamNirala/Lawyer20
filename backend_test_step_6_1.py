@@ -38,7 +38,7 @@ class Step61PerformanceTestSuite:
         }
         
         # Get backend URL from environment
-        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://document-query-cache.preview.emergentagent.com')
+        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://globaldocs-extractor.preview.emergentagent.com')
         self.api_base = f"{self.backend_url}/api"
         self.performance_api_base = f"{self.backend_url}/api/performance"
         

@@ -91,11 +91,13 @@ async def fetch_with_requests(url: str, headers: Optional[Dict] = None) -> Optio
         }
 
 class DocumentExtractor:
-    """Extract documents from legal sources with enhanced content processing"""
+    """Extract documents from legal sources with ultra-robust complete content processing"""
     
-    def __init__(self):
+    def __init__(self, use_complete_extraction: bool = True):
         self.session = None
         self.content_extractor = IntelligentContentExtractor()
+        self.complete_extractor = CompleteDocumentExtractor() if use_complete_extraction else None
+        self.use_complete_extraction = use_complete_extraction
         
     async def __aenter__(self):
         self.session = aiohttp.ClientSession(

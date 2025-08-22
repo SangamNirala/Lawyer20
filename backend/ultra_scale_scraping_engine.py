@@ -1747,6 +1747,75 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
         logger.info(f"📊 Total Estimated Documents: {total_estimated_docs:,}")
         
         return optimized_groups
+    
+    async def group_sources_intelligently_7_tier(self) -> Dict[str, Dict[str, Any]]:
+        """ULTRA-COMPREHENSIVE 7-Tier intelligent source grouping for 370M+ documents"""
+        logger.info("🌍 Performing ULTRA-COMPREHENSIVE 7-Tier source grouping...")
+        
+        # Get sources for each tier using the new ultra-comprehensive system
+        tier_groups = {}
+        
+        for tier_num in range(1, 8):
+            tier_sources = get_sources_by_tier(tier_num)
+            tier_name = f"tier_{tier_num}"
+            
+            if tier_sources:
+                # Calculate tier metrics
+                total_docs = sum(source.estimated_documents for source in tier_sources.values())
+                avg_priority = sum(source.priority for source in tier_sources.values()) / len(tier_sources)
+                avg_quality = sum(source.quality_score for source in tier_sources.values()) / len(tier_sources)
+                
+                # Count source types
+                api_count = len([s for s in tier_sources.values() if s.source_type.value == 'api'])
+                web_count = len([s for s in tier_sources.values() if s.source_type.value == 'web_scraping'])
+                rss_count = len([s for s in tier_sources.values() if s.source_type.value == 'rss_feed'])
+                
+                tier_groups[tier_name] = {
+                    'sources': tier_sources,
+                    'total_sources': len(tier_sources),
+                    'estimated_documents': total_docs,
+                    'average_priority': avg_priority,
+                    'average_quality': avg_quality,
+                    'source_type_breakdown': {
+                        'api': api_count,
+                        'web_scraping': web_count,
+                        'rss_feed': rss_count,
+                        'other': len(tier_sources) - api_count - web_count - rss_count
+                    },
+                    'jurisdictions': len(set(s.jurisdiction for s in tier_sources.values())),
+                    'processing_strategy': self._determine_tier_strategy(tier_num, tier_sources)
+                }
+                
+                # Log tier details
+                logger.info(f"📁 TIER {tier_num}: {len(tier_sources):,} sources → {total_docs:,} documents")
+                logger.info(f"   🎯 Avg Priority: {avg_priority:.1f}, Quality: {avg_quality:.1f}")
+                logger.info(f"   🔗 API: {api_count}, 🕷️ Web: {web_count}, 📡 RSS: {rss_count}")
+                logger.info(f"   🌍 Jurisdictions: {tier_groups[tier_name]['jurisdictions']}")
+        
+        # Calculate total statistics
+        total_sources = sum(group['total_sources'] for group in tier_groups.values())
+        total_documents = sum(group['estimated_documents'] for group in tier_groups.values())
+        
+        logger.info("🎯 ULTRA-COMPREHENSIVE GROUPING COMPLETE:")
+        logger.info(f"   📊 Total Tiers: {len(tier_groups)}")
+        logger.info(f"   📁 Total Sources: {total_sources:,}")
+        logger.info(f"   📄 Total Est. Documents: {total_documents:,}")
+        logger.info(f"   🌍 Global Coverage: {len(self.comprehensive_stats['jurisdiction_breakdown'])} jurisdictions")
+        
+        return tier_groups
+    
+    def _determine_tier_strategy(self, tier_num: int, tier_sources: Dict[str, Any]) -> str:
+        """Determine optimal processing strategy for each tier"""
+        strategies = {
+            1: "high_priority_concurrent",    # US Government - API priority
+            2: "global_distributed",         # Global systems - geographic distribution  
+            3: "academic_batch",              # Academic - quality-focused batching
+            4: "news_streaming",              # Legal news - real-time processing
+            5: "professional_scheduled",      # Professional orgs - scheduled processing
+            6: "aid_community",               # Legal aid - community-focused
+            7: "specialized_adaptive"         # Specialized - adaptive methods
+        }
+        return strategies.get(tier_num, "standard_concurrent")
         
     async def _optimize_source_groups_with_ai(self, initial_groups: Dict[str, List[str]]) -> Dict[str, List[str]]:
         """AI-powered optimization of source groupings based on performance characteristics"""

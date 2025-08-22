@@ -791,7 +791,7 @@ class Step21TestSuite:
             import json
             
             # Get backend URL from environment
-            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://docminer.preview.emergentagent.com')
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://legalharvest.preview.emergentagent.com')
             api_base = f"{backend_url}/api"
             
             # Test 1: API health check
@@ -1032,7 +1032,7 @@ class Step21TestSuite:
             import json
             
             # Get backend URL from environment
-            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://docminer.preview.emergentagent.com')
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://legalharvest.preview.emergentagent.com')
             api_base = f"{backend_url}/api"
             
             # Test 1: Ultra-search endpoint
@@ -1745,7 +1745,7 @@ class Step21TestSuite:
             import requests
             
             # Get backend URL from environment
-            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://docminer.preview.emergentagent.com')
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://legalharvest.preview.emergentagent.com')
             api_base = f"{backend_url}/api"
             
             # Test 1: Performance system status with expanded sources

@@ -1870,6 +1870,7 @@ class Step21TestSuite:
     async def run_all_tests(self):
         """Run all comprehensive backend tests"""
         print("🚀 STARTING COMPREHENSIVE BACKEND TESTING")
+        print("Testing Enhanced Content Extraction System")
         print("Testing Step 2.1: Massive Concurrent Processing Architecture")
         print("Testing Step 3.1: Ultra-Scale Database Architecture")
         print("Testing Step 4.1: Ultra-Comprehensive API System")

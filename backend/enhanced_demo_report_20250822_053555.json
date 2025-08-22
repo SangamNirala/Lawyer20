@@ -1,0 +1,83 @@
+{
+  "demo_timestamp": "2025-08-22T05:35:55.546835",
+  "total_sources": 4,
+  "successful_extractions": 3,
+  "failed_extractions": 1,
+  "success_rate": 75.0,
+  "total_content_chars": 3031,
+  "average_quality_score": 0.39487179487179497,
+  "results": [
+    {
+      "source": "Department of State",
+      "url": "https://www.state.gov/",
+      "title": "Technical Difficulties",
+      "content_length": 128,
+      "quality_score": 0.33333333333333337,
+      "extraction_method": "enhanced_intelligent",
+      "content_preview": "We\u2019re sorry, this site is currently experiencing technical difficulties. Please try again in a few moments. Exception: forbidden",
+      "metadata": {
+        "url": "https://www.state.gov/",
+        "domain": "www.state.gov",
+        "language": "en",
+        "description": null,
+        "keywords": [],
+        "author": null,
+        "published_date": null,
+        "legal_type": null,
+        "court": null,
+        "case_number": null
+      },
+      "status": "success"
+    },
+    {
+      "source": "Department of Treasury",
+      "url": "https://home.treasury.gov/",
+      "title": "Front page",
+      "content_length": 1969,
+      "quality_score": 0.46153846153846156,
+      "extraction_method": "enhanced_intelligent",
+      "content_preview": "Skip to main content Official websites use .gov A .gov website belongs to an official government organization in the United States. Secure .gov websites use HTTPS A lock ( ) or https:// means you\u2019ve safely connected to the .gov website. Share sensitive information only on official, secure websites. Treasury Leadership Secretary Bessent Read More Role of the Treasury Read More Featured Stories January 28, 2025 Scott Bessent sworn in as 79th Secretary of the Department of Treasury Read More Februa...",
+      "metadata": {
+        "url": "https://home.treasury.gov/",
+        "domain": "home.treasury.gov",
+        "language": "en",
+        "description": "U.S. Department of the Treasury",
+        "keywords": [],
+        "author": null,
+        "published_date": null,
+        "legal_type": null,
+        "court": "Financial Literacy and Education Commission",
+        "case_number": null
+      },
+      "status": "success"
+    },
+    {
+      "source": "EUR-Lex Complete EU Legal Database",
+      "url": "https://eur-lex.europa.eu/",
+      "title": "Lex \u2014 Access to European Union law",
+      "content_length": 934,
+      "quality_score": 0.3897435897435898,
+      "extraction_method": "enhanced_intelligent",
+      "content_preview": "EUR-Lex. europa.eu bg \u0414\u043e\u0441\u0442\u044a\u043f \u0434\u043e \u043f\u0440\u0430\u0432\u043e\u0442\u043e \u043d\u0430 \u0415\u0432\u0440\u043e\u043f\u0435\u0439\u0441\u043a\u0438\u044f \u0441\u044a\u044e\u0437 es El acceso al Derecho de la Uni\u00f3n Europea cs P\u0159\u00edstup k pr\u00e1vu Evropsk\u00e9 unie da Adgang til EU-lovgivningen de Der Zugang zum EU-Recht et Juurdep\u00e4\u00e4s Euroopa Liidu \u00f5igusaktidele el \u03a0\u03c1\u03cc\u03c3\u03b2\u03b1\u03c3\u03b7 \u03c3\u03c4\u03bf \u03b4\u03af\u03ba\u03b1\u03b9\u03bf \u03c4\u03b7\u03c2 \u0395\u03c5\u03c1\u03c9\u03c0\u03b1\u03ca\u03ba\u03ae\u03c2 \u0388\u03bd\u03c9\u03c3\u03b7\u03c2 en Access to European Union law fr Acc\u00e8s au droit de l'Union europ\u00e9enne ga Rochtain ar dhl\u00ed an Aontais Eorpaigh hr Pristup zakonodavstvu Europske unije it L'accesso al diritto dell'Unione europea lv Piek\u013cuve Eiropas Sav...",
+      "metadata": {
+        "url": "https://eur-lex.europa.eu/",
+        "domain": "eur-lex.europa.eu",
+        "language": "en",
+        "description": null,
+        "keywords": [],
+        "author": null,
+        "published_date": null,
+        "legal_type": null,
+        "court": null,
+        "case_number": null
+      },
+      "status": "success"
+    },
+    {
+      "source": "Harvard Law School Digital Repository",
+      "url": "https://scholarship.law.harvard.edu/",
+      "status": "failed",
+      "error": "Cannot connect to host scholarship.law.harvard.edu:443 ssl:default [Name or service not known]"
+    }
+  ]
+}

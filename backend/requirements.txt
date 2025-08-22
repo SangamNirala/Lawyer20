@@ -42,3 +42,6 @@ websocket-client>=1.8.0
 multidict>=6.6.4
 attrs
 aiohttp
+yarl
+aiosignal
+frozenlist

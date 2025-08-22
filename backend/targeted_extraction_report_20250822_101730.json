@@ -1,0 +1,225 @@
+{
+  "extraction_summary": {
+    "total_processing_time": 150.33646178245544,
+    "sources_processed": 25,
+    "successful_extractions": 25,
+    "failed_extractions": 0,
+    "total_documents": 12,
+    "documents_per_second": 0.07982095532728856
+  },
+  "detailed_results": [
+    {
+      "source_id": "congress_gov",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.44626641273498535,
+      "error_message": null
+    },
+    {
+      "source_id": "dept_state",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.8890058994293213,
+      "error_message": null
+    },
+    {
+      "source_id": "dept_treasury",
+      "success": true,
+      "documents_extracted": 3,
+      "processing_time": 27.55810809135437,
+      "error_message": null
+    },
+    {
+      "source_id": "dept_justice",
+      "success": true,
+      "documents_extracted": 2,
+      "processing_time": 0.2163100242614746,
+      "error_message": null
+    },
+    {
+      "source_id": "federal_reserve",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.28254079818725586,
+      "error_message": null
+    },
+    {
+      "source_id": "eur_lex",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.7970125675201416,
+      "error_message": null
+    },
+    {
+      "source_id": "curia_europa",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.5256533622741699,
+      "error_message": null
+    },
+    {
+      "source_id": "uk_legislation",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.11157751083374023,
+      "error_message": null
+    },
+    {
+      "source_id": "canlii",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.142747163772583,
+      "error_message": null
+    },
+    {
+      "source_id": "uk_supreme_court",
+      "success": true,
+      "documents_extracted": 1,
+      "processing_time": 6.584268093109131,
+      "error_message": null
+    },
+    {
+      "source_id": "harvard_law",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 1.7006897926330566,
+      "error_message": null
+    },
+    {
+      "source_id": "yale_law",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 4.604376792907715,
+      "error_message": null
+    },
+    {
+      "source_id": "stanford_law",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 1.718675136566162,
+      "error_message": null
+    },
+    {
+      "source_id": "columbia_law",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 6.781908273696899,
+      "error_message": null
+    },
+    {
+      "source_id": "uchicago_law",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 7.187228441238403,
+      "error_message": null
+    },
+    {
+      "source_id": "scotusblog",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.24760890007019043,
+      "error_message": null
+    },
+    {
+      "source_id": "aba_journal",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 7.035429954528809,
+      "error_message": null
+    },
+    {
+      "source_id": "courthouse_news",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.22494792938232422,
+      "error_message": null
+    },
+    {
+      "source_id": "law360_free",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 7.081183433532715,
+      "error_message": null
+    },
+    {
+      "source_id": "above_the_law",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 0.23103690147399902,
+      "error_message": null
+    },
+    {
+      "source_id": "aba",
+      "success": true,
+      "documents_extracted": 1,
+      "processing_time": 10.414841890335083,
+      "error_message": null
+    },
+    {
+      "source_id": "federal_bar",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 6.6705358028411865,
+      "error_message": null
+    },
+    {
+      "source_id": "california_bar",
+      "success": true,
+      "documents_extracted": 0,
+      "processing_time": 8.680188417434692,
+      "error_message": null
+    },
+    {
+      "source_id": "new_york_bar",
+      "success": true,
+      "documents_extracted": 1,
+      "processing_time": 16.517476320266724,
+      "error_message": null
+    },
+    {
+      "source_id": "texas_bar",
+      "success": true,
+      "documents_extracted": 4,
+      "processing_time": 8.514464139938354,
+      "error_message": null
+    }
+  ],
+  "selected_sources": {
+    "1": [
+      "congress_gov",
+      "dept_state",
+      "dept_treasury",
+      "dept_justice",
+      "federal_reserve"
+    ],
+    "2": [
+      "eur_lex",
+      "curia_europa",
+      "uk_legislation",
+      "canlii",
+      "uk_supreme_court"
+    ],
+    "3": [
+      "harvard_law",
+      "yale_law",
+      "stanford_law",
+      "columbia_law",
+      "uchicago_law"
+    ],
+    "4": [
+      "scotusblog",
+      "aba_journal",
+      "courthouse_news",
+      "law360_free",
+      "above_the_law"
+    ],
+    "5": [
+      "aba",
+      "federal_bar",
+      "california_bar",
+      "new_york_bar",
+      "texas_bar"
+    ]
+  },
+  "timestamp": "2025-08-22T10:17:30.749223"
+}

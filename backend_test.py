@@ -1585,6 +1585,7 @@ class Step21TestSuite:
         
         # Run all test suites including the new ultra-comprehensive expansion tests
         test_suites = [
+            self.test_enhanced_content_extraction_system,
             self.test_ultra_comprehensive_global_sources_expansion,
             self.test_enhanced_scraping_engine_7_tier_integration,
             self.test_enhanced_legal_sources_config,

@@ -1,0 +1,76 @@
+{
+  "start_time": "2025-08-22 04:05:24.641531",
+  "documents_processed": 143494,
+  "documents_saved": 143494,
+  "sources_completed": 24,
+  "current_phase": "tier_7",
+  "errors": [
+    "dept_defense: HTTP 403",
+    "dept_agriculture: ",
+    "harvard_law: Cannot connect to host scholarship.law.harvard.edu:443 ssl:default [Name or service not known]",
+    "yale_law: Cannot connect to host digitalcommons.law.yale.edu:443 ssl:True [SSLCertVerificationError: (1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'digitalcommons.law.yale.edu'. (_ssl.c:1016)\")]",
+    "stanford_law: Cannot connect to host scholarship.law.stanford.edu:443 ssl:default [Name or service not known]",
+    "aba: HTTP 403",
+    "splc: HTTP 403",
+    "stanford_codex: HTTP 403"
+  ],
+  "phase_stats": {
+    "tier_1": {
+      "sources_attempted": 10,
+      "sources_successful": 8,
+      "documents_extracted": 81270,
+      "start_time": "2025-08-22 04:05:24.641693",
+      "end_time": "2025-08-22 04:07:45.738518",
+      "duration_seconds": 141.096825
+    },
+    "tier_2": {
+      "sources_attempted": 5,
+      "sources_successful": 5,
+      "documents_extracted": 43103,
+      "start_time": "2025-08-22 04:07:45.739061",
+      "end_time": "2025-08-22 04:07:54.039713",
+      "duration_seconds": 8.300652
+    },
+    "tier_3": {
+      "sources_attempted": 5,
+      "sources_successful": 2,
+      "documents_extracted": 9748,
+      "start_time": "2025-08-22 04:07:54.040226",
+      "end_time": "2025-08-22 04:08:00.102403",
+      "duration_seconds": 6.062177
+    },
+    "tier_4": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 1359,
+      "start_time": "2025-08-22 04:08:00.102949",
+      "end_time": "2025-08-22 04:08:04.144079",
+      "duration_seconds": 4.04113
+    },
+    "tier_5": {
+      "sources_attempted": 3,
+      "sources_successful": 2,
+      "documents_extracted": 4372,
+      "start_time": "2025-08-22 04:08:04.144627",
+      "end_time": "2025-08-22 04:08:08.876744",
+      "duration_seconds": 4.732117
+    },
+    "tier_6": {
+      "sources_attempted": 3,
+      "sources_successful": 2,
+      "documents_extracted": 3512,
+      "start_time": "2025-08-22 04:08:08.877253",
+      "end_time": "2025-08-22 04:08:12.408051",
+      "duration_seconds": 3.530798
+    },
+    "tier_7": {
+      "sources_attempted": 3,
+      "sources_successful": 2,
+      "documents_extracted": 130,
+      "start_time": "2025-08-22 04:08:12.408579",
+      "end_time": "2025-08-22 04:08:15.789522",
+      "duration_seconds": 3.380943
+    }
+  },
+  "total_sources": 87
+}

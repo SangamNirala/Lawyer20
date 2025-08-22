@@ -1,0 +1,77 @@
+{
+  "timestamp": "2025-08-22T06:02:49.895848",
+  "test_results": {
+    "tests_run": 7,
+    "tests_passed": 7,
+    "advanced_features_tested": 7,
+    "completeness_scores": [
+      0.9,
+      0.1
+    ],
+    "test_details": [
+      {
+        "test": "CompleteDocumentExtractor Initialization",
+        "success": true,
+        "components_verified": 9,
+        "total_components": 9
+      },
+      {
+        "test": "Pagination Detection",
+        "success": true,
+        "urls_found": 3,
+        "unique_urls": 3
+      },
+      {
+        "test": "Document Link Discovery",
+        "success": true,
+        "links_found": 4,
+        "scored_links": 4
+      },
+      {
+        "test": "Content Reconstruction",
+        "success": true,
+        "original_fragments": 4,
+        "combined_length": 338,
+        "reconstructed_length": 340,
+        "reconstructed": true
+      },
+      {
+        "test": "Completeness Validation",
+        "success": true,
+        "completeness_score": 0.9,
+        "is_complete": true,
+        "indicators": {
+          "ending_signals": 3,
+          "structure_elements": 4,
+          "content_length": 1007
+        }
+      },
+      {
+        "test": "Live Complete Extraction",
+        "success": true,
+        "url": "https://home.treasury.gov/",
+        "content_length": 2351,
+        "completeness_score": 0.1,
+        "pages_processed": 2,
+        "processing_time": 2.9996087551116943
+      },
+      {
+        "test": "Enhanced DocumentExtractor Integration",
+        "success": true,
+        "has_complete_extractor": true,
+        "uses_complete_extraction": true
+      }
+    ]
+  },
+  "system_info": {
+    "extraction_engine": "ultra_robust_complete_v1.0",
+    "advanced_features": [
+      "pagination_detection",
+      "document_link_discovery",
+      "content_reconstruction",
+      "completeness_validation",
+      "multi_page_aggregation",
+      "legal_structure_recognition"
+    ]
+  }
+}

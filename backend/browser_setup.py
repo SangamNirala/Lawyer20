@@ -15,8 +15,9 @@ import asyncio
 import aiohttp
 import re
 
-# Import enhanced content extractor
+# Import enhanced content extractor and advanced complete extractor
 from enhanced_content_extractor import IntelligentContentExtractor
+from advanced_complete_extractor import CompleteDocumentExtractor
 
 logger = logging.getLogger(__name__)
 

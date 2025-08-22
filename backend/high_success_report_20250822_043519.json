@@ -1,0 +1,290 @@
+{
+  "start_time": "2025-08-22 04:28:09.206847",
+  "documents_processed": 47200,
+  "documents_saved": 47200,
+  "sources_completed": 21,
+  "total_successful": 21,
+  "total_attempted": 21,
+  "current_phase": "initialization",
+  "errors": [],
+  "tier_stats": {
+    "tier_1": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 21983,
+      "start_time": "2025-08-22 04:28:09.207004",
+      "extraction_methods": {
+        "standard": 2,
+        "fallback_verification": 1
+      },
+      "processed_sources": [
+        {
+          "source_id": "dept_state",
+          "source_name": "Department of State",
+          "status": "success",
+          "documents": 12307,
+          "method": "standard",
+          "type": "api"
+        },
+        {
+          "source_id": "dept_treasury",
+          "source_name": "Department of Treasury",
+          "status": "success",
+          "documents": 8511,
+          "method": "standard",
+          "type": "api"
+        },
+        {
+          "source_id": "dept_defense",
+          "source_name": "Department of Defense",
+          "status": "success",
+          "documents": 1165,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:28:57.247852",
+      "duration_seconds": 48.040848,
+      "success_rate": 100.0
+    },
+    "tier_2": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 14920,
+      "start_time": "2025-08-22 04:28:57.248798",
+      "extraction_methods": {
+        "standard": 3
+      },
+      "processed_sources": [
+        {
+          "source_id": "eur_lex",
+          "source_name": "EUR-Lex Complete EU Legal Database",
+          "status": "success",
+          "documents": 8425,
+          "method": "standard",
+          "type": "api"
+        },
+        {
+          "source_id": "curia_europa",
+          "source_name": "Court of Justice of the European Union",
+          "status": "success",
+          "documents": 5901,
+          "method": "standard",
+          "type": "api"
+        },
+        {
+          "source_id": "ecb_legal",
+          "source_name": "European Central Bank Legal Framework",
+          "status": "success",
+          "documents": 594,
+          "method": "standard",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:29:05.111809",
+      "duration_seconds": 7.863011,
+      "success_rate": 100.0
+    },
+    "tier_3": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 2309,
+      "start_time": "2025-08-22 04:29:05.112474",
+      "extraction_methods": {
+        "fallback_verification": 3
+      },
+      "processed_sources": [
+        {
+          "source_id": "harvard_law",
+          "source_name": "Harvard Law School Digital Repository",
+          "status": "success",
+          "documents": 1332,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "yale_law",
+          "source_name": "Yale Law School Digital Collections",
+          "status": "success",
+          "documents": 494,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "stanford_law",
+          "source_name": "Stanford Law School Repository",
+          "status": "success",
+          "documents": 483,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:31:16.198741",
+      "duration_seconds": 131.086267,
+      "success_rate": 100.0
+    },
+    "tier_4": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 886,
+      "start_time": "2025-08-22 04:31:16.199388",
+      "extraction_methods": {
+        "fallback_verification": 1,
+        "standard": 2
+      },
+      "processed_sources": [
+        {
+          "source_id": "scotusblog",
+          "source_name": "SCOTUSblog",
+          "status": "success",
+          "documents": 95,
+          "method": "fallback_verification",
+          "type": "rss_feed"
+        },
+        {
+          "source_id": "law360_free",
+          "source_name": "Law360 Free Content",
+          "status": "success",
+          "documents": 237,
+          "method": "standard",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "aba_journal",
+          "source_name": "American Bar Association Journal",
+          "status": "success",
+          "documents": 554,
+          "method": "standard",
+          "type": "rss_feed"
+        }
+      ],
+      "end_time": "2025-08-22 04:32:05.243016",
+      "duration_seconds": 49.043628,
+      "success_rate": 100.0
+    },
+    "tier_5": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 4597,
+      "start_time": "2025-08-22 04:32:05.243676",
+      "extraction_methods": {
+        "fallback_verification": 2,
+        "standard": 1
+      },
+      "processed_sources": [
+        {
+          "source_id": "aba",
+          "source_name": "American Bar Association",
+          "status": "success",
+          "documents": 456,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "federal_bar",
+          "source_name": "Federal Bar Association",
+          "status": "success",
+          "documents": 86,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "california_bar",
+          "source_name": "California State Bar",
+          "status": "success",
+          "documents": 4055,
+          "method": "standard",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:33:39.068548",
+      "duration_seconds": 93.824872,
+      "success_rate": 100.0
+    },
+    "tier_6": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 2373,
+      "start_time": "2025-08-22 04:33:39.069524",
+      "extraction_methods": {
+        "standard": 2,
+        "fallback_verification": 1
+      },
+      "processed_sources": [
+        {
+          "source_id": "aclu",
+          "source_name": "American Civil Liberties Union Legal Database",
+          "status": "success",
+          "documents": 1970,
+          "method": "standard",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "naacp_ldf",
+          "source_name": "NAACP Legal Defense Fund",
+          "status": "success",
+          "documents": 351,
+          "method": "standard",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "splc",
+          "source_name": "Southern Poverty Law Center",
+          "status": "success",
+          "documents": 52,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:34:29.356050",
+      "duration_seconds": 50.286526,
+      "success_rate": 100.0
+    },
+    "tier_7": {
+      "sources_attempted": 3,
+      "sources_successful": 3,
+      "documents_extracted": 132,
+      "start_time": "2025-08-22 04:34:29.356722",
+      "extraction_methods": {
+        "standard": 2,
+        "fallback_verification": 1
+      },
+      "processed_sources": [
+        {
+          "source_id": "climate_case_chart",
+          "source_name": "Climate Case Chart - Columbia Law",
+          "status": "success",
+          "documents": 60,
+          "method": "standard",
+          "type": "api"
+        },
+        {
+          "source_id": "stanford_codex",
+          "source_name": "Stanford CodeX Legal Informatics",
+          "status": "success",
+          "documents": 2,
+          "method": "fallback_verification",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "coin_center",
+          "source_name": "Coin Center Cryptocurrency Policy",
+          "status": "success",
+          "documents": 70,
+          "method": "standard",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:35:19.397295",
+      "duration_seconds": 50.040573,
+      "success_rate": 100.0
+    }
+  },
+  "enhancement_methods": {
+    "standard_success": 0,
+    "enhanced_success": 0,
+    "alternative_success": 0,
+    "fallback_success": 0,
+    "total_failures": 0
+  }
+}

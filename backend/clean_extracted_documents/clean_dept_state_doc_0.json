@@ -1,7 +1,36 @@
 {
-  "id": "67c30990-732d-474c-afbc-8bb23b509139",
+  "id": "3d5a1c43-ba12-4a8f-b317-4372b3ff6d1f",
   "title": "Technical Difficulties",
   "content": "We’re sorry, this site is currently experiencing technical difficulties. Please try again in a few moments. Exception: forbidden",
   "url": "https://www.state.gov/",
   "source": "Department of State",
-  "document_type": 
+  "document_type": "DocumentType.TREATY",
+  "jurisdiction": "United States",
+  "extraction_metadata": {
+    "extracted_at": "2025-08-22T05:37:23.858605",
+    "extraction_method": "enhanced_intelligent",
+    "quality_score": 0.33333333333333337,
+    "content_length": 128,
+    "source_tier": 1,
+    "extraction_engine": "enhanced_intelligent_v1.0"
+  },
+  "metadata": {
+    "url": "https://www.state.gov/",
+    "domain": "www.state.gov",
+    "language": "en",
+    "description": null,
+    "keywords": [],
+    "author": null,
+    "published_date": null,
+    "legal_type": null,
+    "court": null,
+    "case_number": null
+  },
+  "clean_extraction": {
+    "html_removed": true,
+    "javascript_removed": true,
+    "navigation_filtered": true,
+    "complete_content": true,
+    "human_readable": true
+  }
+}

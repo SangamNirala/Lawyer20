@@ -1,7 +1,36 @@
 {
-  "id": "e122da8a-ac1a-413d-b9dd-3f60214fe04d",
+  "id": "b53f6401-09f8-483e-a0f1-5de0050347e4",
   "title": "Front page",
   "content": "Skip to main content Official websites use .gov A .gov website belongs to an official government organization in the United States. Secure .gov websites use HTTPS A lock ( ) or https:// means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites. Treasury Leadership Secretary Bessent Read More Role of the Treasury Read More Featured Stories January 28, 2025 Scott Bessent sworn in as 79th Secretary of the Department of Treasury Read More February 8, 2025 United States Department of the Treasury Announces New Appointments Read More February 8, 2025 Treasury Targets Oil Network Generating Hundreds of Millions of Dollars for Iran’s Military Read More View all Featured Stories Press Releases August 21, 2025 Treasury Targets Iranian Oil Exports and Shadow Fleet August 18, 2025 Treasury Issues Request for Comment Related to the Guiding and Establishing National Innovation for U. S. Stablecoins (GENIUS) Act August 18, 2025 Treasury Sanctions Notorious Costa Rican Narcotraffickers August 15, 2025 Treasury International Capital Data for June August 14, 2025 Treasury Announces Federal Government Will Phase Out Paper Checks on September 30th View All Press Releases Data Center Treasury Interest Rate Statistics On a daily basis, Treasury publishes Treasury Par Yield Curve Rates , Treasury Par Real Yield Curve Rates , Treasury Bill Rates, Treasury Long-Term Rates and Extrapolation Factors, and Treasury Real Long-Term Rate Averages. View This Data Daily Treasury Par Yield Curve CMT Rates 08/21/2025 1 Mo 4.49 1.5 Mo 4.41 2 Mo 4.39 3 Mo 4.32 4 Mo 4.24 6 Mo 4.14 1 Year 3.95 2 Year 3.79 3 Year 3.75 5 Year 3.86 7 Year 4.07 10 Year 4.33 20 Year 4.89 30 Year 4.92 Tools Financial Sanctions OFAC sanctions programs, country information, and Specially Designated Nationals (SDN) List Learn More Daily Interest Rates View daily interest rate statistics Learn More Treasury Hunt Search for Matured Bonds Learn More",
   "url": "https://home.treasury.gov/",
   "source": "Department of Treasury",
-  "document_type": 
+  "document_type": "DocumentType.REGULATION",
+  "jurisdiction": "United States",
+  "extraction_metadata": {
+    "extracted_at": "2025-08-22T05:37:24.411318",
+    "extraction_method": "enhanced_intelligent",
+    "quality_score": 0.46153846153846156,
+    "content_length": 1969,
+    "source_tier": 1,
+    "extraction_engine": "enhanced_intelligent_v1.0"
+  },
+  "metadata": {
+    "url": "https://home.treasury.gov/",
+    "domain": "home.treasury.gov",
+    "language": "en",
+    "description": "U.S. Department of the Treasury",
+    "keywords": [],
+    "author": null,
+    "published_date": null,
+    "legal_type": null,
+    "court": "Financial Literacy and Education Commission",
+    "case_number": null
+  },
+  "clean_extraction": {
+    "html_removed": true,
+    "javascript_removed": true,
+    "navigation_filtered": true,
+    "complete_content": true,
+    "human_readable": true
+  }
+}

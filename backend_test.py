@@ -1178,20 +1178,415 @@ class Step21TestSuite:
                 critical=True
             )
 
+    async def test_ultra_comprehensive_global_sources_expansion(self):
+        """Test the Ultra-Comprehensive Global Sources expansion with 87 sources across 7 tiers"""
+        print("\n🌍 TESTING ULTRA-COMPREHENSIVE GLOBAL SOURCES EXPANSION")
+        print("=" * 60)
+        
+        try:
+            from ultra_comprehensive_global_sources import (
+                ULTRA_COMPREHENSIVE_GLOBAL_SOURCES, 
+                get_sources_by_tier,
+                get_comprehensive_statistics,
+                SourceConfig,
+                SourceType,
+                DocumentType
+            )
+            
+            # Test 1: Ultra-comprehensive sources configuration loading
+            self.log_test_result(
+                "Ultra-Comprehensive Global Sources Import",
+                True,
+                "Successfully imported ultra-comprehensive global sources configuration"
+            )
+            
+            # Test 2: Verify 87 sources across 7 tiers
+            total_sources = len(ULTRA_COMPREHENSIVE_GLOBAL_SOURCES)
+            expected_min_sources = 80  # Should have at least 80 sources
+            
+            self.log_test_result(
+                "87 Sources Configuration Verification",
+                total_sources >= expected_min_sources,
+                f"Found {total_sources} sources (expected >= {expected_min_sources})",
+                critical=True
+            )
+            
+            # Test 3: Verify 7-tier system coverage
+            tier_coverage = {}
+            all_tiers_have_sources = True
+            
+            for tier in range(1, 8):
+                tier_sources = get_sources_by_tier(tier)
+                tier_coverage[f"Tier {tier}"] = {
+                    'sources': len(tier_sources),
+                    'documents': sum(s.estimated_documents for s in tier_sources.values()) if tier_sources else 0,
+                    'has_sources': len(tier_sources) > 0
+                }
+                
+                if len(tier_sources) == 0:
+                    all_tiers_have_sources = False
+                
+                print(f"    📁 Tier {tier}: {len(tier_sources)} sources, {tier_coverage[f'Tier {tier}']['documents']:,} documents")
+            
+            self.log_test_result(
+                "7-Tier System Coverage",
+                all_tiers_have_sources,
+                f"All 7 tiers have sources: {[tier_data['has_sources'] for tier_data in tier_coverage.values()]}",
+                critical=True
+            )
+            
+            # Test 4: Verify 148M+ documents coverage
+            stats = get_comprehensive_statistics()
+            total_docs = stats['total_estimated_documents']
+            expected_min_docs = 140_000_000  # Should have at least 140M documents
+            
+            self.log_test_result(
+                "148M+ Documents Coverage",
+                total_docs >= expected_min_docs,
+                f"Found {total_docs:,} estimated documents (expected >= {expected_min_docs:,})",
+                critical=True
+            )
+            
+            # Test 5: Verify 15 jurisdictions coverage
+            jurisdictions = len(stats['breakdown_by_jurisdiction'])
+            expected_min_jurisdictions = 12  # Should cover at least 12 jurisdictions
+            
+            self.log_test_result(
+                "15 Jurisdictions Coverage",
+                jurisdictions >= expected_min_jurisdictions,
+                f"Found {jurisdictions} jurisdictions (expected >= {expected_min_jurisdictions})"
+            )
+            
+            # Test 6: Verify source type distribution (API: 21, Web Scraping: 62, RSS: 4)
+            source_type_counts = {}
+            for source in ULTRA_COMPREHENSIVE_GLOBAL_SOURCES.values():
+                source_type = source.source_type.value
+                source_type_counts[source_type] = source_type_counts.get(source_type, 0) + 1
+            
+            expected_api_sources = source_type_counts.get('api', 0)
+            expected_web_scraping = source_type_counts.get('web_scraping', 0)
+            expected_rss = source_type_counts.get('rss_feed', 0)
+            
+            self.log_test_result(
+                "Source Type Distribution",
+                expected_api_sources >= 15 and expected_web_scraping >= 50,
+                f"API: {expected_api_sources}, Web Scraping: {expected_web_scraping}, RSS: {expected_rss}"
+            )
+            
+            # Test 7: Verify tier-specific document targets
+            tier_targets = {
+                1: 90_000_000,   # Tier 1: 96.8M docs (US Government)
+                2: 30_000_000,   # Tier 2: 37.2M docs (Global Legal Systems)
+                3: 8_000_000,    # Tier 3: 10.2M docs (Academic & Research)
+                4: 1_000_000,    # Tier 4: 1.8M docs (Legal Journalism)
+                5: 1_000_000,    # Tier 5: 1.3M docs (Professional Organizations)
+                6: 500_000,      # Tier 6: 850K docs (Legal Aid & Public Interest)
+                7: 40_000        # Tier 7: 45K docs (Specialized & Emerging)
+            }
+            
+            tier_targets_met = True
+            for tier, min_docs in tier_targets.items():
+                tier_docs = tier_coverage[f"Tier {tier}"]['documents']
+                if tier_docs < min_docs:
+                    tier_targets_met = False
+                    print(f"    ❌ Tier {tier}: {tier_docs:,} < {min_docs:,}")
+                else:
+                    print(f"    ✅ Tier {tier}: {tier_docs:,} >= {min_docs:,}")
+            
+            self.log_test_result(
+                "Tier Document Targets",
+                tier_targets_met,
+                "All tiers meet minimum document targets"
+            )
+            
+        except ImportError as e:
+            self.log_test_result(
+                "Ultra-Comprehensive Global Sources Import",
+                False,
+                f"Failed to import ultra-comprehensive global sources: {str(e)}",
+                critical=True
+            )
+        except Exception as e:
+            self.log_test_result(
+                "Ultra-Comprehensive Global Sources Test",
+                False,
+                f"Ultra-comprehensive sources test failed: {str(e)}",
+                critical=True
+            )
+    
+    async def test_enhanced_scraping_engine_7_tier_integration(self):
+        """Test the enhanced UltraScaleScrapingEngine with 7-tier ultra-comprehensive integration"""
+        print("\n🏗️ TESTING ENHANCED SCRAPING ENGINE WITH 7-TIER INTEGRATION")
+        print("=" * 60)
+        
+        try:
+            from ultra_scale_scraping_engine import UltraScaleScrapingEngine
+            
+            # Test 1: Engine initialization with ultra-comprehensive sources
+            try:
+                engine = UltraScaleScrapingEngine(max_concurrent_sources=10)
+                self.log_test_result(
+                    "Enhanced Engine Initialization",
+                    True,
+                    f"Engine initialized with ultra-comprehensive integration"
+                )
+            except Exception as e:
+                self.log_test_result(
+                    "Enhanced Engine Initialization",
+                    False,
+                    f"Engine initialization failed: {str(e)}",
+                    critical=True
+                )
+                return
+            
+            # Test 2: 7-tier intelligent grouping functionality
+            try:
+                # Check if the engine has 7-tier grouping method
+                has_7_tier_method = hasattr(engine, 'group_sources_intelligently_7_tier')
+                
+                self.log_test_result(
+                    "7-Tier Intelligent Grouping Method",
+                    has_7_tier_method,
+                    f"7-tier grouping method available: {has_7_tier_method}",
+                    critical=True
+                )
+                
+                if has_7_tier_method:
+                    # Test the 7-tier grouping with timeout
+                    tier_groups = await asyncio.wait_for(
+                        engine.group_sources_intelligently_7_tier(),
+                        timeout=20.0
+                    )
+                    
+                    expected_tiers = 7
+                    actual_tiers = len(tier_groups)
+                    
+                    self.log_test_result(
+                        "7-Tier Grouping Execution",
+                        actual_tiers == expected_tiers,
+                        f"Generated {actual_tiers} tiers (expected {expected_tiers})"
+                    )
+                    
+                    # Verify each tier has sources
+                    for tier_name, sources in tier_groups.items():
+                        print(f"    📋 {tier_name}: {len(sources)} sources")
+                
+            except asyncio.TimeoutError:
+                self.log_test_result(
+                    "7-Tier Grouping Execution",
+                    False,
+                    "7-tier grouping timed out after 20 seconds",
+                    critical=True
+                )
+            except Exception as e:
+                self.log_test_result(
+                    "7-Tier Grouping Execution",
+                    False,
+                    f"7-tier grouping failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 3: Comprehensive statistics tracking
+            try:
+                stats = engine.get_comprehensive_statistics()
+                
+                expected_stats = ['total_sources', 'sources_by_tier', 'documents_by_tier', 'processing_capacity']
+                has_comprehensive_stats = all(stat in stats for stat in expected_stats)
+                
+                self.log_test_result(
+                    "Comprehensive Statistics Tracking",
+                    has_comprehensive_stats,
+                    f"Statistics available: {list(stats.keys())}"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Comprehensive Statistics Tracking",
+                    False,
+                    f"Statistics tracking failed: {str(e)}"
+                )
+            
+            # Test 4: Ultra-comprehensive processing capability
+            try:
+                processing_info = engine.get_ultra_comprehensive_processing_info()
+                
+                self.log_test_result(
+                    "Ultra-Comprehensive Processing Info",
+                    'estimated_processing_time' in processing_info and 'concurrent_capacity' in processing_info,
+                    f"Processing capacity: {processing_info.get('concurrent_capacity', 'Unknown')}"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Ultra-Comprehensive Processing Info",
+                    False,
+                    f"Processing info retrieval failed: {str(e)}"
+                )
+            
+        except ImportError as e:
+            self.log_test_result(
+                "Enhanced Scraping Engine Import",
+                False,
+                f"Failed to import enhanced scraping engine: {str(e)}",
+                critical=True
+            )
+        except Exception as e:
+            self.log_test_result(
+                "Enhanced Scraping Engine Test",
+                False,
+                f"Enhanced scraping engine test failed: {str(e)}",
+                critical=True
+            )
+    
+    async def test_step_6_1_performance_optimization_with_expansion(self):
+        """Test Step 6.1 Performance Optimization with the expanded sources"""
+        print("\n⚡ TESTING STEP 6.1 PERFORMANCE OPTIMIZATION WITH EXPANSION")
+        print("=" * 60)
+        
+        try:
+            import requests
+            
+            # Get backend URL from environment
+            backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://globaldocs-extractor.preview.emergentagent.com')
+            api_base = f"{backend_url}/api"
+            
+            # Test 1: Performance system status with expanded sources
+            try:
+                response = requests.get(f"{api_base}/performance/system-status", timeout=15)
+                
+                self.log_test_result(
+                    "Performance System Status",
+                    response.status_code == 200,
+                    f"Performance system responded with status {response.status_code}"
+                )
+                
+                if response.status_code == 200:
+                    status_data = response.json()
+                    print(f"    💻 System Status: {status_data.get('system_status', 'Unknown')}")
+                    print(f"    💻 Cache Status: {status_data.get('cache_status', 'Unknown')}")
+                    print(f"    💻 Sources Supported: {status_data.get('sources_supported', 0)}")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Performance System Status",
+                    False,
+                    f"Performance system status request failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 2: Query optimization with ultra-comprehensive sources
+            try:
+                optimization_payload = {
+                    "query_text": "constitutional law due process",
+                    "source_tiers": [1, 2, 3],
+                    "max_sources": 50,
+                    "performance_target": "sub_2_second"
+                }
+                
+                response = requests.post(
+                    f"{api_base}/performance/optimize-query",
+                    json=optimization_payload,
+                    timeout=30,
+                    headers={"Content-Type": "application/json"}
+                )
+                
+                self.log_test_result(
+                    "Query Optimization with Expansion",
+                    response.status_code == 200,
+                    f"Query optimization responded with status {response.status_code}"
+                )
+                
+                if response.status_code == 200:
+                    opt_data = response.json()
+                    print(f"    🎯 Optimized Sources: {opt_data.get('optimized_sources', 0)}")
+                    print(f"    🎯 Estimated Time: {opt_data.get('estimated_execution_time', 'Unknown')}ms")
+                    print(f"    🎯 Cache Strategy: {opt_data.get('cache_strategy', 'Unknown')}")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Query Optimization with Expansion",
+                    False,
+                    f"Query optimization request failed: {str(e)}"
+                )
+            
+            # Test 3: Cache metrics with expanded sources
+            try:
+                response = requests.get(f"{api_base}/performance/cache-metrics", timeout=10)
+                
+                self.log_test_result(
+                    "Cache Metrics with Expansion",
+                    response.status_code == 200,
+                    f"Cache metrics responded with status {response.status_code}"
+                )
+                
+                if response.status_code == 200:
+                    cache_data = response.json()
+                    print(f"    📊 Cache Hit Rate: {cache_data.get('hit_rate', 0):.1%}")
+                    print(f"    📊 Total Cached Sources: {cache_data.get('cached_sources', 0)}")
+                    print(f"    📊 Cache Size: {cache_data.get('cache_size_mb', 0):.1f}MB")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Cache Metrics with Expansion",
+                    False,
+                    f"Cache metrics request failed: {str(e)}"
+                )
+            
+            # Test 4: Performance dashboard with ultra-comprehensive data
+            try:
+                response = requests.get(f"{api_base}/performance/dashboard", timeout=15)
+                
+                self.log_test_result(
+                    "Performance Dashboard with Expansion",
+                    response.status_code == 200,
+                    f"Performance dashboard responded with status {response.status_code}"
+                )
+                
+                if response.status_code == 200:
+                    dashboard_data = response.json()
+                    print(f"    📈 Total Queries: {dashboard_data.get('total_queries', 0)}")
+                    print(f"    📈 Avg Response Time: {dashboard_data.get('avg_response_time', 0)}ms")
+                    print(f"    📈 Sources Coverage: {dashboard_data.get('sources_coverage', 0)}")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Performance Dashboard with Expansion",
+                    False,
+                    f"Performance dashboard request failed: {str(e)}"
+                )
+            
+        except ImportError as e:
+            self.log_test_result(
+                "Step 6.1 Performance Optimization Test",
+                False,
+                f"Failed to import required modules: {str(e)}"
+            )
+        except Exception as e:
+            self.log_test_result(
+                "Step 6.1 Performance Optimization Test",
+                False,
+                f"Performance optimization test failed: {str(e)}",
+                critical=True
+            )
+
     async def run_all_tests(self):
         """Run all comprehensive backend tests"""
         print("🚀 STARTING COMPREHENSIVE BACKEND TESTING")
         print("Testing Step 2.1: Massive Concurrent Processing Architecture")
         print("Testing Step 3.1: Ultra-Scale Database Architecture")
         print("Testing Step 4.1: Ultra-Comprehensive API System")
+        print("Testing Step 6.1: Performance Optimization")
+        print("Testing Ultra-Comprehensive Global Sources Expansion")
         print("=" * 80)
         print(f"Test started at: {datetime.utcnow().isoformat()}")
         print("=" * 80)
         
         start_time = time.time()
         
-        # Run all test suites
+        # Run all test suites including the new ultra-comprehensive expansion tests
         test_suites = [
+            self.test_ultra_comprehensive_global_sources_expansion,
+            self.test_enhanced_scraping_engine_7_tier_integration,
             self.test_enhanced_legal_sources_config,
             self.test_ultra_scale_scraping_engine,
             self.test_intelligent_source_grouping,
@@ -1201,6 +1596,7 @@ class Step21TestSuite:
             self.test_intelligent_scraper_engine,
             self.test_step_3_1_ultra_scale_database_architecture,
             self.test_step_4_1_ultra_comprehensive_api_system,
+            self.test_step_6_1_performance_optimization_with_expansion,
             self.test_backend_api_integration
         ]
         

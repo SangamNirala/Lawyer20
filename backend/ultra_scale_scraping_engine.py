@@ -1589,38 +1589,55 @@ class UltraScaleScrapingEngine(IntelligentScrapingEngine):
             logger.info(f"  📁 {tier.upper()}: {data['sources']:,} sources → {data['documents']:,} documents")
     
     async def process_ultra_comprehensive_sources(self) -> Dict[str, Any]:
-        """Process all 1,600+ sources with intelligent load balancing and optimization"""
-        logger.info("🎯 Starting Ultra-Comprehensive Source Processing...")
-        logger.info(f"📊 Target: 370M+ documents from {len(ULTRA_COMPREHENSIVE_SOURCES)} sources")
+        """Process all 1,000+ sources with intelligent load balancing and optimization"""
+        logger.info("🎯 Starting ULTRA-COMPREHENSIVE GLOBAL SOURCE Processing...")
+        logger.info(f"📊 Target: {self.comprehensive_stats['total_estimated_documents']:,} documents from {self.comprehensive_stats['total_sources']:,} sources")
+        logger.info(f"🌍 Covering {len(self.comprehensive_stats['jurisdiction_breakdown']):,} jurisdictions across 7 tiers")
         
         start_time = time.time()
         
         try:
-            # Initialize system
+            # Initialize system with ultra-comprehensive sources
             await self._initialize_ultra_processing()
             
-            # Group sources intelligently
-            source_groups = await self.group_sources_intelligently()
+            # Group sources intelligently using new 7-tier system
+            source_groups = await self.group_sources_intelligently_7_tier()
             
             # Process each tier with optimization
-            for phase, sources in source_groups.items():
-                self.current_phase = ProcessingPhase(phase)
-                logger.info(f"🔄 Starting {phase.upper()} with {len(sources)} sources")
+            for tier_num in range(1, 8):  # Process all 7 tiers
+                tier_name = f"tier_{tier_num}"
+                tier_sources = get_sources_by_tier(tier_num)
                 
-                phase_start = time.time()
-                phase_results = await self.process_source_group(sources, phase)
-                phase_time = time.time() - phase_start
+                if not tier_sources:
+                    logger.info(f"⏭️ Skipping {tier_name.upper()} - no sources configured")
+                    continue
                 
-                self.processing_stats["phase_completion"][phase] = {
-                    "sources_processed": len(sources),
-                    "documents_found": phase_results.get("documents_processed", 0),
-                    "processing_time": phase_time,
-                    "success_rate": phase_results.get("success_rate", 0.0)
+                self.current_phase = ProcessingPhase(f"TIER_{tier_num}_PROCESSING")
+                tier_info = self.comprehensive_stats['tier_breakdown'].get(tier_name, {})
+                
+                logger.info(f"🔄 Starting {tier_name.upper()} Processing")
+                logger.info(f"   📁 Sources: {tier_info.get('sources', len(tier_sources)):,}")
+                logger.info(f"   📄 Est. Documents: {tier_info.get('documents', 0):,}")
+                
+                tier_start = time.time()
+                tier_results = await self.process_source_group(tier_sources, tier_name)
+                tier_time = time.time() - tier_start
+                
+                self.processing_stats["phase_completion"][tier_name] = {
+                    "sources_available": len(tier_sources),
+                    "sources_processed": tier_results.get("sources_processed", 0),
+                    "documents_found": tier_results.get("documents_processed", 0),
+                    "processing_time": tier_time,
+                    "success_rate": tier_results.get("success_rate", 0.0),
+                    "tier_priority": f"TIER_{tier_num}"
                 }
                 
-                logger.info(f"✅ Completed {phase.upper()} in {phase_time:.2f}s")
+                logger.info(f"✅ Completed {tier_name.upper()} in {tier_time:.2f}s")
+                logger.info(f"   📊 Processed: {tier_results.get('sources_processed', 0):,}/{len(tier_sources):,} sources")
+                logger.info(f"   📄 Documents: {tier_results.get('documents_processed', 0):,}")
+                logger.info(f"   ✅ Success Rate: {tier_results.get('success_rate', 0.0):.1f}%")
                 
-                # Resource optimization between phases
+                # Resource optimization between tiers
                 await self._optimize_between_phases()
             
             # Final optimization and cleanup

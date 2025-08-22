@@ -1,0 +1,55 @@
+{
+  "tests_run": 3,
+  "tests_passed": 2,
+  "improvements": [],
+  "test_details": [
+    {
+      "file": "tier_1_dept_housing_urban_dev_doc_0.json",
+      "status": "error",
+      "error": "Expecting value: line 6 column 20 (char 2303)"
+    },
+    {
+      "file": "tier_2_european_commission_doc_0.json",
+      "status": "error",
+      "error": "Expecting value: line 6 column 20 (char 2308)"
+    },
+    {
+      "file": "tier_1_dept_homeland_security_doc_0.json",
+      "status": "error",
+      "error": "Expecting value: line 6 column 20 (char 1244)"
+    },
+    {
+      "file": "tier_1_dept_energy_doc_0.json",
+      "status": "error",
+      "error": "Expecting value: line 6 column 20 (char 2194)"
+    },
+    {
+      "file": "tier_6_naacp_ldf_doc_0.json",
+      "status": "error",
+      "error": "Expecting value: line 6 column 20 (char 2279)"
+    },
+    {
+      "source": "Department of State",
+      "url": "https://www.state.gov/",
+      "title": "Technical Difficulties",
+      "content_length": 128,
+      "quality_score": 0.33333333333333337,
+      "extraction_method": "enhanced_intelligent",
+      "status": "success"
+    },
+    {
+      "source": "Department of Treasury",
+      "url": "https://home.treasury.gov/",
+      "title": "Front page",
+      "content_length": 1969,
+      "quality_score": 0.46153846153846156,
+      "extraction_method": "enhanced_intelligent",
+      "status": "success"
+    },
+    {
+      "source": "Department of Defense",
+      "status": "failed",
+      "error": "HTTP 403"
+    }
+  ]
+}

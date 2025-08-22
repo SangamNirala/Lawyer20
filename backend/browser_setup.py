@@ -2,7 +2,7 @@
 """
 Browser Setup for Legal Document Extraction
 ===========================================
-Sets up headless Chrome for web scraping legal documents
+Sets up headless Chrome for web scraping legal documents with enhanced content extraction
 """
 
 from selenium import webdriver
@@ -13,6 +13,9 @@ import logging
 from typing import Optional, Dict, Any
 import asyncio
 import aiohttp
+
+# Import enhanced content extractor
+from enhanced_content_extractor import IntelligentContentExtractor
 
 logger = logging.getLogger(__name__)
 

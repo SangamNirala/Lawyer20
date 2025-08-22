@@ -110,7 +110,7 @@ class DocumentExtractor:
             await self.session.close()
     
     async def extract_from_api(self, source_config) -> Dict[str, Any]:
-        """Extract documents from API sources"""
+        """Extract documents from API sources with enhanced content processing"""
         try:
             base_url = source_config.base_url
             api_endpoints = source_config.api_endpoints or {}
@@ -124,20 +124,52 @@ class DocumentExtractor:
                 try:
                     result = await fetch_with_requests(full_url)
                     if result and result['status'] == 'success':
-                        # Process the API response
-                        content = result['content']
+                        raw_content = result['content']
                         
-                        # Create mock document for demonstration
-                        doc = {
-                            'title': f'{source_config.name} - {endpoint_name}',
-                            'content': str(content)[:1000] + '...' if len(str(content)) > 1000 else str(content),
-                            'url': full_url,
-                            'source': source_config.name,
-                            'document_type': source_config.document_types[0] if source_config.document_types else 'administrative',
-                            'jurisdiction': source_config.jurisdiction,
-                            'extracted_at': '2025-01-18T12:00:00Z'
-                        }
-                        documents.append(doc)
+                        # Process content intelligently based on content type
+                        if isinstance(raw_content, str) and '<html' in raw_content.lower():
+                            # HTML content - use enhanced extractor
+                            extraction_result = await self.content_extractor.extract_content(
+                                raw_content, full_url
+                            )
+                            
+                            if extraction_result['success']:
+                                doc = {
+                                    'title': extraction_result['title'],
+                                    'content': extraction_result['content'],
+                                    'url': full_url,
+                                    'source': source_config.name,
+                                    'document_type': source_config.document_types[0] if source_config.document_types else 'administrative',
+                                    'jurisdiction': source_config.jurisdiction,
+                                    'extracted_at': '2025-01-18T12:00:00Z',
+                                    'metadata': extraction_result['metadata'],
+                                    'quality_score': extraction_result.get('quality_score', 0.0),
+                                    'content_length': extraction_result.get('content_length', 0),
+                                    'extraction_method': 'enhanced_api'
+                                }
+                                documents.append(doc)
+                            else:
+                                logger.warning(f"Content extraction failed for {full_url}: {extraction_result.get('error', 'Unknown error')}")
+                        else:
+                            # JSON or other structured content
+                            content_preview = str(raw_content)
+                            if len(content_preview) > 2000:
+                                content_preview = content_preview[:2000] + "..."
+                            
+                            doc = {
+                                'title': f'{source_config.name} - {endpoint_name}',
+                                'content': content_preview,
+                                'url': full_url,
+                                'source': source_config.name,
+                                'document_type': source_config.document_types[0] if source_config.document_types else 'administrative',
+                                'jurisdiction': source_config.jurisdiction,
+                                'extracted_at': '2025-01-18T12:00:00Z',
+                                'metadata': {'content_type': 'structured_data', 'api_endpoint': endpoint_name},
+                                'quality_score': 0.7,
+                                'content_length': len(str(raw_content)),
+                                'extraction_method': 'api_structured'
+                            }
+                            documents.append(doc)
                         
                 except Exception as e:
                     logger.warning(f"API endpoint {endpoint_name} failed: {e}")
@@ -145,7 +177,7 @@ class DocumentExtractor:
             return {
                 'status': 'success',
                 'documents': documents,
-                'method': 'api',
+                'method': 'enhanced_api',
                 'source_name': source_config.name
             }
             
@@ -153,7 +185,7 @@ class DocumentExtractor:
             return {
                 'status': 'error',
                 'error': str(e),
-                'method': 'api',
+                'method': 'enhanced_api',
                 'source_name': source_config.name
             }
     

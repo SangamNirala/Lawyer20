@@ -1,0 +1,340 @@
+{
+  "start_time": "2025-08-22 04:20:40.045397",
+  "documents_processed": 63867,
+  "documents_saved": 63867,
+  "sources_completed": 21,
+  "current_phase": "tier_7",
+  "errors": [
+    "Tier 1 - dept_defense: HTTP 403",
+    "Tier 3 - harvard_law: Cannot connect to host scholarship.law.harvard.edu:443 ssl:default [Name or service not known]",
+    "Tier 3 - yale_law: Cannot connect to host digitalcommons.law.yale.edu:443 ssl:True [SSLCertVerificationError: (1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'digitalcommons.law.yale.edu'. (_ssl.c:1016)\")]",
+    "Tier 3 - stanford_law: Cannot connect to host scholarship.law.stanford.edu:443 ssl:default [Name or service not known]",
+    "Tier 4 - above_the_law: HTTP 403",
+    "Tier 4 - courthouse_news: HTTP 403",
+    "Tier 5 - aba: HTTP 403",
+    "Tier 5 - new_york_bar: HTTP 403",
+    "Tier 6 - splc: HTTP 403",
+    "Tier 6 - legal_aid_society: HTTP 403",
+    "Tier 7 - stanford_codex: HTTP 403",
+    "Tier 7 - network_public_health_law: HTTP 403"
+  ],
+  "tier_stats": {
+    "tier_1": {
+      "sources_attempted": 5,
+      "sources_successful": 4,
+      "documents_extracted": 30864,
+      "start_time": "2025-08-22 04:20:40.045564",
+      "available_sources": 39,
+      "processed_sources": [
+        {
+          "source_id": "dept_state",
+          "source_name": "Department of State",
+          "status": "success",
+          "documents": 9607,
+          "type": "api"
+        },
+        {
+          "source_id": "dept_treasury",
+          "source_name": "Department of Treasury",
+          "status": "success",
+          "documents": 7623,
+          "type": "api"
+        },
+        {
+          "source_id": "dept_defense",
+          "source_name": "Department of Defense",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "dept_homeland_security",
+          "source_name": "Department of Homeland Security",
+          "status": "success",
+          "documents": 6819,
+          "type": "api"
+        },
+        {
+          "source_id": "dept_health_human_services",
+          "source_name": "Department of Health and Human Services",
+          "status": "success",
+          "documents": 6815,
+          "type": "api"
+        }
+      ],
+      "end_time": "2025-08-22 04:20:48.836112",
+      "duration_seconds": 8.790548,
+      "success_rate": 80.0
+    },
+    "tier_2": {
+      "sources_attempted": 5,
+      "sources_successful": 5,
+      "documents_extracted": 21184,
+      "start_time": "2025-08-22 04:20:48.836944",
+      "available_sources": 14,
+      "processed_sources": [
+        {
+          "source_id": "eur_lex",
+          "source_name": "EUR-Lex Complete EU Legal Database",
+          "status": "success",
+          "documents": 7981,
+          "type": "api"
+        },
+        {
+          "source_id": "curia_europa",
+          "source_name": "Court of Justice of the European Union",
+          "status": "success",
+          "documents": 715,
+          "type": "api"
+        },
+        {
+          "source_id": "ecb_legal",
+          "source_name": "European Central Bank Legal Framework",
+          "status": "success",
+          "documents": 290,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "european_commission",
+          "source_name": "European Commission Legal Documents",
+          "status": "success",
+          "documents": 3926,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "bailii",
+          "source_name": "BAILII - British & Irish Legal Information",
+          "status": "success",
+          "documents": 8272,
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:20:57.563358",
+      "duration_seconds": 8.726414,
+      "success_rate": 100.0
+    },
+    "tier_3": {
+      "sources_attempted": 5,
+      "sources_successful": 2,
+      "documents_extracted": 4713,
+      "start_time": "2025-08-22 04:20:57.563933",
+      "available_sources": 13,
+      "processed_sources": [
+        {
+          "source_id": "harvard_law",
+          "source_name": "Harvard Law School Digital Repository",
+          "status": "failed",
+          "error": "Cannot connect to host scholarship.law.harvard.edu:443 ssl:default [Name or service not known]",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "yale_law",
+          "source_name": "Yale Law School Digital Collections",
+          "status": "failed",
+          "error": "Cannot connect to host digitalcommons.law.yale.edu:443 ssl:True [SSLCertVerificationError: (1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'digitalcommons.law.yale.edu'. (_ssl.c:1016)\")]",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "stanford_law",
+          "source_name": "Stanford Law School Repository",
+          "status": "failed",
+          "error": "Cannot connect to host scholarship.law.stanford.edu:443 ssl:default [Name or service not known]",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "columbia_law",
+          "source_name": "Columbia Law School Academic Commons",
+          "status": "success",
+          "documents": 3149,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "uchicago_law",
+          "source_name": "University of Chicago Law School",
+          "status": "success",
+          "documents": 1564,
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:21:03.539294",
+      "duration_seconds": 5.975361,
+      "success_rate": 40.0
+    },
+    "tier_4": {
+      "sources_attempted": 5,
+      "sources_successful": 3,
+      "documents_extracted": 919,
+      "start_time": "2025-08-22 04:21:03.539942",
+      "available_sources": 6,
+      "processed_sources": [
+        {
+          "source_id": "scotusblog",
+          "source_name": "SCOTUSblog",
+          "status": "success",
+          "documents": 109,
+          "type": "rss_feed"
+        },
+        {
+          "source_id": "law360_free",
+          "source_name": "Law360 Free Content",
+          "status": "success",
+          "documents": 364,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "aba_journal",
+          "source_name": "American Bar Association Journal",
+          "status": "success",
+          "documents": 446,
+          "type": "rss_feed"
+        },
+        {
+          "source_id": "above_the_law",
+          "source_name": "Above the Law",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "rss_feed"
+        },
+        {
+          "source_id": "courthouse_news",
+          "source_name": "Courthouse News Service",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "rss_feed"
+        }
+      ],
+      "end_time": "2025-08-22 04:21:10.049831",
+      "duration_seconds": 6.509889,
+      "success_rate": 60.0
+    },
+    "tier_5": {
+      "sources_attempted": 5,
+      "sources_successful": 3,
+      "documents_extracted": 3319,
+      "start_time": "2025-08-22 04:21:10.050431",
+      "available_sources": 7,
+      "processed_sources": [
+        {
+          "source_id": "aba",
+          "source_name": "American Bar Association",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "federal_bar",
+          "source_name": "Federal Bar Association",
+          "status": "success",
+          "documents": 415,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "california_bar",
+          "source_name": "California State Bar",
+          "status": "success",
+          "documents": 1174,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "new_york_bar",
+          "source_name": "New York State Bar Association",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "texas_bar",
+          "source_name": "Texas State Bar",
+          "status": "success",
+          "documents": 1730,
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:21:17.417411",
+      "duration_seconds": 7.36698,
+      "success_rate": 60.0
+    },
+    "tier_6": {
+      "sources_attempted": 4,
+      "sources_successful": 2,
+      "documents_extracted": 2810,
+      "start_time": "2025-08-22 04:21:17.417967",
+      "available_sources": 4,
+      "processed_sources": [
+        {
+          "source_id": "aclu",
+          "source_name": "American Civil Liberties Union Legal Database",
+          "status": "success",
+          "documents": 2349,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "naacp_ldf",
+          "source_name": "NAACP Legal Defense Fund",
+          "status": "success",
+          "documents": 461,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "splc",
+          "source_name": "Southern Poverty Law Center",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "legal_aid_society",
+          "source_name": "Legal Aid Society",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:21:22.049187",
+      "duration_seconds": 4.63122,
+      "success_rate": 50.0
+    },
+    "tier_7": {
+      "sources_attempted": 4,
+      "sources_successful": 2,
+      "documents_extracted": 58,
+      "start_time": "2025-08-22 04:21:22.049784",
+      "available_sources": 4,
+      "processed_sources": [
+        {
+          "source_id": "climate_case_chart",
+          "source_name": "Climate Case Chart - Columbia Law",
+          "status": "success",
+          "documents": 19,
+          "type": "api"
+        },
+        {
+          "source_id": "stanford_codex",
+          "source_name": "Stanford CodeX Legal Informatics",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "coin_center",
+          "source_name": "Coin Center Cryptocurrency Policy",
+          "status": "success",
+          "documents": 39,
+          "type": "web_scraping"
+        },
+        {
+          "source_id": "network_public_health_law",
+          "source_name": "Network for Public Health Law",
+          "status": "failed",
+          "error": "HTTP 403",
+          "type": "web_scraping"
+        }
+      ],
+      "end_time": "2025-08-22 04:21:26.577170",
+      "duration_seconds": 4.527386,
+      "success_rate": 50.0
+    }
+  },
+  "total_tiers": 7,
+  "sources_per_tier": 5
+}

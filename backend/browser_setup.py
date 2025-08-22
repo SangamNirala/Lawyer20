@@ -13,6 +13,7 @@ import logging
 from typing import Optional, Dict, Any
 import asyncio
 import aiohttp
+import re
 
 # Import enhanced content extractor
 from enhanced_content_extractor import IntelligentContentExtractor

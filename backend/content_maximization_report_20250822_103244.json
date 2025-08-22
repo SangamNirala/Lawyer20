@@ -1,0 +1,13 @@
+{
+  "total_sources": 3,
+  "total_documents_extracted": 0,
+  "high_quality_documents": 0,
+  "method_performance": {},
+  "source_results": {
+    "texas_bar_enhanced": "ExtractionResult(source_id='texas_bar_enhanced', total_documents=0, high_quality_docs=0, partial_docs=0, methods_used=[], processing_time=12.059479236602783, content_sources={}, success_rate=0.0)",
+    "harvard_law_enhanced": "ExtractionResult(source_id='harvard_law_enhanced', total_documents=0, high_quality_docs=0, partial_docs=0, methods_used=[], processing_time=14.93233323097229, content_sources={}, success_rate=0.0)",
+    "law360_enhanced": "ExtractionResult(source_id='law360_enhanced', total_documents=0, high_quality_docs=0, partial_docs=0, methods_used=[], processing_time=13.536941051483154, content_sources={}, success_rate=0.0)"
+  },
+  "alternative_sources_discovered": 0,
+  "processing_time": 40.52895402908325
+}

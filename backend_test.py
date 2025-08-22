@@ -1178,6 +1178,304 @@ class Step21TestSuite:
                 critical=True
             )
 
+    async def test_enhanced_content_extraction_system(self):
+        """Test the Enhanced Legal Document Content Extraction System"""
+        print("\n🔍 TESTING ENHANCED CONTENT EXTRACTION SYSTEM")
+        print("=" * 60)
+        
+        try:
+            # Test 1: IntelligentContentExtractor import and initialization
+            try:
+                from enhanced_content_extractor import IntelligentContentExtractor, BatchContentExtractor
+                
+                extractor = IntelligentContentExtractor()
+                
+                self.log_test_result(
+                    "IntelligentContentExtractor Initialization",
+                    True,
+                    "Successfully imported and initialized IntelligentContentExtractor"
+                )
+                
+                # Verify key components
+                has_content_selectors = hasattr(extractor, 'content_selectors') and len(extractor.content_selectors) > 0
+                has_removal_tags = hasattr(extractor, 'removal_tags') and len(extractor.removal_tags) > 0
+                has_legal_indicators = hasattr(extractor, 'legal_indicators') and len(extractor.legal_indicators) > 0
+                
+                self.log_test_result(
+                    "Content Extraction Components",
+                    has_content_selectors and has_removal_tags and has_legal_indicators,
+                    f"Content selectors: {len(extractor.content_selectors)}, Removal tags: {len(extractor.removal_tags)}, Legal indicators: {len(extractor.legal_indicators)}"
+                )
+                
+            except ImportError as e:
+                self.log_test_result(
+                    "IntelligentContentExtractor Import",
+                    False,
+                    f"Failed to import IntelligentContentExtractor: {str(e)}",
+                    critical=True
+                )
+                return
+            except Exception as e:
+                self.log_test_result(
+                    "IntelligentContentExtractor Initialization",
+                    False,
+                    f"Extractor initialization failed: {str(e)}",
+                    critical=True
+                )
+                return
+            
+            # Test 2: HTML parsing and cleaning functions
+            try:
+                # Test with sample HTML content
+                sample_html = """
+                <html>
+                <head>
+                    <title>Sample Legal Document</title>
+                    <script>alert('test');</script>
+                    <style>body { color: red; }</style>
+                </head>
+                <body>
+                    <nav>Navigation Menu</nav>
+                    <header>Header Content</header>
+                    <main>
+                        <article class="legal-content">
+                            <h1>Constitutional Law Case</h1>
+                            <p>This is a sample legal document about constitutional law and due process rights.</p>
+                            <p>The court ruled that the defendant's constitutional rights were violated.</p>
+                        </article>
+                    </main>
+                    <footer>Footer Content</footer>
+                    <script>console.log('more js');</script>
+                </body>
+                </html>
+                """
+                
+                result = await extractor.extract_content(sample_html, "https://example.com/legal-doc")
+                
+                success = result.get('success', False)
+                content = result.get('content', '')
+                title = result.get('title', '')
+                quality_score = result.get('quality_score', 0.0)
+                
+                # Verify HTML tags are removed
+                html_removed = '<' not in content and '>' not in content
+                # Verify JavaScript is removed
+                js_removed = 'alert(' not in content and 'console.log' not in content
+                # Verify navigation is filtered
+                nav_filtered = 'Navigation Menu' not in content and 'Header Content' not in content and 'Footer Content' not in content
+                # Verify main content is preserved
+                content_preserved = 'Constitutional Law Case' in content and 'constitutional law and due process' in content
+                
+                self.log_test_result(
+                    "HTML Parsing and Cleaning",
+                    success and html_removed and js_removed and nav_filtered and content_preserved,
+                    f"Success: {success}, HTML removed: {html_removed}, JS removed: {js_removed}, Nav filtered: {nav_filtered}, Content preserved: {content_preserved}"
+                )
+                
+                self.log_test_result(
+                    "Content Quality Assessment",
+                    isinstance(quality_score, float) and 0.0 <= quality_score <= 1.0,
+                    f"Quality score: {quality_score:.3f} (0.0-1.0 range)"
+                )
+                
+                self.log_test_result(
+                    "Title Extraction",
+                    title and len(title) > 0,
+                    f"Extracted title: '{title}'"
+                )
+                
+                print(f"    📄 Extracted content length: {len(content)} characters")
+                print(f"    🎯 Quality score: {quality_score:.3f}")
+                print(f"    📝 Title: {title}")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "HTML Parsing and Cleaning Test",
+                    False,
+                    f"HTML parsing test failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 3: Legal document recognition features
+            try:
+                legal_html = """
+                <html>
+                <body>
+                    <div class="case-content">
+                        <h1 class="case-title">Smith v. Jones</h1>
+                        <div class="court-name">Supreme Court of California</div>
+                        <div class="case-number">Case No. 2023-CV-12345</div>
+                        <div class="opinion-content">
+                            <p>The plaintiff filed a motion for summary judgment claiming constitutional violations.</p>
+                            <p>The court finds that the defendant's actions violated the due process clause.</p>
+                            <p>This ruling establishes precedent for future constitutional law cases.</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+                """
+                
+                legal_result = await extractor.extract_content(legal_html, "https://courts.ca.gov/case/smith-v-jones")
+                
+                legal_success = legal_result.get('success', False)
+                legal_content = legal_result.get('content', '')
+                legal_metadata = legal_result.get('metadata', {})
+                
+                # Check for legal document recognition
+                has_case_title = 'Smith v. Jones' in legal_content
+                has_court_info = legal_metadata.get('court') is not None
+                has_case_number = legal_metadata.get('case_number') is not None
+                has_legal_content = 'constitutional violations' in legal_content and 'due process' in legal_content
+                
+                self.log_test_result(
+                    "Legal Document Recognition",
+                    legal_success and has_case_title and has_legal_content,
+                    f"Case title: {has_case_title}, Court info: {has_court_info}, Case number: {has_case_number}, Legal content: {has_legal_content}"
+                )
+                
+                print(f"    ⚖️ Court: {legal_metadata.get('court', 'Not detected')}")
+                print(f"    📋 Case number: {legal_metadata.get('case_number', 'Not detected')}")
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Legal Document Recognition Test",
+                    False,
+                    f"Legal document recognition test failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 4: Enhanced DocumentExtractor class
+            try:
+                from browser_setup import DocumentExtractor
+                
+                # Test DocumentExtractor initialization
+                async with DocumentExtractor() as doc_extractor:
+                    has_content_extractor = hasattr(doc_extractor, 'content_extractor')
+                    
+                    self.log_test_result(
+                        "Enhanced DocumentExtractor Initialization",
+                        has_content_extractor,
+                        f"DocumentExtractor has content_extractor: {has_content_extractor}"
+                    )
+                
+            except ImportError as e:
+                self.log_test_result(
+                    "Enhanced DocumentExtractor Import",
+                    False,
+                    f"Failed to import DocumentExtractor: {str(e)}",
+                    critical=True
+                )
+            except Exception as e:
+                self.log_test_result(
+                    "Enhanced DocumentExtractor Test",
+                    False,
+                    f"DocumentExtractor test failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 5: Batch content extraction
+            try:
+                batch_extractor = BatchContentExtractor(max_concurrent=3)
+                
+                # Test with multiple HTML documents
+                test_documents = [
+                    (sample_html, "https://example.com/doc1"),
+                    (legal_html, "https://example.com/doc2"),
+                    ("<html><body><p>Short document</p></body></html>", "https://example.com/doc3")
+                ]
+                
+                batch_results = await batch_extractor.extract_multiple(test_documents)
+                
+                batch_success = len(batch_results) == len(test_documents)
+                all_processed = all(isinstance(result, dict) for result in batch_results)
+                
+                self.log_test_result(
+                    "Batch Content Extraction",
+                    batch_success and all_processed,
+                    f"Processed {len(batch_results)}/{len(test_documents)} documents successfully"
+                )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Batch Content Extraction Test",
+                    False,
+                    f"Batch extraction test failed: {str(e)}",
+                    critical=True
+                )
+            
+            # Test 6: Sample document validation
+            try:
+                import json
+                import os
+                
+                sample_dir = "/app/backend/clean_extracted_documents"
+                if os.path.exists(sample_dir):
+                    # Check summary file
+                    summary_file = os.path.join(sample_dir, "clean_extraction_summary.json")
+                    if os.path.exists(summary_file):
+                        with open(summary_file, 'r') as f:
+                            summary_data = json.load(f)
+                        
+                        total_docs = summary_data.get('total_documents', 0)
+                        avg_quality = summary_data.get('average_quality_score', 0.0)
+                        improvements = summary_data.get('improvements', [])
+                        
+                        has_improvements = len(improvements) > 0
+                        quality_reasonable = avg_quality > 0.0
+                        
+                        self.log_test_result(
+                            "Sample Document Validation",
+                            total_docs > 0 and has_improvements and quality_reasonable,
+                            f"Sample docs: {total_docs}, Avg quality: {avg_quality:.3f}, Improvements: {len(improvements)}"
+                        )
+                        
+                        print(f"    📊 Total sample documents: {total_docs}")
+                        print(f"    🎯 Average quality score: {avg_quality:.3f}")
+                        print(f"    ✨ Key improvements: {', '.join(improvements[:3])}")
+                        
+                        # Verify key improvements are present
+                        expected_improvements = [
+                            "HTML tags completely removed",
+                            "JavaScript and CSS filtered out", 
+                            "Complete document content preserved",
+                            "Human-readable text format"
+                        ]
+                        
+                        improvements_present = sum(1 for imp in expected_improvements if imp in improvements)
+                        
+                        self.log_test_result(
+                            "Expected Improvements Verification",
+                            improvements_present >= 3,
+                            f"Found {improvements_present}/{len(expected_improvements)} expected improvements"
+                        )
+                    else:
+                        self.log_test_result(
+                            "Sample Document Validation",
+                            False,
+                            "Sample extraction summary file not found"
+                        )
+                else:
+                    self.log_test_result(
+                        "Sample Document Validation",
+                        False,
+                        "Sample documents directory not found"
+                    )
+                
+            except Exception as e:
+                self.log_test_result(
+                    "Sample Document Validation Test",
+                    False,
+                    f"Sample document validation failed: {str(e)}"
+                )
+            
+        except Exception as e:
+            self.log_test_result(
+                "Enhanced Content Extraction System Test",
+                False,
+                f"Enhanced content extraction system test failed: {str(e)}",
+                critical=True
+            )
+
     async def test_ultra_comprehensive_global_sources_expansion(self):
         """Test the Ultra-Comprehensive Global Sources expansion with 87 sources across 7 tiers"""
         print("\n🌍 TESTING ULTRA-COMPREHENSIVE GLOBAL SOURCES EXPANSION")

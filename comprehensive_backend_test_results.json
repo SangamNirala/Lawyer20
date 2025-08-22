@@ -1,483 +1,553 @@
 {
-  "total_tests": 68,
-  "passed_tests": 62,
-  "failed_tests": 6,
+  "total_tests": 78,
+  "passed_tests": 71,
+  "failed_tests": 7,
   "test_details": [
+    {
+      "test_name": "IntelligentContentExtractor Initialization",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Successfully imported and initialized IntelligentContentExtractor",
+      "timestamp": "2025-08-22T05:43:39.006288"
+    },
+    {
+      "test_name": "Content Extraction Components",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Content selectors: 30, Removal tags: 17, Legal indicators: 20",
+      "timestamp": "2025-08-22T05:43:39.006335"
+    },
+    {
+      "test_name": "HTML Parsing and Cleaning",
+      "status": "\u274c FAIL",
+      "success": false,
+      "details": "Success: True, HTML removed: True, JS removed: True, Nav filtered: True, Content preserved: False",
+      "timestamp": "2025-08-22T05:43:39.017317"
+    },
+    {
+      "test_name": "Content Quality Assessment",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Quality score: 0.226 (0.0-1.0 range)",
+      "timestamp": "2025-08-22T05:43:39.017360"
+    },
+    {
+      "test_name": "Title Extraction",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Extracted title: 'Sample Legal Document'",
+      "timestamp": "2025-08-22T05:43:39.017368"
+    },
+    {
+      "test_name": "Legal Document Recognition",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Case title: True, Court info: True, Case number: True, Legal content: True",
+      "timestamp": "2025-08-22T05:43:39.024279"
+    },
+    {
+      "test_name": "Enhanced DocumentExtractor Initialization",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "DocumentExtractor has content_extractor: True",
+      "timestamp": "2025-08-22T05:43:39.288150"
+    },
+    {
+      "test_name": "Batch Content Extraction",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Processed 3/3 documents successfully",
+      "timestamp": "2025-08-22T05:43:39.317479"
+    },
+    {
+      "test_name": "Sample Document Validation",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Sample docs: 3, Avg quality: 0.395, Improvements: 8",
+      "timestamp": "2025-08-22T05:43:39.317725"
+    },
+    {
+      "test_name": "Expected Improvements Verification",
+      "status": "\u2705 PASS",
+      "success": true,
+      "details": "Found 4/4 expected improvements",
+      "timestamp": "2025-08-22T05:43:39.317762"
+    },
     {
       "test_name": "Ultra-Comprehensive Global Sources Import",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully imported ultra-comprehensive global sources configuration",
-      "timestamp": "2025-08-22T03:38:47.694428"
+      "timestamp": "2025-08-22T05:43:39.320092"
     },
     {
       "test_name": "87 Sources Configuration Verification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 87 sources (expected >= 80)",
-      "timestamp": "2025-08-22T03:38:47.694477"
+      "timestamp": "2025-08-22T05:43:39.320132"
     },
     {
       "test_name": "7-Tier System Coverage",
       "status": "\u2705 PASS",
       "success": true,
       "details": "All 7 tiers have sources: [True, True, True, True, True, True, True]",
-      "timestamp": "2025-08-22T03:38:47.694580"
+      "timestamp": "2025-08-22T05:43:39.320232"
     },
     {
       "test_name": "148M+ Documents Coverage",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 148,375,000 estimated documents (expected >= 140,000,000)",
-      "timestamp": "2025-08-22T03:38:47.694738"
+      "timestamp": "2025-08-22T05:43:39.320394"
     },
     {
       "test_name": "Ultra-Comprehensive Global Sources Test",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Ultra-comprehensive sources test failed: 'breakdown_by_jurisdiction'",
-      "timestamp": "2025-08-22T03:38:47.694753"
+      "timestamp": "2025-08-22T05:43:39.320411"
     },
     {
       "test_name": "Enhanced Engine Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Engine initialized with ultra-comprehensive integration",
-      "timestamp": "2025-08-22T03:38:49.546033"
+      "timestamp": "2025-08-22T05:43:40.831637"
     },
     {
       "test_name": "7-Tier Intelligent Grouping Method",
       "status": "\u2705 PASS",
       "success": true,
       "details": "7-tier grouping method available: True",
-      "timestamp": "2025-08-22T03:38:49.546056"
+      "timestamp": "2025-08-22T05:43:40.831660"
     },
     {
       "test_name": "7-Tier Grouping Execution",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Generated 7 tiers (expected 7)",
-      "timestamp": "2025-08-22T03:38:49.547098"
+      "timestamp": "2025-08-22T05:43:40.832716"
     },
     {
       "test_name": "Comprehensive Statistics Tracking",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Statistics tracking failed: 'UltraScaleScrapingEngine' object has no attribute 'get_comprehensive_statistics'",
-      "timestamp": "2025-08-22T03:38:49.547154"
+      "timestamp": "2025-08-22T05:43:40.832768"
     },
     {
       "test_name": "Ultra-Comprehensive Processing Info",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Processing info retrieval failed: 'UltraScaleScrapingEngine' object has no attribute 'get_ultra_comprehensive_processing_info'",
-      "timestamp": "2025-08-22T03:38:49.547167"
+      "timestamp": "2025-08-22T05:43:40.832790"
     },
     {
       "test_name": "Enhanced Legal Sources Config Import",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully imported enhanced legal sources configuration",
-      "timestamp": "2025-08-22T03:38:49.551973"
+      "timestamp": "2025-08-22T05:43:40.837123"
     },
     {
       "test_name": "Source Count Verification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 121 sources (expected >= 100)",
-      "timestamp": "2025-08-22T03:38:49.552169"
+      "timestamp": "2025-08-22T05:43:40.837323"
     },
     {
       "test_name": "Document Count Verification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 163,127,000 estimated documents (expected >= 100,000,000)",
-      "timestamp": "2025-08-22T03:38:49.552186"
+      "timestamp": "2025-08-22T05:43:40.837340"
     },
     {
       "test_name": "Jurisdiction Coverage",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 21 jurisdictions (expected >= 15)",
-      "timestamp": "2025-08-22T03:38:49.552196"
+      "timestamp": "2025-08-22T05:43:40.837348"
     },
     {
       "test_name": "Tier-based Source Grouping",
       "status": "\u2705 PASS",
       "success": true,
       "details": "All 4 tiers have sources: [True, True, True, True]",
-      "timestamp": "2025-08-22T03:38:49.552332"
+      "timestamp": "2025-08-22T05:43:40.837462"
     },
     {
       "test_name": "Source Configuration Access",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully accessed configuration for 5 sample sources",
-      "timestamp": "2025-08-22T03:38:49.552353"
+      "timestamp": "2025-08-22T05:43:40.837481"
     },
     {
       "test_name": "UltraScaleScrapingEngine Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Engine initialized with 10 max concurrent sources",
-      "timestamp": "2025-08-22T03:38:49.591066"
+      "timestamp": "2025-08-22T05:43:40.873773"
     },
     {
       "test_name": "MassiveDocumentProcessor Component",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Component available: MassiveDocumentProcessor",
-      "timestamp": "2025-08-22T03:38:49.591088"
+      "timestamp": "2025-08-22T05:43:40.873816"
     },
     {
       "test_name": "QualityAssuranceController Component",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Component available: QualityAssuranceController",
-      "timestamp": "2025-08-22T03:38:49.591098"
+      "timestamp": "2025-08-22T05:43:40.873824"
     },
     {
       "test_name": "SourcePoolManager Component",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Component available: SourcePoolManager",
-      "timestamp": "2025-08-22T03:38:49.591107"
+      "timestamp": "2025-08-22T05:43:40.873831"
     },
     {
       "test_name": "Processing Phase Management",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Current phase: ProcessingPhase.INITIALIZATION",
-      "timestamp": "2025-08-22T03:38:49.591124"
+      "timestamp": "2025-08-22T05:43:40.873846"
     },
     {
       "test_name": "Intelligent Source Grouping Test",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Source grouping test failed: string indices must be integers, not 'str'",
-      "timestamp": "2025-08-22T03:38:49.632847"
+      "timestamp": "2025-08-22T05:43:40.913560"
     },
     {
       "test_name": "MassiveDocumentProcessor Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Processor type: MassiveDocumentProcessor",
-      "timestamp": "2025-08-22T03:38:49.675973"
+      "timestamp": "2025-08-22T05:43:40.954890"
     },
     {
       "test_name": "Content Analyzers Availability",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Available: ['citation_extractor', 'topic_classifier', 'quality_assessor', 'entity_extractor', 'relationship_mapper'], Missing: []",
-      "timestamp": "2025-08-22T03:38:49.676002"
+      "timestamp": "2025-08-22T05:43:40.954933"
     },
     {
       "test_name": "Processing Statistics Tracking",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Statistics available: ['documents_processed', 'documents_enhanced', 'processing_time', 'quality_improvements', 'citation_extractions', 'topic_classifications']",
-      "timestamp": "2025-08-22T03:38:49.676016"
+      "timestamp": "2025-08-22T05:43:40.954951"
     },
     {
       "test_name": "Thread Pool Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Thread pool for concurrent processing available",
-      "timestamp": "2025-08-22T03:38:49.676025"
+      "timestamp": "2025-08-22T05:43:40.954959"
     },
     {
       "test_name": "QualityAssuranceController Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Controller type: QualityAssuranceController",
-      "timestamp": "2025-08-22T03:38:49.716409"
+      "timestamp": "2025-08-22T05:43:40.993192"
     },
     {
       "test_name": "Quality Thresholds Configuration",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Quality thresholds configured",
-      "timestamp": "2025-08-22T03:38:49.716431"
+      "timestamp": "2025-08-22T05:43:40.993211"
     },
     {
       "test_name": "Validation Rules Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Validation rules initialized",
-      "timestamp": "2025-08-22T03:38:49.716439"
+      "timestamp": "2025-08-22T05:43:40.993222"
     },
     {
       "test_name": "Quality Statistics Generation",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Statistics: {'documents_validated': 0, 'documents_passed': 0, 'documents_failed': 0, 'average_quality_score': 0.0, 'pass_rate': 0.0, 'fail_rate': 0.0}",
-      "timestamp": "2025-08-22T03:38:49.716477"
+      "timestamp": "2025-08-22T05:43:40.993244"
     },
     {
       "test_name": "ResourceMonitor Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Monitor type: ResourceMonitor",
-      "timestamp": "2025-08-22T03:38:49.755936"
+      "timestamp": "2025-08-22T05:43:41.031856"
     },
     {
       "test_name": "System Resource Checking",
       "status": "\u2705 PASS",
       "success": true,
-      "details": "CPU: 19.3%, Memory: 29.9%",
-      "timestamp": "2025-08-22T03:38:50.756549"
+      "details": "CPU: 4.5%, Memory: 31.4%",
+      "timestamp": "2025-08-22T05:43:42.032446"
     },
     {
       "test_name": "Processing Throttling Decision",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Should throttle: False",
-      "timestamp": "2025-08-22T03:38:51.757034"
+      "timestamp": "2025-08-22T05:43:43.033012"
     },
     {
       "test_name": "Optimal Concurrency Calculation",
       "status": "\u2705 PASS",
       "success": true,
-      "details": "Optimal concurrency for base 20: 14",
-      "timestamp": "2025-08-22T03:38:52.757609"
+      "details": "Optimal concurrency for base 20: 13",
+      "timestamp": "2025-08-22T05:43:44.033583"
     },
     {
       "test_name": "IntelligentScrapingEngine Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Scraper engine initialized successfully",
-      "timestamp": "2025-08-22T03:38:52.795072"
+      "timestamp": "2025-08-22T05:43:44.071382"
     },
     {
       "test_name": "AI Content Processor",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Processor type: AIContentProcessor",
-      "timestamp": "2025-08-22T03:38:52.795113"
+      "timestamp": "2025-08-22T05:43:44.071438"
     },
     {
       "test_name": "Citation Extraction Patterns",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Available patterns: ['us_case', 'federal_reporter', 'supreme_court', 'code_section', 'cfr']",
-      "timestamp": "2025-08-22T03:38:52.795133"
+      "timestamp": "2025-08-22T05:43:44.071462"
     },
     {
       "test_name": "Legal Topic Classification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Available topics: ['constitutional', 'contract', 'tort', 'criminal', 'corporate', 'employment', 'intellectual_property', 'environmental', 'immigration', 'tax', 'real_estate', 'family', 'bankruptcy', 'antitrust']",
-      "timestamp": "2025-08-22T03:38:52.795152"
+      "timestamp": "2025-08-22T05:43:44.071478"
     },
     {
       "test_name": "Performance Metrics Tracking",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Performance metrics tracking available",
-      "timestamp": "2025-08-22T03:38:52.795161"
+      "timestamp": "2025-08-22T05:43:44.071486"
     },
     {
       "test_name": "UltraScaleDatabaseService Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Database service initialized successfully",
-      "timestamp": "2025-08-22T03:38:52.903580"
+      "timestamp": "2025-08-22T05:43:44.181760"
     },
     {
       "test_name": "Geographic Sharding Strategy",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Found 8 shards, Missing: []",
-      "timestamp": "2025-08-22T03:38:52.903605"
+      "timestamp": "2025-08-22T05:43:44.181792"
     },
     {
       "test_name": "Shard Capacity Verification",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Total capacity: 370,000,000 documents (expected >= 300,000,000)",
-      "timestamp": "2025-08-22T03:38:52.903621"
+      "timestamp": "2025-08-22T05:43:44.181810"
     },
     {
       "test_name": "Ultra-Scale Architecture Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Database architecture initialized with all shards and indexes",
-      "timestamp": "2025-08-22T03:38:52.941732"
+      "timestamp": "2025-08-22T05:43:44.872063"
     },
     {
       "test_name": "Document Routing Logic",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully routed 2 test documents to appropriate shards",
-      "timestamp": "2025-08-22T03:38:52.941912"
+      "timestamp": "2025-08-22T05:43:44.872248"
     },
     {
       "test_name": "Ultra-Scale Index Creation",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Created 104 total indexes across all shards (expected >= 80)",
-      "timestamp": "2025-08-22T03:38:52.949162"
+      "timestamp": "2025-08-22T05:43:44.880187"
     },
     {
       "test_name": "Document Creation",
       "status": "\u2705 PASS",
       "success": true,
-      "details": "Successfully created document with ID: 6c04ec52-da8e-4ecf-9eb4-f49ebc549a1f",
-      "timestamp": "2025-08-22T03:38:52.950695"
+      "details": "Successfully created document with ID: a491b3d5-54db-4e9a-b89e-cadad44ba814",
+      "timestamp": "2025-08-22T05:43:44.882050"
     },
     {
       "test_name": "Bulk Document Operations",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully created 4 documents in bulk",
-      "timestamp": "2025-08-22T03:38:52.952872"
+      "timestamp": "2025-08-22T05:43:44.884566"
     },
     {
       "test_name": "Performance Monitoring",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Performance metrics tracking active with 2 recorded metrics",
-      "timestamp": "2025-08-22T03:38:52.952891"
+      "timestamp": "2025-08-22T05:43:44.884586"
     },
     {
       "test_name": "Connection Cleanup",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Database connections closed successfully",
-      "timestamp": "2025-08-22T03:38:52.953667"
+      "timestamp": "2025-08-22T05:43:44.885443"
     },
     {
       "test_name": "Ultra-Scale API Models Import",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully imported all ultra-scale API models",
-      "timestamp": "2025-08-22T03:38:52.997607"
+      "timestamp": "2025-08-22T05:43:44.918768"
     },
     {
       "test_name": "Ultra-Scale API Endpoints Import",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully imported ultra-scale API endpoints router",
-      "timestamp": "2025-08-22T03:38:53.280798"
+      "timestamp": "2025-08-22T05:43:45.217068"
     },
     {
       "test_name": "Query Optimization Service",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully initialized query optimization components",
-      "timestamp": "2025-08-22T03:38:53.280847"
+      "timestamp": "2025-08-22T05:43:45.217123"
     },
     {
       "test_name": "Query Optimization Service",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Query optimization service test failed: 2 validation errors for UltraSearchFilter\ndocument_types.0\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='CASE_LAW', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum\ndocument_types.1\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='STATUTE', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum",
-      "timestamp": "2025-08-22T03:38:53.280966"
+      "timestamp": "2025-08-22T05:43:45.217235"
     },
     {
       "test_name": "Source Health Monitor Initialization",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Successfully initialized source health monitoring components",
-      "timestamp": "2025-08-22T03:38:53.280998"
+      "timestamp": "2025-08-22T05:43:45.217266"
     },
     {
       "test_name": "Source Metrics Collection",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Collected metrics for Source us_supreme_court - Status: SourceStatus.ERROR",
-      "timestamp": "2025-08-22T03:38:53.281153"
+      "timestamp": "2025-08-22T05:43:45.217443"
     },
     {
       "test_name": "Ultra-Search Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Ultra-search responded with status 422",
-      "timestamp": "2025-08-22T03:38:53.377555"
+      "timestamp": "2025-08-22T05:43:45.384911"
     },
     {
       "test_name": "Source Health Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Source health endpoint responded with status 200",
-      "timestamp": "2025-08-22T03:38:53.434898"
+      "timestamp": "2025-08-22T05:43:45.450837"
     },
     {
       "test_name": "System Status Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "System status endpoint responded with status 200",
-      "timestamp": "2025-08-22T03:38:53.603737"
+      "timestamp": "2025-08-22T05:43:45.614998"
     },
     {
       "test_name": "Search Suggestions Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Search suggestions responded with status 200",
-      "timestamp": "2025-08-22T03:38:53.689859"
+      "timestamp": "2025-08-22T05:43:45.705568"
     },
     {
       "test_name": "Analytics Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Analytics endpoint responded with status 404",
-      "timestamp": "2025-08-22T03:38:53.743491"
+      "timestamp": "2025-08-22T05:43:45.759169"
     },
     {
       "test_name": "Performance System Status",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Performance system responded with status 200",
-      "timestamp": "2025-08-22T03:38:53.825363"
+      "timestamp": "2025-08-22T05:43:46.013039"
     },
     {
       "test_name": "Query Optimization with Expansion",
       "status": "\u274c FAIL",
       "success": false,
       "details": "Query optimization responded with status 422",
-      "timestamp": "2025-08-22T03:38:53.874874"
+      "timestamp": "2025-08-22T05:43:46.066845"
     },
     {
       "test_name": "Cache Metrics with Expansion",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Cache metrics responded with status 200",
-      "timestamp": "2025-08-22T03:38:53.959296"
+      "timestamp": "2025-08-22T05:43:46.150096"
     },
     {
       "test_name": "Performance Dashboard with Expansion",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Performance dashboard responded with status 200",
-      "timestamp": "2025-08-22T03:38:54.041734"
+      "timestamp": "2025-08-22T05:43:46.232704"
     },
     {
       "test_name": "Backend API Health Check",
       "status": "\u2705 PASS",
       "success": true,
       "details": "API responded with status 200",
-      "timestamp": "2025-08-22T03:38:54.089567"
+      "timestamp": "2025-08-22T05:43:46.283198"
     },
     {
       "test_name": "Dashboard Stats Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Dashboard stats endpoint responded with status 200",
-      "timestamp": "2025-08-22T03:38:54.150096"
+      "timestamp": "2025-08-22T05:43:46.339401"
     },
     {
       "test_name": "System Health Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "System health endpoint responded with status 200",
-      "timestamp": "2025-08-22T03:38:54.204446"
+      "timestamp": "2025-08-22T05:43:46.396816"
     },
     {
       "test_name": "Questions Endpoint",
       "status": "\u2705 PASS",
       "success": true,
       "details": "Questions endpoint responded with status 200",
-      "timestamp": "2025-08-22T03:38:54.257027"
+      "timestamp": "2025-08-22T05:43:46.456527"
     }
   ],
   "critical_issues": [
@@ -486,6 +556,7 @@
     "Query Optimization Service: Query optimization service test failed: 2 validation errors for UltraSearchFilter\ndocument_types.0\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='CASE_LAW', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum\ndocument_types.1\n  Input should be 'case_law', 'statute', 'regulation', 'treaty', 'constitutional', 'administrative', 'judicial_opinion', 'court_order', 'legislative_bill', 'executive_order', 'agency_guidance', 'legal_brief', 'scholarly_article', 'bar_publication', 'legal_news' or 'international_law' [type=enum, input_value='STATUTE', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.11/v/enum"
   ],
   "minor_issues": [
+    "HTML Parsing and Cleaning: Success: True, HTML removed: True, JS removed: True, Nav filtered: True, Content preserved: False",
     "Comprehensive Statistics Tracking: Statistics tracking failed: 'UltraScaleScrapingEngine' object has no attribute 'get_comprehensive_statistics'",
     "Ultra-Comprehensive Processing Info: Processing info retrieval failed: 'UltraScaleScrapingEngine' object has no attribute 'get_ultra_comprehensive_processing_info'",
     "Query Optimization with Expansion: Query optimization responded with status 422"

@@ -1,0 +1,6 @@
+{
+  "title": "Department of State - developer",
+  "content": "\n<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Technical Difficulties</title>\n    <style>\n    \tbody, html {\n\t\t  height: 80%;\n\t\t  display: grid;\n\t\t}\n\t\tbody{\n\t\t\tpadding:0 1em;\n\t\t}\n\t\tdiv.main { /* thing to center */\n\t\t  margin: auto;\n\t\t  text-align:center;\n\t\t  width:100%;\n\t\t}\n\t\t.main p {\n\t\t\tfont-family: Arial, \"Helvetica Neue\", Helvetica, sans-serif;\n\t\t\tfont-size: 110%;\n\t\t\tfont-style: normal;\n\t\t\tfont-variant: normal;\n\t\t\tfont-weight: 400;\n\t\t\tline-height: 1.3em;\n\t\t}\n    </style>\n\n                            </head>\n  <body>\n\t\t<div class=\"main\">\n      <!--apology image-->\n\t\t\t  <p><img style=\"max-width: 300px; width: 100%; height: auto\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAxAAAALoCAYAAADoTxM9AAAMTWlDQ1BJQ0MgUHJvZmlsZQAASImVVwdYU8kWnltSIQQIREBK6E0QkRJASggt9I4gKiEJEEqMCUHFjiyu4NpFBMuKrlIU2wrIYkNddWVR7H2xoKKsi+tiV96EALrsK9+b75s7//3nzD/nnDtz7x0A6F18qTQX1QQgT5Iviw32Z01OTmGReg...",
+  "url": "https://www.state.gov/developer/",
+  "source": "Department of State",
+  "document_type": 

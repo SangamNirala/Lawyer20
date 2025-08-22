@@ -65,7 +65,7 @@ async def generate_clean_sample_documents():
                         "content": doc['content'],
                         "url": doc['url'],
                         "source": doc['source'],
-                        "document_type": doc.get('document_type', 'administrative'),
+                        "document_type": str(doc.get('document_type', 'administrative')),
                         "jurisdiction": doc.get('jurisdiction', 'Unknown'),
                         "extraction_metadata": {
                             "extracted_at": datetime.utcnow().isoformat(),

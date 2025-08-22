@@ -190,7 +190,7 @@ class DocumentExtractor:
             }
     
     async def extract_from_web(self, source_config) -> Dict[str, Any]:
-        """Extract documents from web scraping sources"""
+        """Extract documents from web scraping sources with enhanced content processing"""
         try:
             base_url = source_config.base_url
             
@@ -198,38 +198,104 @@ class DocumentExtractor:
             result = await fetch_with_requests(base_url)
             
             if result and result['status'] == 'success':
-                content = result['content']
+                raw_html = result['content']
                 
-                # Create mock document for demonstration
-                doc = {
-                    'title': f'{source_config.name} - Main Page',
-                    'content': content[:2000] + '...' if len(content) > 2000 else content,
-                    'url': base_url,
-                    'source': source_config.name,
-                    'document_type': source_config.document_types[0] if source_config.document_types else 'administrative',
-                    'jurisdiction': source_config.jurisdiction,
-                    'extracted_at': '2025-01-18T12:00:00Z'
-                }
+                # Use enhanced content extractor to get clean text
+                extraction_result = await self.content_extractor.extract_content(raw_html, base_url)
                 
-                return {
-                    'status': 'success', 
-                    'documents': [doc],
-                    'method': 'web_scraping',
-                    'source_name': source_config.name
-                }
+                if extraction_result['success'] and extraction_result['content']:
+                    # Successfully extracted clean content
+                    doc = {
+                        'title': extraction_result['title'],
+                        'content': extraction_result['content'],
+                        'url': base_url,
+                        'source': source_config.name,
+                        'document_type': source_config.document_types[0] if source_config.document_types else 'administrative',
+                        'jurisdiction': source_config.jurisdiction,
+                        'extracted_at': '2025-01-18T12:00:00Z',
+                        'metadata': extraction_result['metadata'],
+                        'quality_score': extraction_result.get('quality_score', 0.0),
+                        'content_length': extraction_result.get('content_length', 0),
+                        'extraction_method': extraction_result.get('extraction_method', 'enhanced_web')
+                    }
+                    
+                    logger.info(f"✅ Enhanced extraction successful for {source_config.name}")
+                    logger.info(f"   📄 Title: {doc['title'][:100]}...")
+                    logger.info(f"   📊 Content length: {len(doc['content']):,} characters")
+                    logger.info(f"   🎯 Quality score: {doc['quality_score']:.2f}")
+                    
+                    return {
+                        'status': 'success', 
+                        'documents': [doc],
+                        'method': 'enhanced_web_scraping',
+                        'source_name': source_config.name
+                    }
+                else:
+                    # Enhanced extraction failed, but we still got HTML
+                    error_msg = extraction_result.get('error', 'Content extraction failed')
+                    logger.warning(f"⚠️ Enhanced extraction failed for {source_config.name}: {error_msg}")
+                    
+                    # Fallback to basic text extraction (better than raw HTML)
+                    from bs4 import BeautifulSoup
+                    soup = BeautifulSoup(raw_html, 'html.parser')
+                    
+                    # Remove scripts, styles, and other unwanted elements
+                    for script in soup(["script", "style", "nav", "header", "footer"]):
+                        script.decompose()
+                    
+                    # Get basic text content
+                    text_content = soup.get_text(separator=' ', strip=True)
+                    
+                    # Clean up whitespace
+                    import re
+                    text_content = re.sub(r'\s+', ' ', text_content)
+                    text_content = text_content[:5000] + "..." if len(text_content) > 5000 else text_content
+                    
+                    if len(text_content) > 100:  # If we got reasonable content
+                        doc = {
+                            'title': soup.title.string if soup.title else f'{source_config.name} - Main Page',
+                            'content': text_content,
+                            'url': base_url,
+                            'source': source_config.name,
+                            'document_type': source_config.document_types[0] if source_config.document_types else 'administrative',
+                            'jurisdiction': source_config.jurisdiction,
+                            'extracted_at': '2025-01-18T12:00:00Z',
+                            'metadata': {'extraction_method': 'fallback', 'extraction_error': error_msg},
+                            'quality_score': 0.3,
+                            'content_length': len(text_content),
+                            'extraction_method': 'fallback_basic'
+                        }
+                        
+                        logger.info(f"🔄 Fallback extraction used for {source_config.name}")
+                        logger.info(f"   📄 Content length: {len(text_content):,} characters")
+                        
+                        return {
+                            'status': 'success',
+                            'documents': [doc],
+                            'method': 'fallback_web_scraping',
+                            'source_name': source_config.name
+                        }
+                    else:
+                        return {
+                            'status': 'error',
+                            'error': f'Insufficient content extracted: {len(text_content)} chars',
+                            'method': 'enhanced_web_scraping',
+                            'source_name': source_config.name
+                        }
             else:
                 return {
                     'status': 'error',
                     'error': result.get('error', 'Unknown error') if result else 'No response',
-                    'method': 'web_scraping', 
+                    'method': 'enhanced_web_scraping', 
                     'source_name': source_config.name
                 }
                 
         except Exception as e:
+            logger.error(f"❌ Web extraction failed for {source_config.name}: {e}")
             return {
                 'status': 'error',
                 'error': str(e),
-                'method': 'web_scraping',
+                'method': 'enhanced_web_scraping',
                 'source_name': source_config.name
             }
 

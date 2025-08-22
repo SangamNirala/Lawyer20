@@ -16,7 +16,10 @@ from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 from bs4.element import Script, Stylesheet
 import lxml.html
 from lxml import etree
-from lxml.html.clean import Cleaner
+try:
+    from lxml.html.clean import Cleaner
+except ImportError:
+    from lxml_html_clean import Cleaner
 
 logger = logging.getLogger(__name__)
 
